@@ -6,12 +6,12 @@ This is project is live at [Create React App](https://github.com/facebook/create
 
 In the project below technologies are used.
 
+### `React Router`
+
+To manage the routes, react-router-dom@6 is used.
+
+
 ### `Google Firebase`
 
 Google Firebase is used for the authentication purpose
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
