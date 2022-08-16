@@ -1,35 +1,44 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import "./App.css";
-import auth from "./firebase.init";
+import { Route, Routes } from "react-router-dom";
+// import "./App.css";
+import Home from "./Pages/Home/Home/Home";
+import Login from "./Pages/Login/Login";
+import Footer from "./Shared/Footer/Footer";
+import Header from "./Shared/Header/Header";
+import Loading from "./Shared/Loading/Loading";
+import NotFound from "./Shared/NotFound/NotFound";
+import SiteContent from "./Shared/SiteContent/SiteContent";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import SideBar from "./Shared/SideBar/SideBar";
+import SkuList from "./Pages/SkuList/SkuList";
+import OwnPartList from "./Pages/OwnPartList/OwnPartList";
+
+const border = {border: "1px solid blue", minHeight:"80vh"}
 
 function App() {
-  const provider = new GoogleAuthProvider();
-
-    const handleGoogleSignIn = () => {
-      signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // ...
-        console.log(user);
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  };
   return (
     <div className="App">
-      <button onClick={handleGoogleSignIn}>Google Sign in</button>
+      <Header></Header>
+      <Container fluid>
+        <Row md={12}>
+          <Col lg={1} style={border}><SideBar /></Col>
+          <Col style={border}>
+            <Routes>
+              <Route path="/" element={<Home></Home>} />
+              <Route path="/login" element={<Login></Login>} />
+              <Route path="/loading" element={<Loading></Loading>} />
+              <Route path="/skuList" element={<SkuList />} />
+              <Route path="/ownPartList" element={<OwnPartList />} />
+              <Route path="*" element={<NotFound></NotFound>} />
+            </Routes>
+          </Col>
+          <Col lg={1} style={border}>second side bar</Col>
+        </Row>
+        <Row><Footer></Footer></Row>
+      </Container>
+      
+      
     </div>
   );
 }

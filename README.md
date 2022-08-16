@@ -15,3 +15,7 @@ To manage the routes, react-router-dom@6 is used.
 
 Google Firebase is used for the authentication purpose
 
+
+### `React Bootstrap`
+
+React Bootstrap used for quick styling. 
