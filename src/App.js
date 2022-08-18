@@ -6,13 +6,14 @@ import Footer from "./Shared/Footer/Footer";
 import Header from "./Shared/Header/Header";
 import Loading from "./Shared/Loading/Loading";
 import NotFound from "./Shared/NotFound/NotFound";
-import SiteContent from "./Shared/SiteContent/SiteContent";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import SideBar from "./Shared/SideBar/SideBar";
 import SkuList from "./Pages/SkuList/SkuList";
 import OwnPartList from "./Pages/OwnPartList/OwnPartList";
+import ThirdPartyBOM from "./Pages/ThirdPartyBOM/ThirdPartyBOM";
+import ThirdPartyBOMSearch from "./Pages/ThirdPartyBOM/ThirdPartyBOMSearch";
 
 const border = {border: "1px solid blue", minHeight:"80vh"}
 
@@ -30,6 +31,8 @@ function App() {
               <Route path="/loading" element={<Loading></Loading>} />
               <Route path="/skuList" element={<SkuList />} />
               <Route path="/ownPartList" element={<OwnPartList />} />
+              <Route path="/thirdPartyBom" element={<ThirdPartyBOM />} />
+              <Route path="/thirdPartyBomSearch" element={<ThirdPartyBOMSearch />} />
               <Route path="*" element={<NotFound></NotFound>} />
             </Routes>
           </Col>

@@ -1,6 +1,0 @@
-.site-content {
-    color: red;
-    background-color: yellow;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-}

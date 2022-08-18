@@ -6,9 +6,11 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import logo from './singer-logo (1).png';
 import './Header.css';
-
+import useFirebase from "../../Hooks/useFirebase";
 
 const Header = () => {
+  const {user, userSignOut} = useFirebase();
+  
   return (
     <>
       <Navbar collapseOnSelect expand="lg" sticky='top' bg="primary">
@@ -21,6 +23,7 @@ const Header = () => {
             <Nav className="me-auto">
               <Nav.Link href="#features">Products</Nav.Link>
               <Nav.Link href="#pricing">About</Nav.Link>
+              <Nav.Link as={Link} to="/thirdPartyBom">3rd Party BOM</Nav.Link>
               <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
@@ -35,7 +38,10 @@ const Header = () => {
             </Nav>
             <Nav>
               <Nav.Link href="#deets">More deets</Nav.Link>
-              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              {
+                user?.uid ? <button onClick={userSignOut}>{user.email}  Sign Out </button>: <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              }
+              
             </Nav>
           </Navbar.Collapse>
         </Container>

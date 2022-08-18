@@ -3,11 +3,13 @@ import { useTable } from 'react-table';
 
 const OwnPartList = () => {
     const [ownParts, setOwnParts] = useState([]);
+
     useEffect(()=>{
         fetch(`http://localhost:5000/ownParts`)
         .then(res => res.json())
         .then(data => setOwnParts(data));
     },[]);
+
     console.log(ownParts);
     const COLUMNS = [
         {
