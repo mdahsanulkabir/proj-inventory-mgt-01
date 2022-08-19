@@ -1,23 +1,34 @@
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import useFirebase from '../../Hooks/useFirebase';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const { signInWithEmail } = useFirebase();
+    
     const emailRef = useRef('');
     const passwordRef = useRef('');
+    const [ signInWithEmailAndPassword, user, loading, error, ] = useSignInWithEmailAndPassword(auth);
 
-    const handleSubmit = event => {
+    let navigate = useNavigate();
+    let location = useLocation();
+
+    let from = location?.state?.from?.pathname || '/';
+
+    const handleSignIn = event => {
         event.preventDefault();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
-        signInWithEmail(email, password);
+        signInWithEmailAndPassword(email, password)
+        .then( () => {
+            navigate(from, { replace: true})
+        });
     }
 
     return (
         <div className='container w-50 mx-auto'>
             <h1>Log in to Singer Inventory System</h1>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSignIn}>
 
                 <Form.Group className="mb-5" controlId="formBasicEmail">
                     <Form.Control ref={emailRef} type="email" placeholder="Enter email" required/>

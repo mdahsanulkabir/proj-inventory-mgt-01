@@ -14,6 +14,8 @@ import SkuList from "./Pages/SkuList/SkuList";
 import OwnPartList from "./Pages/OwnPartList/OwnPartList";
 import ThirdPartyBOM from "./Pages/ThirdPartyBOM/ThirdPartyBOM";
 import ThirdPartyBOMSearch from "./Pages/ThirdPartyBOM/ThirdPartyBOMSearch";
+import EditThirdPartyBom from "./Pages/EditThirdPartyBom/EditThirdPartyBom";
+import RequireAuth from "./Shared/RequireAuth/RequireAuth";
 
 const border = {border: "1px solid blue", minHeight:"80vh"}
 
@@ -33,6 +35,10 @@ function App() {
               <Route path="/ownPartList" element={<OwnPartList />} />
               <Route path="/thirdPartyBom" element={<ThirdPartyBOM />} />
               <Route path="/thirdPartyBomSearch" element={<ThirdPartyBOMSearch />} />
+              <Route path="/editThirdPartyBom" element={
+                <RequireAuth>
+                  <EditThirdPartyBom />
+                </RequireAuth>} />
               <Route path="*" element={<NotFound></NotFound>} />
             </Routes>
           </Col>
