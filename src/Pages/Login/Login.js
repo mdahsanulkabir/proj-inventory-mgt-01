@@ -1,28 +1,45 @@
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import auth from '../../firebase.init'
-import { useLocation, useNavigate } from 'react-router-dom';
+import auth from '../../firebase.init';
+
 
 const Login = () => {
+
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
     
     const emailRef = useRef('');
     const passwordRef = useRef('');
-    const [ signInWithEmailAndPassword, user, loading, error, ] = useSignInWithEmailAndPassword(auth);
-
-    let navigate = useNavigate();
-    let location = useLocation();
-
-    let from = location?.state?.from?.pathname || '/';
 
     const handleSignIn = event => {
         event.preventDefault();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         signInWithEmailAndPassword(email, password)
-        .then( () => {
-            navigate(from, { replace: true})
-        });
+        
+    }
+
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error.message}</p>
+            </div>
+        );
+    }
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+    if (user) {
+        return (
+        <div>
+            <p>Signed In User: {user?.email}</p>
+        </div>
+        );
     }
 
     return (
@@ -38,7 +55,7 @@ const Login = () => {
                     <Form.Control ref={passwordRef} type="password" placeholder="Password" required/>
                 </Form.Group>
                 <Button variant="danger w-25 d-block mx-auto" type="submit">
-                    Log In
+                    Log In ...
                 </Button>
             </Form>
         </div>

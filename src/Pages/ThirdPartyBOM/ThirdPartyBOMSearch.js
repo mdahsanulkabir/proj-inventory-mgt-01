@@ -5,7 +5,7 @@ import { Dropdown, Form } from "react-bootstrap";
 // Dropdown needs access to the DOM node in order to position the Menu
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
-      href=""
+      to=""
       ref={ref}
       onClick={(e) => {
         e.preventDefault();

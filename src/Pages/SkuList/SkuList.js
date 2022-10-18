@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTable } from 'react-table';
-import SKU from '../SKU/SKU';
+import useLoadSKU from '../../Hooks/useLoadSKU';
 import './SkuList.css'
 
 // const divStyle={
@@ -13,12 +13,12 @@ import './SkuList.css'
 //   };
 
 const SkuList = () => {
-    const [skus, setSkus] = useState([]);
-    useEffect(()=>{
-        fetch(`http://localhost:5000/skus`)
-        .then(res => res.json())
-        .then(data => setSkus(data));
-    },[]);
+    const { skus } = useLoadSKU();
+    // useEffect(()=>{
+    //     fetch(`http://localhost:5000/skus`)
+    //     .then(res => res.json())
+    //     .then(data => setSkus(data));
+    // },[]);
     console.log(skus);
     const COLUMNS = [
         {

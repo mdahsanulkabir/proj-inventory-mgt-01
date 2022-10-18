@@ -1,16 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
+import useLoadParts from '../../Hooks/useLoadParts';
 
 const OwnPartList = () => {
-    const [ownParts, setOwnParts] = useState([]);
+    const { parts } = useLoadParts();
 
-    useEffect(()=>{
-        fetch(`http://localhost:5000/ownParts`)
-        .then(res => res.json())
-        .then(data => setOwnParts(data));
-    },[]);
+    // useEffect(()=>{
+    //     fetch(`http://localhost:5000/ownParts`)
+    //     .then(res => res.json())
+    //     .then(data => setOwnParts(data));
+    // },[]);
 
-    console.log(ownParts);
+    console.log(parts);
     const COLUMNS = [
         {
             Header: 'ID',
@@ -35,11 +36,15 @@ const OwnPartList = () => {
         {
             Header: 'MATERIAL NAME',
             accessor: 'Material_Name'
+        },
+        {
+            Header: 'UNIT',
+            accessor: 'Unit'
         }
     ]
 
     const columns = useMemo(()=> COLUMNS, [])
-    const data = useMemo(()=>ownParts, [ownParts])
+    const data = useMemo(()=>parts, [parts])
 
     const tableInstance = useTable({
         columns, data
