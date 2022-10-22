@@ -3,22 +3,8 @@ import { useTable } from 'react-table';
 import useLoadSKU from '../../Hooks/useLoadSKU';
 import './SkuList.css'
 
-// const divStyle={
-//     overflowY: 'scroll',
-//     border:'1px solid red',
-//     width:'700px',
-//     float: 'left',
-//     height:'500px',
-//     position:'relative'
-//   };
-
 const SkuList = () => {
     const { skus } = useLoadSKU();
-    // useEffect(()=>{
-    //     fetch(`http://localhost:5000/skus`)
-    //     .then(res => res.json())
-    //     .then(data => setSkus(data));
-    // },[]);
     console.log(skus);
     const COLUMNS = [
         {
@@ -27,15 +13,15 @@ const SkuList = () => {
         },
         {
             Header: 'MODEL',
-            accessor: 'Model'
+            accessor: 'model'
         },
         {
             Header: 'COLOR',
-            accessor: 'Color'
+            accessor: 'color'
         },
         {
             Header: 'SKU',
-            accessor: 'SKU'
+            accessor: 'sku'
         }
     ]
 

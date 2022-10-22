@@ -17,7 +17,7 @@ const EditThirdPartyBom = () => {
         //if the updated field is rmId then it will get the material name of that raw material
         if(event.target.name === 'rmId') {
             const rm = parts.find(part => part._id === event.target.value);
-            data[index].rmName = rm.Material_Name;
+            data[index].rmName = rm.material_name;
         }
         data[index][event.target.name] = event.target.value;
         setFieldLists(data);
@@ -72,7 +72,7 @@ const EditThirdPartyBom = () => {
                                                                                     }))}>
                     <option value=""></option>
                     {
-                        parts.map(part => <option key={part._id} value={part._id}>{part.Material_Name}</option>)
+                        parts.map(part => <option key={part._id} value={part._id}>{part.material_name}</option>)
                     }
                 </select>
 
@@ -88,7 +88,7 @@ const EditThirdPartyBom = () => {
                                 <select name="rmId" id="rmId" value={fieldList.rmId} onChange={(event) => handleFormChange(event, index)}>
                                 <option value=""></option>
                                     {
-                                        parts.map(part =>  <option key={part._id} value={part._id}>{part.Material_Name}</option>)           
+                                        parts.map(part =>  <option key={part._id} value={part._id}>{part.material_name}</option>)           
                                     }
                                 </select>
                                 <label htmlFor="rmQty" style={divStyle}>RM Quantity : </label>

@@ -7,7 +7,7 @@ const ThirdPartyBOM = () => {
   const [showDetail, setShowDetail] = useState("none");
   const [showCheckingDetail, setShowCheckingDetail] = useState("none");
   useEffect(() => {
-    fetch(`http://localhost:5000/ownParts`)
+    fetch(`https://srp-planning.onrender.com/api/rms`)
       .then((res) => res.json())
       .then((data) => setOwnParts(data));
   }, []);

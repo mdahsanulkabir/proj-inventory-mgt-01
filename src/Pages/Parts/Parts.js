@@ -10,7 +10,7 @@ const divstyle = {
 const Parts = () => {
     const [parts, setParts] = useState([]);
     useEffect(()=>{
-        fetch(`http://localhost:5000/ownParts`)
+        fetch(`https://srp-planning.onrender.com/api/rms`)
         .then(res => res.json())
         .then(data => setParts(data));
     },[]);
@@ -38,9 +38,9 @@ const Parts = () => {
             setParts(data)
             console.log(parts[index]._id);
 
-            const url = `http://localhost:5000/ownParts/${parts[index]._id}`;
+            const url = `https://srp-planning.onrender.com/api/rms/${parts[index]._id}`;
             fetch( url, {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: {
                     'content-type': 'application/json'
                 },
@@ -67,9 +67,9 @@ const Parts = () => {
                         <div style={divstyle} key={index}>
                             <h3>Index : {index}</h3>
                             <h3>part ID = {part._id}</h3>
-                            <h3>part Object Id = {part.Object_ID}</h3>
-                            <h4>part Name= {part.Material_Name}</h4>
-                            <h4>Unit = {part.Unit}</h4> 
+                            <h3>part Object Id = {part.object_id}</h3>
+                            <h4>part Name= {part.material_name}</h4>
+                            <h4>Unit = {part.unit}</h4> 
                             <button onClick={(event)=>updatePartInfo(event, index, part._id)}>Edit</button>
                         </div>
 

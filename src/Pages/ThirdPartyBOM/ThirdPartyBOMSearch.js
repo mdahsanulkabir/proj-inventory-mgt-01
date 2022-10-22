@@ -53,7 +53,7 @@ const ThirdPartyBOMSearch = () => {
   const [selectedPart, setSelectedPart] = useState({})
   const [showDetail, setShowDetail] = useState("none");
   useEffect(() => {
-    fetch(`http://localhost:5000/ownParts`)
+    fetch(`https://srp-planning.onrender.com/api/rms`)
       .then((res) => res.json())
       .then((data) => setOwnParts(data));
   }, []);
@@ -81,17 +81,17 @@ const ThirdPartyBOMSearch = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu as={CustomMenu} style={{maxHeight: "500px", overflowY: "scroll"}}>
             {
-                ownParts.map( part => <Dropdown.Item  onMouseOver={()=>showDetailDiv(part._id)} onMouseLeave={hideDetail} key={part._id}>{part.Material_Name}</Dropdown.Item>)
+                ownParts.map( part => <Dropdown.Item  onMouseOver={()=>showDetailDiv(part._id)} onMouseLeave={hideDetail} key={part._id}>{part.material_name}</Dropdown.Item>)
             }
             </Dropdown.Menu>
         </Dropdown>
         <div id="showDetail" style={{flexBasis : "auto", display : showDetail}}>
             {/* <h3>Id: {selectedPart?._id}</h3> */}
-            <h4>Object ID: {selectedPart?.Object_ID}</h4>
-            <h4>Name: {selectedPart?.Material_Name}</h4>
-            <h4>SIS Code : {selectedPart?.SIS_CODE}</h4>
-            <h4>Source Category: {selectedPart?.Source_Category}</h4>
-            <h4>RM Category: {selectedPart?.RM_Category}</h4>
+            <h4>Object ID: {selectedPart?.object_id}</h4>
+            <h4>Name: {selectedPart?.material_name}</h4>
+            <h4>SIS Code : {selectedPart?.sis_code}</h4>
+            <h4>Source Category: {selectedPart?.source_category}</h4>
+            <h4>RM Category: {selectedPart?.rm_category}</h4>
         </div>
       </div>
     </div>

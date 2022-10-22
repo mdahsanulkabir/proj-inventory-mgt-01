@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const useLoadParts = () => {
     const [parts, setParts] = useState([]);
     useEffect(()=>{
-        fetch(`http://localhost:5000/ownParts`)
+        fetch(`https://srp-planning.onrender.com/api/rms`)
         .then(res => res.json())
         .then(data => setParts(data));
     },[]);

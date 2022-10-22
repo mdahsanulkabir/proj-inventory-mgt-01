@@ -16,7 +16,6 @@ import ThirdPartyBOM from "./Pages/ThirdPartyBOM/ThirdPartyBOM";
 import ThirdPartyBOMSearch from "./Pages/ThirdPartyBOM/ThirdPartyBOMSearch";
 import EditThirdPartyBom from "./Pages/EditThirdPartyBom/EditThirdPartyBom";
 import RequireAuth from "./Shared/RequireAuth/RequireAuth";
-import Users from "./Pages/Users/Users";
 import Parts from "./Pages/Parts/Parts";
 
 const border = {border: "1px solid blue", minHeight:"80vh"}

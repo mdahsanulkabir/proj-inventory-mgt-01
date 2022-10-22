@@ -5,11 +5,6 @@ import useLoadParts from '../../Hooks/useLoadParts';
 const OwnPartList = () => {
     const { parts } = useLoadParts();
 
-    // useEffect(()=>{
-    //     fetch(`http://localhost:5000/ownParts`)
-    //     .then(res => res.json())
-    //     .then(data => setOwnParts(data));
-    // },[]);
 
     console.log(parts);
     const COLUMNS = [
@@ -19,27 +14,27 @@ const OwnPartList = () => {
         },
         {
             Header: 'OBJECT ID',
-            accessor: 'Object_ID'
+            accessor: 'object_id'
         },
         {
             Header: 'SOURCE CATEGORY',
-            accessor: 'Source_Category'
+            accessor: 'source_category'
         },
         {
             Header: 'RM CATEGORY',
-            accessor: 'RM_Category'
+            accessor: 'rm_category'
         },
         {
             Header: 'SIS CODE',
-            accessor: 'SIS_CODE'
+            accessor: 'sis_code'
         },
         {
             Header: 'MATERIAL NAME',
-            accessor: 'Material_Name'
+            accessor: 'material_name'
         },
         {
             Header: 'UNIT',
-            accessor: 'Unit'
+            accessor: 'unit'
         }
     ]
 
