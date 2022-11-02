@@ -8,7 +8,7 @@ const useLoadSKU = () => {
         .then(data => setSkus(data));
     },[]);
     return {
-        skus
+        skus,
     }
 };
 

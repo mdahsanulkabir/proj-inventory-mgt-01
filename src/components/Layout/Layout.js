@@ -1,64 +1,179 @@
-import { Drawer, List, ListItem, ListItemText, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import React from 'react';
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {
+  ExpandLess,
+  ExpandMore,
+  WarehouseOutlined,
+  AdminPanelSettings,
+  ManageAccounts,
+  Kitchen,
+  Warehouse,
+  Widgets,
+  Settings,
+} from "@mui/icons-material";
+import { Collapse } from "@mui/material";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles({
-    pages : {
-        background: '#f9f9f9',
-        width : '100%'
-    },
-    drawer : {
-        width : drawerWidth
-    },
-    drawerPaper : {
-        width : drawerWidth
-    },
-    root : {
-        display : 'flex'
-    }
-})
+const Layout = () => {
+  const navigate = useNavigate();
+  const [storeSubListMenu, setStoreSubListMenu] = useState(false);
+  const [adminSubListMenu, setAdminSubListMenu] = useState(false);
 
-const Layout = ({ children }) => {
-    const classes = useStyles();
-    return (
-        <div className={classes.root}>
-            {/* App bar */}
+  const handleStoresSubList = () => {
+    setStoreSubListMenu(!storeSubListMenu);
+  };
 
+  const handleAdminSubList = () => {
+    setAdminSubListMenu(!adminSubListMenu);
+  };
+  return (
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        // sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+      >
+        <Toolbar onClick={() => navigate("/layout")}>
+          <Typography variant="h6" noWrap component="div">
+            Singer Inventory Management System
+          </Typography>
+        </Toolbar>
+      </AppBar>
 
-
-            {/* Drawer Component */}
-            <Drawer
-                className={classes.drawer}
-                variant='permanent'
-                anchor='left'
-                classes={{paper : classes.drawerPaper}}
-            >
-                <div>
-                    <Typography variant='h5'>SRP</Typography>
-                </div>
-                <List>
-                    <ListItem>
-                        <ListItemText primary='hello' />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary='hi' />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary='good morning' />
-                    </ListItem>
-                </List>
-            </Drawer>
-
-
-
-
-            <div className={classes.page}>
-                { children }
-            </div>
-        </div>
-    );
+      {/* ****************sidebar goes here******************** */}
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            zIndex: (theme) => theme.zIndex.appBar - 1,
+            // mt : 8,
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar />
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => handleAdminSubList()}>
+              <ListItemIcon>
+                <AdminPanelSettings color='primary'/>
+              </ListItemIcon>
+              <ListItemText primary="ADMIN" />
+              {adminSubListMenu ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+          </ListItem>
+          <Collapse in={adminSubListMenu} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("")}>
+                <ListItemIcon>
+                  <ManageAccounts color='primary' />
+                </ListItemIcon>
+                <ListItemText primary="User Management" />
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("")}>
+                <ListItemIcon>
+                  <Settings color='primary' />
+                </ListItemIcon>
+                <ListItemText primary="Setup" />
+              </ListItemButton>
+            </List>
+          </Collapse>
+        </List>
+        <Divider />
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate("allSKU")}>
+              <ListItemIcon>
+                <Kitchen color='primary'/>
+              </ListItemIcon>
+              <ListItemText primary="ALL SKU" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate("allParts")}>
+              <ListItemIcon>
+                <Widgets  color='primary'/>
+              </ListItemIcon>
+              <ListItemText primary="ALL PARTS" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => handleStoresSubList()}>
+              <ListItemIcon>
+                <Warehouse color='primary'/>
+              </ListItemIcon>
+              <ListItemText primary="STORES" />
+              {storeSubListMenu ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+          </ListItem>
+          <Collapse in={storeSubListMenu} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <WarehouseOutlined  color='primary'/>
+                </ListItemIcon>
+                <ListItemText primary="First Shed" secondary="Light items"/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <WarehouseOutlined  color='primary'/>
+                </ListItemIcon>
+                <ListItemText primary="Third Shed" secondary="All Small Parts"/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <WarehouseOutlined  color='primary'/>
+                </ListItemIcon>
+                <ListItemText primary="Forth Shed" secondary="Cartons Metal Doors"/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <WarehouseOutlined  color='primary'/>
+                </ListItemIcon>
+                <ListItemText primary="FG Shed" secondary="Heavy Parts"/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <WarehouseOutlined  color='primary'/>
+                </ListItemIcon>
+                <ListItemText primary="OutSide" secondary="EPS and Roads"/>
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <WarehouseOutlined  color='primary'/>
+                </ListItemIcon>
+                <ListItemText primary="SMC Premises" secondary="Outside of factory"/>
+              </ListItemButton>
+            </List>
+          </Collapse>
+        </List>
+      </Drawer>
+      <Outlet />
+    </Box>
+  );
 };
 
 export default Layout;

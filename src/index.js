@@ -2,15 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import App from "./App";
+// import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import App2 from "./App/App2";
+
+// import { theme } from './theme'
+// import { ThemeProvider } from "@mui/system";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App2 />
+
+        <App2 />
+
     </BrowserRouter>
   </React.StrictMode>
 );
