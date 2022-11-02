@@ -22,6 +22,8 @@ import {
   Warehouse,
   Widgets,
   Settings,
+  ShoppingCart,
+  Factory,
 } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 
@@ -38,6 +40,7 @@ const Layout = () => {
 
   const handleAdminSubList = () => {
     setAdminSubListMenu(!adminSubListMenu);
+    navigate("admin");
   };
   return (
     <Box sx={{ display: "flex" }}>
@@ -69,27 +72,27 @@ const Layout = () => {
         anchor="left"
       >
         <Toolbar />
-        <List>
+        <List dense>
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleAdminSubList()}>
               <ListItemIcon>
                 <AdminPanelSettings color='primary'/>
               </ListItemIcon>
               <ListItemText primary="ADMIN" />
-              {adminSubListMenu ? <ExpandLess /> : <ExpandMore />}
+              {adminSubListMenu ? <ExpandLess fontSize="small"/> : <ExpandMore fontSize="small"/>}
             </ListItemButton>
           </ListItem>
           <Collapse in={adminSubListMenu} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List dense component="div" disablePadding>
               <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("")}>
                 <ListItemIcon>
-                  <ManageAccounts color='primary' />
+                  <ManageAccounts color='primary' fontSize="small"/>
                 </ListItemIcon>
                 <ListItemText primary="User Management" />
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("")}>
                 <ListItemIcon>
-                  <Settings color='primary' />
+                  <Settings color='primary' fontSize="small"/>
                 </ListItemIcon>
                 <ListItemText primary="Setup" />
               </ListItemButton>
@@ -97,7 +100,7 @@ const Layout = () => {
           </Collapse>
         </List>
         <Divider />
-        <List>
+        <List dense>
           <ListItem disablePadding>
             <ListItemButton onClick={() => navigate("allSKU")}>
               <ListItemIcon>
@@ -108,7 +111,7 @@ const Layout = () => {
           </ListItem>
         </List>
         <Divider />
-        <List>
+        <List dense>
           <ListItem disablePadding>
             <ListItemButton onClick={() => navigate("allParts")}>
               <ListItemIcon>
@@ -119,58 +122,82 @@ const Layout = () => {
           </ListItem>
         </List>
         <Divider />
-        <List>
+        <List dense>
           <ListItem disablePadding>
             <ListItemButton onClick={() => handleStoresSubList()}>
               <ListItemIcon>
                 <Warehouse color='primary'/>
               </ListItemIcon>
-              <ListItemText primary="STORES" />
-              {storeSubListMenu ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText primary="WAREHOUSE" />
+              {storeSubListMenu ? <ExpandLess fontSize="small"/> : <ExpandMore fontSize="small"/>}
             </ListItemButton>
           </ListItem>
           <Collapse in={storeSubListMenu} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List dense component="div" disablePadding>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
-                  <WarehouseOutlined  color='primary'/>
+                  <WarehouseOutlined  color='primary' fontSize="small"/>
                 </ListItemIcon>
                 <ListItemText primary="First Shed" secondary="Light items"/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
-                  <WarehouseOutlined  color='primary'/>
+                  <WarehouseOutlined  color='primary' fontSize="small"/>
                 </ListItemIcon>
                 <ListItemText primary="Third Shed" secondary="All Small Parts"/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
-                  <WarehouseOutlined  color='primary'/>
+                  <WarehouseOutlined  color='primary' fontSize="small"/>
                 </ListItemIcon>
                 <ListItemText primary="Forth Shed" secondary="Cartons Metal Doors"/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
-                  <WarehouseOutlined  color='primary'/>
+                  <WarehouseOutlined  color='primary' fontSize="small"/>
                 </ListItemIcon>
                 <ListItemText primary="FG Shed" secondary="Heavy Parts"/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
-                  <WarehouseOutlined  color='primary'/>
+                  <WarehouseOutlined  color='primary' fontSize="small"/>
                 </ListItemIcon>
                 <ListItemText primary="OutSide" secondary="EPS and Roads"/>
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
-                  <WarehouseOutlined  color='primary'/>
+                  <WarehouseOutlined  color='primary' fontSize="small"/>
                 </ListItemIcon>
                 <ListItemText primary="SMC Premises" secondary="Outside of factory"/>
               </ListItemButton>
             </List>
           </Collapse>
         </List>
+        <Divider/>
+        <List dense>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <ShoppingCart  color='secondary'/>
+              </ListItemIcon>
+              <ListItemText primary="COMMERCIAL"/>
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Divider/>
+        <List dense>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Factory  color='secondary'/>
+              </ListItemIcon>
+              <ListItemText primary="PRODUCTION"/>
+            </ListItemButton>
+          </ListItem>
+        </List>
       </Drawer>
+
+      {/* **************** OTHER OUTLETS / FUNCTIONALITY OF THE APP******************** */}
       <Outlet />
     </Box>
   );

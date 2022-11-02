@@ -1,14 +1,11 @@
 import { Box, Toolbar, Typography } from '@mui/material';
 import React from 'react';
-import useLoadSKU from '../../Hooks/useLoadSKU';
 
 
 const Dashboard = () => {
-    const { skus } = useLoadSKU();
-    console.log(skus);
+    
     return (
         <Box
-        component="main"
         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
       >
         <Toolbar />
