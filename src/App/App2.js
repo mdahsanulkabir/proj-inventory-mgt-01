@@ -3,6 +3,8 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AdminDashboard from '../components/Admin/AdminDashboard';
 import AdminPanel from '../components/Admin/AdminPanel';
+import AppSetup from '../components/Admin/AppSetup';
+import UserManagement from '../components/Admin/UserManagement';
 import AllParts from '../components/AllParts/AllParts';
 import AllSku from '../components/AllSku/AllSku';
 import Dashboard from '../components/Dashboard/Dashboard';
@@ -23,6 +25,8 @@ const App2 = () => {
                     <Route path="allParts" element={<AllParts></AllParts>} />
                     <Route path="admin" element={<AdminPanel></AdminPanel>} >
                         <Route index element={<AdminDashboard></AdminDashboard>} />
+                        <Route path="userMgt" element={<UserManagement/>} />
+                        <Route path="appSetup" element={<AppSetup/>} />
                     </Route>
                 </Route>
             </Routes>

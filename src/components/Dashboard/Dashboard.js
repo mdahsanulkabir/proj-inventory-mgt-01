@@ -10,7 +10,7 @@ const Dashboard = () => {
       >
         <Toolbar />
         <Typography variant='h2' component='h2' sx={{color: 'blue'}}>
-            This is the Dashboard
+            This is common Dashboard
         </Typography>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

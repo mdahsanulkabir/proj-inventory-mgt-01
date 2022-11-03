@@ -84,13 +84,13 @@ const Layout = () => {
           </ListItem>
           <Collapse in={adminSubListMenu} timeout="auto" unmountOnExit>
             <List dense component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("")}>
+              <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("admin/userMgt")}>
                 <ListItemIcon>
                   <ManageAccounts color='primary' fontSize="small"/>
                 </ListItemIcon>
                 <ListItemText primary="User Management" />
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("")}>
+              <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("admin/appSetup")}>
                 <ListItemIcon>
                   <Settings color='primary' fontSize="small"/>
                 </ListItemIcon>
