@@ -35,7 +35,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
@@ -49,7 +49,7 @@ export default function Login() {
       password: password,
     });
     signInWithEmailAndPassword(email, password);
-    navigate("/layout")
+    navigate("/layout");
   };
 
   if (error) {
@@ -62,15 +62,15 @@ export default function Login() {
   if (loading) {
     return <p>Loading...</p>;
   }
-//   if (user) {
-//     // console.log(user);
-    
-//     // return (
-//     //   <div>
-//     //     <p>Signed In User: {user?.user.email}</p>
-//     //   </div>
-//     // );
-//   }
+  //   if (user) {
+  //     // console.log(user);
+
+  //     // return (
+  //     //   <div>
+  //     //     <p>Signed In User: {user?.user.email}</p>
+  //     //   </div>
+  //     // );
+  //   }
 
   return (
     <ThemeProvider theme={theme}>
@@ -110,10 +110,10 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
               id="password"
+              label="Password"
+              name="password"
+              type="password"
               autoComplete="current-password"
             />
             {/* <FormControlLabel

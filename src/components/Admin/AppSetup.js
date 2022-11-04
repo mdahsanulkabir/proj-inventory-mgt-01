@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import AdminWarehouse from './AdminWarehouse';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -17,8 +18,8 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box sx={{ p: 1 }}>
+          {children}
         </Box>
       )}
     </div>
@@ -47,7 +48,7 @@ export default function AppSetup() {
           <Tab label="Supplier"/>
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>Warehouse</TabPanel>
+      <TabPanel component='div' value={value} index={0}><AdminWarehouse/></TabPanel>
       <TabPanel value={value} index={1}>Part</TabPanel>
       <TabPanel value={value} index={2}>Supplier</TabPanel>
     </Box>
