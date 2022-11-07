@@ -36,8 +36,7 @@ const theme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
   const handleSubmit = (event) => {
     event.preventDefault();

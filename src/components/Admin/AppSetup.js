@@ -2,9 +2,9 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import AdminWarehouse from './AdminWarehouse';
+import AdminPart from './AdminPart';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,7 +49,7 @@ export default function AppSetup() {
         </Tabs>
       </Box>
       <TabPanel component='div' value={value} index={0}><AdminWarehouse/></TabPanel>
-      <TabPanel value={value} index={1}>Part</TabPanel>
+      <TabPanel value={value} index={1}><AdminPart/></TabPanel>
       <TabPanel value={value} index={2}>Supplier</TabPanel>
     </Box>
   );

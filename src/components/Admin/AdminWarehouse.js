@@ -51,12 +51,8 @@ export default function AdminWarehouse() {
         </Tabs>
       </Box>
       <Box>
-        <TabPanel value={value} index={0}>
-          <CreateWarehouse />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Update Warehouse
-        </TabPanel>
+        <TabPanel value={value} index={0}><CreateWarehouse /></TabPanel>
+        <TabPanel value={value} index={1}>Update Warehouse</TabPanel>
       </Box>
     </Box>
   );

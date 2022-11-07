@@ -1,67 +1,39 @@
-import { Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home/Home/Home";
-import Login from "./Pages/Login/Login";
-import Footer from "./Shared/Footer/Footer";
-import Header from "./Shared/Header/Header";
-import Loading from "./Shared/Loading/Loading";
-import NotFound from "./Shared/NotFound/NotFound";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import SideBar from "./Shared/SideBar/SideBar";
-import SkuList from "./Pages/SkuList/SkuList";
-import OwnPartList from "./Pages/OwnPartList/OwnPartList";
-import ThirdPartyBOM from "./Pages/ThirdPartyBOM/ThirdPartyBOM";
-import ThirdPartyBOMSearch from "./Pages/ThirdPartyBOM/ThirdPartyBOMSearch";
-import EditThirdPartyBom from "./Pages/EditThirdPartyBom/EditThirdPartyBom";
-import RequireAuth from "./Shared/RequireAuth/RequireAuth";
-import Parts from "./Pages/Parts/Parts";
 
-const border = { border: "1px solid blue", minHeight: "80vh" };
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import AdminDashboard from './components/Admin/AdminDashboard';
+import AdminPanel from './components/Admin/AdminPanel';
+import AppSetup from './components/Admin/AppSetup';
+import UserManagement from './components/Admin/UserManagement';
+import AllParts from './components/AllParts/AllParts';
+import AllSku from './components/AllSku/AllSku';
+import Dashboard from './components/Dashboard/Dashboard';
+import Layout from './components/Layout/Layout'
+import Login from './components/Login/Login';
+import TestApp from './components/Admin/UpdateWarehouse';
 
-function App() {
-  return (
-    <div className="App">
-      <Header></Header>
-      <Container fluid>
-        <Row md={12}>
-          <Col lg={1} style={border}>
-            <SideBar />
-          </Col>
-          <Col style={border}>
+
+const App = () => {
+    return (
+        <div>
+            
             <Routes>
-              <Route path="/" element={<Home></Home>} />
-              <Route path="/login" element={<Login></Login>} />
-              <Route path="/parts" element={<Parts></Parts>} />
-              <Route path="/loading" element={<Loading></Loading>} />
-              <Route path="/skuList" element={<SkuList />} />
-              <Route path="/ownPartList" element={<OwnPartList />} />
-              <Route path="/thirdPartyBom" element={<ThirdPartyBOM />} />
-              <Route
-                path="/thirdPartyBomSearch"
-                element={<ThirdPartyBOMSearch />}
-              />
-              <Route
-                path="/editThirdPartyBom"
-                element={
-                  <RequireAuth>
-                    <EditThirdPartyBom />
-                  </RequireAuth>
-                }
-              />
-              <Route path="*" element={<NotFound></NotFound>} />
+                <Route path="/" element={<Login></Login>} />
+                <Route path="/testApp" element={<TestApp></TestApp>}></Route>
+                <Route path="/layout" element={<Layout></Layout>}>
+                    <Route index element={<Dashboard></Dashboard>} />
+                    <Route path="allSKU" element={<AllSku></AllSku>} />
+                    <Route path="allParts" element={<AllParts></AllParts>} />
+                    <Route path="admin" element={<AdminPanel></AdminPanel>} >
+                        <Route index element={<AdminDashboard></AdminDashboard>} />
+                        <Route path="userMgt" element={<UserManagement/>} />
+                        <Route path="appSetup" element={<AppSetup/>} />
+                    </Route>
+                </Route>
             </Routes>
-          </Col>
-          <Col lg={1} style={border}>
-            second side bar
-          </Col>
-        </Row>
-        <Row>
-          <Footer></Footer>
-        </Row>
-      </Container>
-    </div>
-  );
-}
+
+        </div>
+    );
+};
 
 export default App;

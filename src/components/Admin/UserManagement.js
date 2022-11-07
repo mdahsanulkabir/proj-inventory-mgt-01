@@ -33,7 +33,6 @@ TabPanel.propTypes = {
 
 export default function UserManagement() {
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

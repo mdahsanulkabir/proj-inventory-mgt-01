@@ -3,18 +3,18 @@ import { Box, Button, Container, CssBaseline, Paper, TextField, Typography } fro
 import React, { useState } from "react";
 
 const CreateWarehouse = () => {
-    const [name, setName] = useState();
-    const [space, setSpace] = useState();
-    const [description, setDescription] = useState();
-    const [error, setError] = useState();
+    const [name, setName] = useState("");
+    const [space, setSpace] = useState("");
+    const [description, setDescription] = useState("");
+    const [error, setError] = useState(null);
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const name = data.get("warehouse-name");
-        const space = data.get("warehouse-space");
-        const description = data.get("warehouse-description");
+        // const data = new FormData(e.currentTarget);
+        // const name = data.get("warehouse-name");
+        // const space = data.get("warehouse-space");
+        // const description = data.get("warehouse-description");
         const newWarehouse = {name ,space, description}
         console.log(newWarehouse);
         const response = await fetch(`http://localhost:5000/api/createwarehouse`, {
@@ -26,6 +26,7 @@ const CreateWarehouse = () => {
         });
 
         const json = await response.json();
+        console.log(response);
 
         if (!response.ok) {
             setError(json.error);
@@ -35,13 +36,13 @@ const CreateWarehouse = () => {
             setName("");
             setSpace("");
             setDescription("");
-            setError("");
+            setError(null);
         }
     }
   return (
     <Container>
       <CssBaseline />
-      <Paper elevation="3">
+      <Paper elevation={3}>
         <Box
           sx={{
             marginTop: 0,
@@ -80,8 +81,9 @@ const CreateWarehouse = () => {
               fullWidth
               id="warehouseName"
               label="Warehouse Name"
-              name="warehouse-name"
               autoFocus
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
             <TextField
               margin="normal"
@@ -89,7 +91,9 @@ const CreateWarehouse = () => {
               fullWidth
               id="warehouseSpace"
               label="Warehouse Space (sft)"
-              name="warehouse-space"
+              onChange={(e) => setSpace(e.target.value)}
+              value={space}
+              helperText="Space in Square Feet"
             />
             <TextField
               margin="normal"
@@ -97,7 +101,8 @@ const CreateWarehouse = () => {
               fullWidth
               id="warehouseDescription"
               label="Short Description"
-              name="warehouse-description"
+              onChange={(e)=> setDescription(e.target.value)}
+              space={description}
             />
             <Button
               type="submit"
@@ -106,6 +111,7 @@ const CreateWarehouse = () => {
             >
               Create Warehouse
             </Button>
+            {error && <div className="error">{error}</div>}
           </Box>
           
         </Box>
