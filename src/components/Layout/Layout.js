@@ -201,7 +201,7 @@ const Layout = () => {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton onClick={()=>navigate("")}>
+            <ListItemButton onClick={()=>navigate("showProduction")}>
               <ListItemIcon><FactoryOutlined color="secondary" fontSize="small"/></ListItemIcon>
               <ListItemText primary="Show Production"/>
             </ListItemButton>

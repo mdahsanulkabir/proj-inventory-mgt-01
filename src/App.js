@@ -11,6 +11,8 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Layout from './components/Layout/Layout'
 import Login from './components/Login/Login';
 import TestApp from './components/Admin/UpdateWarehouse';
+import ShowProduction from './components/Production/ShowProduction';
+import ProductionHistoryDaily from './components/Production/ProductionHistoryDaily';
 
 
 const App = () => {
@@ -24,10 +26,15 @@ const App = () => {
                     <Route index element={<Dashboard></Dashboard>} />
                     <Route path="allSKU" element={<AllSku></AllSku>} />
                     <Route path="allParts" element={<AllParts></AllParts>} />
+
                     <Route path="admin" element={<AdminPanel></AdminPanel>} >
                         <Route index element={<AdminDashboard></AdminDashboard>} />
                         <Route path="userMgt" element={<UserManagement/>} />
                         <Route path="appSetup" element={<AppSetup/>} />
+                    </Route>
+
+                    <Route path="showProduction" element={<ShowProduction></ShowProduction>}>
+                        <Route index element={<ProductionHistoryDaily></ProductionHistoryDaily>}/>
                     </Route>
                 </Route>
             </Routes>

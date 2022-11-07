@@ -1,8 +1,9 @@
-import { Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Typography } from '@mui/material';
+
 import React from 'react';
 
 const AdminDashboard = () => {
+
     return (
         <Box
             sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}

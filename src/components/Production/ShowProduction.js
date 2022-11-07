@@ -1,17 +1,23 @@
-import { Box, Button, ButtonGroup, Toolbar } from '@mui/material';
+import { Box, Button, ButtonGroup, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+
+
+
 const ShowProduction = () => {
     const navigate = useNavigate();
+
     return (
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ bgcolor: '#AAAAAA', width: "100%" }}>
         <Toolbar />
+        <Typography variant='h5' component='h5' color='secondary' sx={{textAlign:'center', fontWeight: 700}}>Production History</Typography>
         <Toolbar>
-          <ButtonGroup variant="contained">
-            <Button onClick={()=>navigate("userMgt")}>User Management</Button>
-            <Button onClick={()=>navigate("appSetup")}>APP Setup</Button>
-            <Button onClick={()=>navigate("/layout/admin")}>Dashboard</Button>
+          <ButtonGroup variant="contained" color='secondary'>
+            <Button onClick={()=>navigate("")}>Daily</Button>
+            <Button onClick={()=>navigate("")}>Weekly</Button>
+            <Button onClick={()=>navigate("")}>Monthly</Button>
+            <Button onClick={()=>navigate("")}>Yearly</Button>
           </ButtonGroup>
         </Toolbar>
         <Outlet />

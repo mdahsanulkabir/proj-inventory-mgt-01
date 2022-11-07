@@ -7,6 +7,7 @@ import { Button, ButtonGroup, Toolbar } from "@mui/material";
 
 const AdminPanel = () => {
     const navigate = useNavigate();
+
   return (
     <Box sx={{ width: "100%" }}>
       <Toolbar />
@@ -23,23 +24,3 @@ const AdminPanel = () => {
 }
 
 export default AdminPanel;
-
-// import { Box, Toolbar, Typography } from '@mui/material';
-// import React from 'react';
-// import { Outlet } from 'react-router-dom';
-
-// 
-//     return (
-//         <Box
-//         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-//       >
-//         <Toolbar />
-//         <Typography variant='h2' component='h2' sx={{color: 'blue'}}>
-//             dsfsdfsdfsdfsdfsdfsfd sdf s s asd afd ds
-//         </Typography>
-//             <Outlet />
-//         </Box>
-//     );
-// };
-
-// export default AdminPanel;
