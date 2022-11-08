@@ -1,14 +1,16 @@
 import { Box, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import useLoadDailyFGProdData from '../../Hooks/useLoadDailyFGProdData';
 import useLoadSKU from '../../Hooks/useLoadSKU';
 
 const ProductionHistoryDaily = () => {
-    const [ startDate, setStartDate ] = useState('2022-02-22');
-    const [ endDate, setEndDate ] = useState('2022-05-22');
+    const [ startDate, setStartDate ] = useState('2022-09-30');
+    const [ endDate, setEndDate ] = useState('2022-11-01');
     const { dailyFGProdData } = useLoadDailyFGProdData(startDate, endDate);
     const { sku } = useLoadSKU();
     console.log(dailyFGProdData);
+    const [ duration, categoryChecked ] = useOutletContext();
 
     return (
         <Box 
