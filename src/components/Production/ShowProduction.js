@@ -1,5 +1,7 @@
-import { Box, Button, ButtonGroup, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup, Toolbar, Typography } from '@mui/material';
+import { ChangeCircleOutlined } from '@mui/icons-material';
+import { Box, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup, Toolbar, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 
@@ -54,6 +56,15 @@ const ShowProduction = () => {
         ]);
     }
 
+    useEffect(()=>{
+        duration === 'daily' && navigate('/layout/showProduction') 
+        duration === 'weekly' && navigate('weeklyProduction') 
+        duration === 'monthly' && navigate('monthlyProduction') 
+        duration === 'yearly' && navigate('yearlyProduction')
+    },[duration])
+
+    
+
     return (
         <Box sx={{  width: "100%" }}>
             <Toolbar />
@@ -62,8 +73,14 @@ const ShowProduction = () => {
                 <FormControl>
                     <FormLabel id="demo-row-radio-buttons-group-label">Duration</FormLabel>
                     <RadioGroup row name="row-radio-buttons-group" 
-                        defaultValue={duration}
-                        onChange={(e)=>setDuration(e.target.value)}
+                        value={duration}
+                        onChange={(e)=>{
+                            setDuration(e.target.value);
+                            // duration === 'daily' && navigate('/layout/showProduction') 
+                            // duration === 'weekly' && navigate('weeklyProduction') 
+                            // duration === 'monthly' && navigate('monthlyProduction') 
+                            // duration === 'yearly' && navigate('showProduction/yearlyProduction') 
+                        }}
                     >
                         <FormControlLabel value="daily" control={<Radio color='secondary'/>} label="Daily"/>
                         <FormControlLabel value="weekly" control={<Radio color='secondary'/>} label="Weekly" />
@@ -76,7 +93,7 @@ const ShowProduction = () => {
                 <FormControl>
                     <FormLabel id="demo-row-radio-buttons-group-label">Select Active/All SKU</FormLabel>
                     <RadioGroup row name="row-radio-buttons-group" 
-                        defaultValue={status}
+                        value={status}
                         onChange={(e)=>setStatus(e.target.value)}
                     >
                         <FormControlLabel value="all" control={<Radio color='secondary'/>} label="Select All SKU" />
@@ -111,7 +128,7 @@ const ShowProduction = () => {
                     <Divider />
                 </FormControl>
             </Box>
-            <Outlet context={[duration , categoryChecked]}/>
+            <Outlet context={[duration , status, categoryChecked]}/>
         </Box>
     );
 };

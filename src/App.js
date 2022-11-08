@@ -13,6 +13,9 @@ import Login from './components/Login/Login';
 import TestApp from './components/Admin/UpdateWarehouse';
 import ShowProduction from './components/Production/ShowProduction';
 import ProductionHistoryDaily from './components/Production/ProductionHistoryDaily';
+import ProductionHistoryWeekly from './components/Production/ProductionHistoryWeekly';
+import ProductionHistoryMonthly from './components/Production/ProductionHistoryMonthly';
+import ProductionHistoryYearly from './components/Production/ProductionHistoryYearly';
 
 
 const App = () => {
@@ -35,6 +38,9 @@ const App = () => {
 
                     <Route path="showProduction" element={<ShowProduction></ShowProduction>}>
                         <Route index element={<ProductionHistoryDaily></ProductionHistoryDaily>}/>
+                        <Route path='weeklyProduction' element={<ProductionHistoryWeekly></ProductionHistoryWeekly>}/>
+                        <Route path='monthlyProduction' element={<ProductionHistoryMonthly></ProductionHistoryMonthly>}/>
+                        <Route path='yearlyProduction' element={<ProductionHistoryYearly></ProductionHistoryYearly>}/>
                     </Route>
                 </Route>
             </Routes>
