@@ -1,5 +1,5 @@
 import { ChangeCircleOutlined } from '@mui/icons-material';
-import { Box, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup, Toolbar, Typography } from '@mui/material';
+import { Box, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Paper, Radio, RadioGroup, Toolbar, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
@@ -69,63 +69,72 @@ const ShowProduction = () => {
         <Box sx={{  width: "100%" }}>
             <Toolbar />
             <Typography variant='h5' component='h5' color='secondary' sx={{textAlign:'center', fontWeight: 700}}>Production History</Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:'space-around', background: 'lightGray', height:'100px'}}>
-                <FormControl>
-                    <FormLabel id="demo-row-radio-buttons-group-label">Duration</FormLabel>
-                    <RadioGroup row name="row-radio-buttons-group" 
-                        value={duration}
-                        onChange={(e)=>{
-                            setDuration(e.target.value);
-                            // duration === 'daily' && navigate('/layout/showProduction') 
-                            // duration === 'weekly' && navigate('weeklyProduction') 
-                            // duration === 'monthly' && navigate('monthlyProduction') 
-                            // duration === 'yearly' && navigate('showProduction/yearlyProduction') 
-                        }}
-                    >
-                        <FormControlLabel value="daily" control={<Radio color='secondary'/>} label="Daily"/>
-                        <FormControlLabel value="weekly" control={<Radio color='secondary'/>} label="Weekly" />
-                        <FormControlLabel value="monthly" control={<Radio color='secondary'/>} label="Monthly" />
-                        <FormControlLabel value="yearly" control={<Radio color='secondary'/>} label="Yearly" />
-                    </RadioGroup>
-                    <Divider />
-                </FormControl>
-                {/* <Divider orientation="vertical" flexItem>0</Divider> */}
-                <FormControl>
-                    <FormLabel id="demo-row-radio-buttons-group-label">Select Active/All SKU</FormLabel>
-                    <RadioGroup row name="row-radio-buttons-group" 
-                        value={status}
-                        onChange={(e)=>setStatus(e.target.value)}
-                    >
-                        <FormControlLabel value="all" control={<Radio color='secondary'/>} label="Select All SKU" />
-                        <FormControlLabel value="active" control={<Radio color='secondary'/>} label="Select Active SKU Only" />
-                    </RadioGroup>
-                    <Divider />
-                </FormControl>
-                {/* <Divider orientation="vertical" flexItem>0</Divider> */}
-                <FormControl>
-                    <FormLabel>Select SKU Category</FormLabel>
-                    <FormControlLabel
-                        label='All Category'
-                        control={
-                            <Checkbox
-                                checked={
-                                    categoryChecked[0] && (categoryChecked[1] && (categoryChecked[2] && categoryChecked[3]))
+            <Box>
+                <FormControl sx={{marginInline:'auto', width:'100%'}}>
+                    <Grid container spacing={3} sx={{alignItems : 'flex-end'}}>
+                        <Grid item md={4}>
+                            <Paper>
+                            <FormLabel id="demo-row-radio-buttons-group-label">Duration</FormLabel>
+                            <RadioGroup row name="row-radio-buttons-group" 
+                                value={duration}
+                                onChange={(e)=>{
+                                    setDuration(e.target.value);
+                                    // duration === 'daily' && navigate('/layout/showProduction') 
+                                    // duration === 'weekly' && navigate('weeklyProduction') 
+                                    // duration === 'monthly' && navigate('monthlyProduction') 
+                                    // duration === 'yearly' && navigate('showProduction/yearlyProduction') 
+                                }}
+                            >
+                                <FormControlLabel value="daily" control={<Radio color='secondary'/>} label="Daily"/>
+                                <FormControlLabel value="weekly" control={<Radio color='secondary'/>} label="Weekly" />
+                                <FormControlLabel value="monthly" control={<Radio color='secondary'/>} label="Monthly" />
+                                <FormControlLabel value="yearly" control={<Radio color='secondary'/>} label="Yearly" />
+                            </RadioGroup>
+                            <Divider />
+                            </Paper>
+                        </Grid>
+                        <Grid item md={4}>
+                            <Paper>
+                                <FormLabel id="demo-row-radio-buttons-group-label">Select Active/All SKU</FormLabel>
+                            <RadioGroup row name="row-radio-buttons-group" 
+                                value={status}
+                                onChange={(e)=>setStatus(e.target.value)}
+                            >
+                                <FormControlLabel value="all" control={<Radio color='secondary'/>} label="Select All SKU" />
+                                <FormControlLabel value="active" control={<Radio color='secondary'/>} label="Select Active SKU Only" />
+                            </RadioGroup>
+                            <Divider />
+                            </Paper>
+                        </Grid>
+                        <Grid item md={4}>
+                            <Paper>
+                            <FormLabel>Select SKU Category</FormLabel>
+                            <FormControlLabel
+                                label='All Category'
+                                control={
+                                    <Checkbox
+                                        color='secondary'
+                                        checked={
+                                            categoryChecked[0] && (categoryChecked[1] && (categoryChecked[2] && categoryChecked[3]))
+                                        }
+                                        indeterminate={
+                                            categoryChecked.some(item => item === true) === 
+                                            categoryChecked.some(item => item === false)
+                                        }
+                                        onChange={handleAllChecked}
+                                    />
                                 }
-                                indeterminate={
-                                    categoryChecked.some(item => item === true) === 
-                                    categoryChecked.some(item => item === false)
-                                }
-                                onChange={handleAllChecked}
                             />
-                        }
-                    />
-                    <FormGroup sx={{ display: 'flex', flexDirection:'row' }}>
-                        <FormControlLabel control={<Checkbox checked={categoryChecked[0]} onChange={handleChecked0}/>} label="Own Items" />
-                        <FormControlLabel control={<Checkbox checked={categoryChecked[1]} onChange={handleChecked1}/>} label="Sonlu Items" />
-                        <FormControlLabel control={<Checkbox checked={categoryChecked[2]} onChange={handleChecked2}/>} label="SBS Items" />
-                        <FormControlLabel control={<Checkbox checked={categoryChecked[3]} onChange={handleChecked3}/>} label="WanBao Items" />
-                    </FormGroup>
-                    <Divider />
+                            <FormGroup sx={{ display: 'flex', flexDirection:'row' }}>
+                                <FormControlLabel control={<Checkbox color='secondary' checked={categoryChecked[0]} onChange={handleChecked0}/>} label="Own Items" />
+                                <FormControlLabel control={<Checkbox color='secondary' checked={categoryChecked[1]} onChange={handleChecked1}/>} label="Sonlu Items" />
+                                <FormControlLabel control={<Checkbox color='secondary' checked={categoryChecked[2]} onChange={handleChecked2}/>} label="SBS Items" />
+                                <FormControlLabel control={<Checkbox color='secondary' checked={categoryChecked[3]} onChange={handleChecked3}/>} label="WanBao Items" />
+                            </FormGroup>
+                            <Divider />
+                            </Paper>
+                        </Grid>
+                    </Grid>
                 </FormControl>
             </Box>
             <Outlet context={[duration , status, categoryChecked]}/>

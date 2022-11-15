@@ -13,6 +13,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useNavigate } from "react-router-dom";
+import Test from "./Test";
+import EventBind from "./EventBind";
 
 function Copyright(props) {
   return (
@@ -36,7 +38,8 @@ const theme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
-  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -128,7 +131,7 @@ export default function Login() {
               Log In
             </Button>
             <Grid container>
-              <Grid item xs>
+              <Grid item md>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
@@ -140,6 +143,8 @@ export default function Login() {
               </Grid> */}
             </Grid>
           </Box>
+          <Test />
+          <EventBind />
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

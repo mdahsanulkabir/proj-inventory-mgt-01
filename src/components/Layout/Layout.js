@@ -25,6 +25,7 @@ import {
   ShoppingCart,
   Factory,
   FactoryOutlined,
+  Menu,
 } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 import useLoadWarehouse from '../../Hooks/useLoadWarehouse'
@@ -37,6 +38,7 @@ const Layout = () => {
   const navigate = useNavigate();
   const [storeSubListMenu, setStoreSubListMenu] = useState(false);
   const [adminSubListMenu, setAdminSubListMenu] = useState(false);
+  const [drawerState, setDrawerState] = useState(false);
   const [user] = useAuthState(auth);
 
   
@@ -53,6 +55,15 @@ const Layout = () => {
     navigate("admin");
   };
 
+  const toggleDrawer = (drawer) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setDrawerState(drawer);
+  };
+
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -60,8 +71,9 @@ const Layout = () => {
         position="fixed"
         // sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
-        <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} onClick={() => navigate("/layout")}>
-          <Typography variant="h6" noWrap component="div">
+        <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} >
+          <Menu onClick={toggleDrawer(true)}/>
+          <Typography variant="h6" noWrap component="div" onClick={() => navigate("/layout")}>
             Singer Inventory Management System
           </Typography>
           <Typography sx={{color: '#fff'}}>{user?.email}</Typography>
@@ -80,9 +92,15 @@ const Layout = () => {
             // mt : 8,
           },
         }}
-        variant="permanent"
+        variant="temporary"
         anchor="left"
+        open={drawerState}
+        onClose={toggleDrawer(false)}
       >
+        <Box role="presentation"
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}>
+            
         <Toolbar />
         <List dense>
           <ListItem disablePadding>
@@ -219,6 +237,7 @@ const Layout = () => {
             </ListItemButton>
           </ListItem>
         </List>
+        </Box>
       </Drawer>
 
       {/* **************** OTHER OUTLETS / FUNCTIONALITY OF THE APP******************** */}
