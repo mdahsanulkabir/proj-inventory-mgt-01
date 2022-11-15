@@ -22,6 +22,13 @@ class EventBind extends Component {
         })
     }
 
+    clickHandler3 = () => {
+        this.setState({
+            message : 'Goodbye'
+        })
+    }
+
+
     render() {
         return (
             <div style={{border : '1px solid red', padding: "5px", margin : "10px"}}>
@@ -37,11 +44,15 @@ class EventBind extends Component {
                 <br />
                 {/* SOLUTION 2 */}
                 {/* We can pass the event handler in arrow function */}
-                <button onClick={() => this.clickHandler()}>Change the message (arrow function) </button> 
+                <button onClick={() => this.clickHandler()}>Change the message (call with arrow function) </button> 
                 <br />
                 {/* SOLUTION 3 */}
                 {/* Another solution may be as binding the event handler method in class constructor */}
                 <button onClick={this.clickHandler2}>Change the message - binding event handler method in class constructor</button> 
+                <br />
+                {/* SOLUTION 4 */}
+                {/* We can define the event handler method with arrow function */}
+                <button onClick={this.clickHandler3}>Change the message - define the class property in arrow function</button> 
             </div>
         );
     }

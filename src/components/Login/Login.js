@@ -15,6 +15,9 @@ import auth from "../../firebase.init";
 import { useNavigate } from "react-router-dom";
 import Test from "./Test";
 import EventBind from "./EventBind";
+import ParentComponent from "./ParentComponent";
+import ClickCounter from "./HOC/ClickCounter";
+import HoverCounter from "./HOC/HoverCounter";
 
 function Copyright(props) {
   return (
@@ -143,8 +146,11 @@ export default function Login() {
               </Grid> */}
             </Grid>
           </Box>
-          <Test />
+          {/* <Test />
           <EventBind />
+          <ParentComponent /> */}
+          <ClickCounter />
+          <HoverCounter />
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
