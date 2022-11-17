@@ -18,6 +18,10 @@ import EventBind from "./EventBind";
 import ParentComponent from "./ParentComponent";
 import ClickCounter from "./HOC/ClickCounter";
 import HoverCounter from "./HOC/HoverCounter";
+import ClickCounter2 from "./HOC/ClickCounter2";
+import Counter from "./renderProp/CounterProp";
+import ClickCountProp from "./renderProp/ClickCountProp";
+import HoverCountProp from "./renderProp/HoverCountProp";
 
 function Copyright(props) {
   return (
@@ -149,8 +153,18 @@ export default function Login() {
           {/* <Test />
           <EventBind />
           <ParentComponent /> */}
-          <ClickCounter />
-          <HoverCounter />
+          {/* <ClickCounter />  //HOC Example with class component
+          <HoverCounter />  //HOC Example with class component
+          <br />
+          <ClickCounter2 />  //HOC Example with functional component */}
+          <Counter render={(count, increaseCount) => 
+            <ClickCountProp count2={count} increaseCount2={increaseCount} /> 
+          }/>
+          <Counter render={(count, increaseCount) => 
+            <HoverCountProp count2={count} increaseCount2={increaseCount} /> 
+          }/>
+
+
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
