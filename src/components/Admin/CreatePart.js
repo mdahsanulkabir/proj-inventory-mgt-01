@@ -54,7 +54,7 @@ const CreatePart = () => {
                         alignItems: "center",
                         justifyContent: 'center'
                         }}
-                    >
+                    > 
                         <Widgets color="primary" />
                         <Typography
                             variant="h6"

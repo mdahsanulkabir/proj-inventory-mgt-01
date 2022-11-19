@@ -33,7 +33,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function AdminPart() {
+export default function AdminSKU() {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -49,13 +49,11 @@ export default function AdminPart() {
           value={value}
           onChange={handleChange}
         >
-          <Tab label="Create Part" />
-          <Tab label="Create SFG" />
-          <Tab label="Update Part" />
-          <Tab label="Update SFG" />
+          <Tab label="Create SKU" />
+          <Tab label="Update SKU" />
         </Tabs>
       </Box>
-      <Box sx={{marginInline: "auto"}}>
+      <Box>
         <TabPanel value={value} index={0}><AddPart /></TabPanel>
         <TabPanel value={value} index={1}><CreateSFG /></TabPanel>
         <TabPanel value={value} index={2}><UpdatePart /></TabPanel>

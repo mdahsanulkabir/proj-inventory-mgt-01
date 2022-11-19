@@ -31,6 +31,9 @@ import { Collapse } from "@mui/material";
 import useLoadWarehouse from '../../Hooks/useLoadWarehouse'
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import { getAuth } from "firebase/auth";
+import { useEffect } from "react";
+
 
 const drawerWidth = 240;
 
@@ -40,13 +43,23 @@ const Layout = () => {
   const [adminSubListMenu, setAdminSubListMenu] = useState(false);
   const [drawerState, setDrawerState] = useState(false);
   const [user] = useAuthState(auth);
+  const [ token, setToken ] = useState('')
 
   
+  useEffect(()=> {
+    if(user){
+      user.getIdToken()
+      .then(res => setToken(res))
+    }
+    },[])
+
 
   const {warehouses} = useLoadWarehouse();
   console.log(warehouses);
 
-  const handleStoresSubList = () => {
+
+
+  const handleStoresSubList = (e) => {
     setStoreSubListMenu(!storeSubListMenu);
   };
 
@@ -59,7 +72,6 @@ const Layout = () => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setDrawerState(drawer);
   };
 
@@ -99,7 +111,8 @@ const Layout = () => {
       >
         <Box role="presentation"
           onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}>
+          onKeyDown={toggleDrawer(false)}
+        >
             
         <Toolbar />
         <List dense>

@@ -13,53 +13,28 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useNavigate } from "react-router-dom";
-import Test from "./Test";
-import EventBind from "./EventBind";
-import ParentComponent from "./ParentComponent";
-import ClickCounter from "./HOC/ClickCounter";
-import HoverCounter from "./HOC/HoverCounter";
-import ClickCounter2 from "./HOC/ClickCounter2";
 import Counter from "./renderProp/CounterProp";
 import ClickCountProp from "./renderProp/ClickCountProp";
 import HoverCountProp from "./renderProp/HoverCountProp";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        SRP Inventory Management
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(data);
     const email = data.get("email");
     const password = data.get("password");
-    console.log({
-      email: email,
-      password: password,
-    });
     signInWithEmailAndPassword(email, password);
-    navigate("/layout");
   };
+
+  if (user) {
+    navigate("/layout");
+  }
 
   if (error) {
     return (
@@ -71,15 +46,6 @@ export default function Login() {
   if (loading) {
     return <p>Loading...</p>;
   }
-  //   if (user) {
-  //     // console.log(user);
-
-  //     // return (
-  //     //   <div>
-  //     //     <p>Signed In User: {user?.user.email}</p>
-  //     //   </div>
-  //     // );
-  //   }
 
   return (
     <ThemeProvider theme={theme}>
@@ -125,10 +91,6 @@ export default function Login() {
               type="password"
               autoComplete="current-password"
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
             <Button
               type="submit"
               fullWidth
@@ -143,30 +105,32 @@ export default function Login() {
                   Forgot password?
                 </Link>
               </Grid>
-              {/* <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid> */}
             </Grid>
           </Box>
-          {/* <Test />
-          <EventBind />
-          <ParentComponent /> */}
-          {/* <ClickCounter />  //HOC Example with class component
-          <HoverCounter />  //HOC Example with class component
-          <br />
-          <ClickCounter2 />  //HOC Example with functional component */}
-          <Counter render={(count, increaseCount) => 
-            <ClickCountProp count2={count} increaseCount2={increaseCount} /> 
-          }/>
-          <Counter render={(count, increaseCount) => 
-            <HoverCountProp count2={count} increaseCount2={increaseCount} /> 
-          }/>
-
-
+          <Counter
+            render={(count, increaseCount) => (
+              <ClickCountProp count2={count} increaseCount2={increaseCount} />
+            )}
+          />
+          <Counter
+            render={(count, increaseCount) => (
+              <HoverCountProp count2={count} increaseCount2={increaseCount} />
+            )}
+          />
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          align="center"
+          sx={{ mt: 8, mb: 4 }}
+        >
+          {"Copyright © "}
+          <Link color="inherit" href="https://mui.com/">
+            SRP Inventory Management
+          </Link>{" "}
+          {new Date().getFullYear()}
+          {"."}
+        </Typography>
       </Container>
     </ThemeProvider>
   );

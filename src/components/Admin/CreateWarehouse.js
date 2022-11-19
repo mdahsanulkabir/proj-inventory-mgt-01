@@ -11,10 +11,6 @@ const CreateWarehouse = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // const data = new FormData(e.currentTarget);
-        // const name = data.get("warehouse-name");
-        // const space = data.get("warehouse-space");
-        // const description = data.get("warehouse-description");
         const newWarehouse = {name ,space, description}
         console.log(newWarehouse);
         const response = await fetch(`http://localhost:5000/api/createwarehouse`, {
