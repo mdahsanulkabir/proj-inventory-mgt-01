@@ -12,7 +12,7 @@ import { Toolbar } from "@mui/material";
 
 export default function AllSku() {
     const { skus } = useLoadSKU();
-    console.log(skus);
+    // console.log(skus);
   const rows = skus;
   return (
     <Box

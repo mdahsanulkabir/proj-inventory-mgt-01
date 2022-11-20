@@ -43,6 +43,7 @@ const Layout = () => {
   const [adminSubListMenu, setAdminSubListMenu] = useState(false);
   const [drawerState, setDrawerState] = useState(false);
   const [user] = useAuthState(auth);
+  const {warehouses} = useLoadWarehouse();
   const [ token, setToken ] = useState('')
 
   
@@ -52,11 +53,6 @@ const Layout = () => {
       .then(res => setToken(res))
     }
     },[])
-
-
-  const {warehouses} = useLoadWarehouse();
-  console.log(warehouses);
-
 
 
   const handleStoresSubList = (e) => {

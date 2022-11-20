@@ -106,6 +106,7 @@ const ProductionHistoryMonthly = () => {
                       left: 0,
                       background: "white",
                       zIndex: 1200,
+                      width: "auto"
                     }}
                   >
                     SKU

@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Counter from "./renderProp/CounterProp";
 import ClickCountProp from "./renderProp/ClickCountProp";
 import HoverCountProp from "./renderProp/HoverCountProp";
+import { CircularProgress } from "@mui/material";
 
 const theme = createTheme();
 
@@ -26,7 +27,7 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data);
+    // console.log(data);
     const email = data.get("email");
     const password = data.get("password");
     signInWithEmailAndPassword(email, password);
@@ -44,61 +45,29 @@ export default function Login() {
     );
   }
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div style={{textAlign : 'center', marginInline : "auto"}}>
+        <CircularProgress color="secondary" />
+        <CircularProgress color="success" />
+        <CircularProgress color="inherit" />
+      </div>)
   }
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <Box  sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center", }}>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Log In
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="password"
-              label="Password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Log In
-            </Button>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus/>
+            <TextField margin="normal" required fullWidth id="password" label="Password" name="password" type="password" autoComplete="current-password"/>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>  Log In </Button>
             <Grid container>
               <Grid item md>
                 <Link href="#" variant="body2">
@@ -107,7 +76,7 @@ export default function Login() {
               </Grid>
             </Grid>
           </Box>
-          <Counter
+          {/* <Counter
             render={(count, increaseCount) => (
               <ClickCountProp count2={count} increaseCount2={increaseCount} />
             )}
@@ -116,14 +85,9 @@ export default function Login() {
             render={(count, increaseCount) => (
               <HoverCountProp count2={count} increaseCount2={increaseCount} />
             )}
-          />
+          /> */}
         </Box>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          align="center"
-          sx={{ mt: 8, mb: 4 }}
-        >
+        <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 8, mb: 4 }} >
           {"Copyright © "}
           <Link color="inherit" href="https://mui.com/">
             SRP Inventory Management
