@@ -17,7 +17,7 @@ const CreatePart = () => {
         const newPart = { 
             object_id, source_category, rm_category, sis_code, material_name, unit
         }
-        const response = await fetch(`http://localhost:5000/api/createpart`, {
+        const response = await fetch(`http://localhost:5000/api/rm`, {
             method: "POST",
             body: JSON.stringify(newPart),
             headers: {
