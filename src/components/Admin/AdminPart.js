@@ -7,6 +7,8 @@ import AddPart from "./CreatePart";
 import CreateSFG from "./CreateSFG";
 import UpdatePart from "./UpdatePart";
 import UpdateSFG from "./UpdateSFG";
+import Unit from "./Unit";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,6 +55,7 @@ export default function AdminPart() {
           <Tab label="Create SFG" />
           <Tab label="Update Part" />
           <Tab label="Update SFG" />
+          <Tab label="Add Unit" />
         </Tabs>
       </Box>
       <Box sx={{marginInline: "auto"}}>
@@ -60,6 +63,7 @@ export default function AdminPart() {
         <TabPanel value={value} index={1}><CreateSFG /></TabPanel>
         <TabPanel value={value} index={2}><UpdatePart /></TabPanel>
         <TabPanel value={value} index={3}><UpdateSFG /></TabPanel>
+        <TabPanel value={value} index={4}><Unit /></TabPanel>
       </Box>
     </Box>
   );

@@ -26,14 +26,14 @@ import {
   Factory,
   FactoryOutlined,
   Menu,
+  Logout,
 } from "@mui/icons-material";
-import { Collapse } from "@mui/material";
-import useLoadWarehouse from '../../Hooks/useLoadWarehouse'
+import { Button, Collapse } from "@mui/material";
+import useLoadWarehouse from "../../Hooks/useLoadWarehouse";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { useEffect } from "react";
-
 
 const drawerWidth = 240;
 
@@ -43,17 +43,14 @@ const Layout = () => {
   const [adminSubListMenu, setAdminSubListMenu] = useState(false);
   const [drawerState, setDrawerState] = useState(false);
   const [user] = useAuthState(auth);
-  const {warehouses} = useLoadWarehouse();
-  const [ token, setToken ] = useState('')
+  const { warehouses } = useLoadWarehouse();
+  const [token, setToken] = useState("");
 
-  
-  useEffect(()=> {
-    if(user){
-      user.getIdToken()
-      .then(res => setToken(res))
+  useEffect(() => {
+    if (user) {
+      user.getIdToken().then((res) => setToken(res));
     }
-    },[])
-
+  }, []);
 
   const handleStoresSubList = (e) => {
     setStoreSubListMenu(!storeSubListMenu);
@@ -65,12 +62,25 @@ const Layout = () => {
   };
 
   const toggleDrawer = (drawer) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
     setDrawerState(drawer);
   };
 
+  const userSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        alert("You are sign out");
+        navigate("/");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -79,12 +89,26 @@ const Layout = () => {
         position="fixed"
         // sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
-        <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} >
-          <Menu onClick={toggleDrawer(true)}/>
-          <Typography variant="h6" noWrap component="div" onClick={() => navigate("/layout")}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Menu onClick={toggleDrawer(true)} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            onClick={() => navigate("/layout")}
+          >
             Singer Inventory Management System
           </Typography>
-          <Typography sx={{color: '#fff'}}>{user?.email}</Typography>
+          <Typography sx={{ color: "#fff" }}>{user?.email}</Typography>
+          <Button variant="primary" onClick={() => userSignOut()}>
+            <Logout /> Log Out
+          </Button>
         </Toolbar>
       </AppBar>
 
@@ -105,91 +129,89 @@ const Layout = () => {
         open={drawerState}
         onClose={toggleDrawer(false)}
       >
-        <Box role="presentation"
+        <Box
+          role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
-            
-        <Toolbar />
-        <List dense>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => handleAdminSubList()}>
-              <ListItemIcon>
-                <AdminPanelSettings color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="ADMIN" />
-              {adminSubListMenu ? (
-                <ExpandLess fontSize="small" />
-              ) : (
-                <ExpandMore fontSize="small" />
-              )}
-            </ListItemButton>
-          </ListItem>
-          <Collapse in={adminSubListMenu} timeout="auto" unmountOnExit>
-            <List dense component="div" disablePadding>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                onClick={() => navigate("admin/userMgt")}
-              >
+          <Toolbar />
+          <List dense>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => handleAdminSubList()}>
                 <ListItemIcon>
-                  <ManageAccounts color="primary" fontSize="small" />
+                  <AdminPanelSettings color="primary" />
                 </ListItemIcon>
-                <ListItemText primary="User Management" />
+                <ListItemText primary="ADMIN" />
+                {adminSubListMenu ? (
+                  <ExpandLess fontSize="small" />
+                ) : (
+                  <ExpandMore fontSize="small" />
+                )}
               </ListItemButton>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                onClick={() => navigate("admin/appSetup")}
-              >
+            </ListItem>
+            <Collapse in={adminSubListMenu} timeout="auto" unmountOnExit>
+              <List dense component="div" disablePadding>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => navigate("admin/userMgt")}
+                >
+                  <ListItemIcon>
+                    <ManageAccounts color="primary" fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="User Management" />
+                </ListItemButton>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => navigate("admin/appSetup")}
+                >
+                  <ListItemIcon>
+                    <Settings color="primary" fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="Setup" />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </List>
+          <Divider />
+          <List dense>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate("allSKU")}>
                 <ListItemIcon>
-                  <Settings color="primary" fontSize="small" />
+                  <Kitchen color="primary" />
                 </ListItemIcon>
-                <ListItemText primary="Setup" />
+                <ListItemText primary="ALL SKU" />
               </ListItemButton>
-            </List>
-          </Collapse>
-        </List>
-        <Divider />
-        <List dense>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => navigate("allSKU")}>
-              <ListItemIcon>
-                <Kitchen color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="ALL SKU" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Divider />
-        <List dense>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => navigate("allParts")}>
-              <ListItemIcon>
-                <Widgets color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="ALL PARTS" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Divider />
-        <List dense>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => handleStoresSubList()}>
-              <ListItemIcon>
-                <Warehouse color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="WAREHOUSE" />
-              {storeSubListMenu ? (
-                <ExpandLess fontSize="small" />
-              ) : (
-                <ExpandMore fontSize="small" />
-              )}
-            </ListItemButton>
-          </ListItem>
-          <Collapse in={storeSubListMenu} timeout="auto" unmountOnExit>
-            <List dense disablePadding>
-              {
-                warehouses.map(warehouse => {
-                
+            </ListItem>
+          </List>
+          <Divider />
+          <List dense>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate("allParts")}>
+                <ListItemIcon>
+                  <Widgets color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="ALL PARTS" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider />
+          <List dense>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => handleStoresSubList()}>
+                <ListItemIcon>
+                  <Warehouse color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="WAREHOUSE" />
+                {storeSubListMenu ? (
+                  <ExpandLess fontSize="small" />
+                ) : (
+                  <ExpandMore fontSize="small" />
+                )}
+              </ListItemButton>
+            </ListItem>
+            <Collapse in={storeSubListMenu} timeout="auto" unmountOnExit>
+              <List dense disablePadding>
+                {warehouses.map((warehouse) => {
                   return (
                     <ListItemButton sx={{ pl: 4 }} key={warehouse?._id}>
                       <ListItemIcon>
@@ -200,52 +222,57 @@ const Layout = () => {
                         secondary={warehouse?.description}
                       />
                     </ListItemButton>
-                    )
-                })
-              }
-            </List>
-          </Collapse>
-        </List>
-        <Divider />
-        <List dense>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <ShoppingCart color="secondary" />
-              </ListItemIcon>
-              <ListItemText primary="COMMERCIAL" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Divider />
-        <List dense>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <Factory color="secondary" />
-              </ListItemIcon>
-              <ListItemText primary="PRODUCTION" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={()=>navigate("showProduction")}>
-              <ListItemIcon><FactoryOutlined color="secondary" fontSize="small"/></ListItemIcon>
-              <ListItemText primary="Show Production"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={()=>navigate("")}>
-              <ListItemIcon><FactoryOutlined color="secondary" fontSize="small"/></ListItemIcon>
-              <ListItemText primary="FG/SFG Production Entry"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={()=>navigate("")}>
-              <ListItemIcon><FactoryOutlined color="secondary" fontSize="small"/></ListItemIcon>
-              <ListItemText primary="RM Requisition"/>
-            </ListItemButton>
-          </ListItem>
-        </List>
+                  );
+                })}
+              </List>
+            </Collapse>
+          </List>
+          <Divider />
+          <List dense>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ShoppingCart color="secondary" />
+                </ListItemIcon>
+                <ListItemText primary="COMMERCIAL" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider />
+          <List dense>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Factory color="secondary" />
+                </ListItemIcon>
+                <ListItemText primary="PRODUCTION" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={() => navigate("showProduction")}>
+                <ListItemIcon>
+                  <FactoryOutlined color="secondary" fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Show Production" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={() => navigate("")}>
+                <ListItemIcon>
+                  <FactoryOutlined color="secondary" fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="FG/SFG Production Entry" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={() => navigate("")}>
+                <ListItemIcon>
+                  <FactoryOutlined color="secondary" fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="RM Requisition" />
+              </ListItemButton>
+            </ListItem>
+          </List>
         </Box>
       </Drawer>
 

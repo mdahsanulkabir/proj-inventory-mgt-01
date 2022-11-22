@@ -123,8 +123,8 @@ const CreatePart = () => {
                             margin="normal"
                             required
                             fullWidth
-                            id="rmCategory"
-                            label="RM Category"
+                            id="unit"
+                            label="Unit"
                             onChange={(e)=> setUnit(e.target.value)}
                             space={unit}
                         />

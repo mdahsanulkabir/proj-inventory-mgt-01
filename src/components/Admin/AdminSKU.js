@@ -18,11 +18,7 @@ function TabPanel(props) {
       id={`simple-tabpanel-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 1 }}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 1 }}>{children}</Box>}
     </div>
   );
 }
@@ -42,7 +38,7 @@ export default function AdminSKU() {
 
   return (
     <Box sx={{ height: "100%", display: "flex" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider", width: '110px' }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider", width: "110px" }}>
         <Tabs
           dense
           orientation="vertical"
@@ -54,10 +50,18 @@ export default function AdminSKU() {
         </Tabs>
       </Box>
       <Box>
-        <TabPanel value={value} index={0}><AddPart /></TabPanel>
-        <TabPanel value={value} index={1}><CreateSFG /></TabPanel>
-        <TabPanel value={value} index={2}><UpdatePart /></TabPanel>
-        <TabPanel value={value} index={3}><UpdateSFG /></TabPanel>
+        <TabPanel value={value} index={0}>
+          <AddPart />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <CreateSFG />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <UpdatePart />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <UpdateSFG />
+        </TabPanel>
       </Box>
     </Box>
   );

@@ -17,6 +17,7 @@ import Counter from "./renderProp/CounterProp";
 import ClickCountProp from "./renderProp/ClickCountProp";
 import HoverCountProp from "./renderProp/HoverCountProp";
 import { CircularProgress } from "@mui/material";
+import CustomSnackBar from "../../Shared/SnackBar/CustomSnackBar";
 
 const theme = createTheme();
 
@@ -96,6 +97,11 @@ export default function Login() {
           {"."}
         </Typography>
       </Container>
+
+      {/* a snackbar example */}
+      <CustomSnackBar msg={"You have logged out !!!"}/>
+
+
     </ThemeProvider>
   );
 }

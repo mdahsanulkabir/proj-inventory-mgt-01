@@ -15,11 +15,7 @@ function TabPanel(props) {
       id={`simple-tabpanel-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 1 }}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 1 }}>{children}</Box>}
     </div>
   );
 }
@@ -39,7 +35,7 @@ export default function AdminWarehouse() {
 
   return (
     <Box sx={{ height: "100%", display: "flex" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider", width: '110px' }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider", width: "110px" }}>
         <Tabs
           dense
           orientation="vertical"
@@ -51,8 +47,12 @@ export default function AdminWarehouse() {
         </Tabs>
       </Box>
       <Box>
-        <TabPanel value={value} index={0}><CreateWarehouse /></TabPanel>
-        <TabPanel value={value} index={1}>Update Warehouse</TabPanel>
+        <TabPanel value={value} index={0}>
+          <CreateWarehouse />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          Update Warehouse
+        </TabPanel>
       </Box>
     </Box>
   );
