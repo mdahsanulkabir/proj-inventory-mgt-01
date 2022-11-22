@@ -24,7 +24,7 @@ const CreateWarehouse = () => {
         e.preventDefault();
         const newWarehouse = {name ,space, description}
         console.log(newWarehouse);
-        const response = await fetch(`http://localhost:5000/api/testing`, {
+        const response = await fetch(`http://localhost:5000/api/createwarehouse`, {
             method: "POST",
             body: JSON.stringify(newWarehouse),
             headers: {
@@ -32,6 +32,7 @@ const CreateWarehouse = () => {
                 Authorization: 'Bearer ' + token,
             },
         });
+
 
         const json = await response.json();
         // console.log(response);
