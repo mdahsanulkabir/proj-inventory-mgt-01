@@ -53,7 +53,7 @@ const CreateUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newUser = { 
-            userEmail, password, disabled: true, access : "user"
+            userEmail, password
         }
         // TODO need to setup the createUser route in backend
         const response = await fetch(`http://localhost:5000/api/create-user`, {

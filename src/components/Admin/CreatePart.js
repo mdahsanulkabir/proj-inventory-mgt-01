@@ -9,22 +9,23 @@ const CreatePart = () => {
     const [rm_category, setRm_category] = useState("");
     const [sis_code, setSis_code] = useState("");
     const [material_name, setMaterial_name] = useState("");
-    const [unit, setUnit] = useState("");
-    const [error, setError] = useState(null);
     const [allUnits, setAllUnits] = useState([])
+    const [unit, setUnit] = useState("unit");
+    const [error, setError] = useState('');
 
     // ! Need to correct the code below 7 lines
     useEffect( () => {
         fetch(`http://localhost:5000/api/units`)
         .then(res => res.json())
         .then(data => {
-            const units = data.map(unit => [unit.unitName, unit.unitSymbol])
+            // const units = data.map((unit, index) => ({label:unit.unitName, id:index+1}))
+            const units = data.map((unit) => unit.unitSymbol)
             setAllUnits(units);
+            
         })
-
-        
     },[])
-
+    console.log(allUnits);
+    console.log("unit is - ",unit);
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newPart = { 
@@ -132,15 +133,18 @@ const CreatePart = () => {
                             onChange={(e)=> setRm_category(e.target.value)}
                             space={rm_category}
                         />
+                        {/* // ! there are some isses with the autocomplete */}
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
                             options={allUnits}
                             sx={{ width: 300 }}
-                            renderInput={(params) => <TextField 
-                                                        {...params} label="Unit" required 
-                                                        onChange={(e)=> setUnit(e.target.value)}/>}
+                            value={unit}
+                            // isOptionEqualToValue={(option, value) => option.label === value.label}
+                            onChange={(event, newValue)=> setUnit(newValue)}
+                            renderInput={(params) => <TextField {...params} label="Unit" required />}
                         />
+                        <Typography>Selected unit is {unit}</Typography>
                         <Box sx={{
                             width: '100%',
                             display : 'flex',
