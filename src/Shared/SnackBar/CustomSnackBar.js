@@ -22,8 +22,6 @@ const CustomSnackBar = ({msg}) => {
         setOpen(true);
     };
 
-    console.log(transition);
-
     const handleClose = (event, reason) => {
     // if (reason === 'clickaway') {
     //   return;

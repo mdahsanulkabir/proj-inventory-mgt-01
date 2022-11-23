@@ -135,7 +135,7 @@ const Layout = () => {
           onKeyDown={toggleDrawer(false)}
         >
           <Toolbar />
-          <List dense>
+          <List >
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleAdminSubList()}>
                 <ListItemIcon>
@@ -150,7 +150,7 @@ const Layout = () => {
               </ListItemButton>
             </ListItem>
             <Collapse in={adminSubListMenu} timeout="auto" unmountOnExit>
-              <List dense component="div" disablePadding>
+              <List  component="div" disablePadding>
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => navigate("admin/userMgt")}
@@ -173,7 +173,7 @@ const Layout = () => {
             </Collapse>
           </List>
           <Divider />
-          <List dense>
+          <List >
             <ListItem disablePadding>
               <ListItemButton onClick={() => navigate("allSKU")}>
                 <ListItemIcon>
@@ -184,7 +184,7 @@ const Layout = () => {
             </ListItem>
           </List>
           <Divider />
-          <List dense>
+          <List >
             <ListItem disablePadding>
               <ListItemButton onClick={() => navigate("allParts")}>
                 <ListItemIcon>
@@ -195,7 +195,7 @@ const Layout = () => {
             </ListItem>
           </List>
           <Divider />
-          <List dense>
+          <List >
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleStoresSubList()}>
                 <ListItemIcon>
@@ -210,7 +210,7 @@ const Layout = () => {
               </ListItemButton>
             </ListItem>
             <Collapse in={storeSubListMenu} timeout="auto" unmountOnExit>
-              <List dense disablePadding>
+              <List  disablePadding>
                 {warehouses.map((warehouse) => {
                   return (
                     <ListItemButton sx={{ pl: 4 }} key={warehouse?._id}>
@@ -228,7 +228,7 @@ const Layout = () => {
             </Collapse>
           </List>
           <Divider />
-          <List dense>
+          <List >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -239,7 +239,7 @@ const Layout = () => {
             </ListItem>
           </List>
           <Divider />
-          <List dense>
+          <List >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>

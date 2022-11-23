@@ -4,6 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import CreateUser from './CreateUser';
+import UpdateUser from './UpdateUser';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,15 +48,9 @@ export default function UserManagement() {
           <Tab label="Delete User"/>
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        Create User
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Update user
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Delete User
-      </TabPanel>
+      <TabPanel value={value} index={0}><CreateUser /></TabPanel>
+      <TabPanel value={value} index={1}><UpdateUser /></TabPanel>
+      <TabPanel value={value} index={2}>Delete User</TabPanel>
     </Box>
   );
 }

@@ -11,6 +11,9 @@ const CreateWarehouse = () => {
     const [error, setError] = useState(null);
     const [user] = useAuthState(auth);
 
+
+    // TODO Move the token to global level and use useContext 
+    // Todo we need to use the token to access role level tasks
     const [ token, setToken ] = useState('');
     useEffect(()=> {
       if(user){

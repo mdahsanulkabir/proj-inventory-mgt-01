@@ -1,6 +1,6 @@
 import { Widgets } from '@mui/icons-material';
-import { Box, Button, Container, CssBaseline, Paper, TextField, Typography } from '@mui/material';
-import React from 'react';
+import { Autocomplete, Box, Button, Container, CssBaseline, Paper, TextField, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 const CreatePart = () => {
@@ -11,6 +11,19 @@ const CreatePart = () => {
     const [material_name, setMaterial_name] = useState("");
     const [unit, setUnit] = useState("");
     const [error, setError] = useState(null);
+    const [allUnits, setAllUnits] = useState([])
+
+    // ! Need to correct the code below 7 lines
+    useEffect( () => {
+        fetch(`http://localhost:5000/api/units`)
+        .then(res => res.json())
+        .then(data => {
+            const units = data.map(unit => [unit.unitName, unit.unitSymbol])
+            setAllUnits(units);
+        })
+
+        
+    },[])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -119,14 +132,14 @@ const CreatePart = () => {
                             onChange={(e)=> setRm_category(e.target.value)}
                             space={rm_category}
                         />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="unit"
-                            label="Unit"
-                            onChange={(e)=> setUnit(e.target.value)}
-                            space={unit}
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={allUnits}
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField 
+                                                        {...params} label="Unit" required 
+                                                        onChange={(e)=> setUnit(e.target.value)}/>}
                         />
                         <Box sx={{
                             width: '100%',
