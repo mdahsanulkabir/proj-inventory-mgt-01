@@ -7,7 +7,7 @@
 
 import { ManageAccounts, Person } from '@mui/icons-material';
 import { Box, Button, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Radio, RadioGroup, TextField, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useReducer } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -39,16 +39,19 @@ const reducerSelectedUser = (state, action) => {
     switch ( action.type ) {
         case 'Initialise_selectedUser': return action.payload;
         case 'displayName':             return { ...state, displayName : action.payload };
-        case 'phoneNumber':             return { ...state, phoneNumber : action.payload }
-        case 'reset':                   return { ...state, error : action.payload}
+        case 'phoneNumber':             return { ...state, phoneNumber : action.payload };
+        case 'disabled':                return { ...state, disabled: action.payload};
+        case 'emailVerify':             return { ...state, emailVerified: action.payload};
+        case 'reset':                   return { ...state, error : action.payload};
         default:                        throw new Error(`Unknown action type: ${action.type}`);
     }
 }
 
 const UpdateUser = () => {
     
-    const [ allUserCredentialsState, dispatchAllUserCredentials ] = useReducer( reducerAllUserCredentials, allUserInitialState );
+    const [ allUserCredentialsState, dispatchAllUserCredentials ] = useReducer ( reducerAllUserCredentials, allUserInitialState );
     const [ selectedUserCredential, dispatchSelectedUserCredential ] = useReducer ( reducerSelectedUser , selectedUserInitialState );
+
 
 
     // TODO Move the token to global level and use useContext 
@@ -60,7 +63,7 @@ const UpdateUser = () => {
             .then(res => setToken(res))
             .catch(error => console.log(error))
         }
-        },[])
+        },[user])
     
 
     //? loading all user credentials
@@ -75,7 +78,8 @@ const UpdateUser = () => {
 
         })
         .catch(error => console.log(error))
-    },[])
+    },[selectedUserCredential])  //TODO it is not a good approach. because we are unnecessarily re-rendering of every input change while typing data in textfields
+                                 //TODO we can use useRef();
 
     allUserCredentialsState && console.log(allUserCredentialsState);
 
@@ -176,7 +180,9 @@ const UpdateUser = () => {
                                 />
                             <FormControl>
                                 <FormLabel id="demo-row-radio-buttons-group-label">Email Verified</FormLabel>
-                                <RadioGroup row name="row-radio-buttons-group" defaultValue="false">
+                                <RadioGroup row name="row-radio-buttons-group" defaultValue="false"
+                                onChange={(e) => dispatchSelectedUserCredential({ type : 'emailVerify', payload : e.target.value === 'true' ? true : false})}
+                                >
                                     <FormControlLabel value="true" control={<Radio />} label="Verified" />
                                     <FormControlLabel value="false" control={<Radio />} label="Not Verified" />
                                 </RadioGroup>
@@ -188,9 +194,10 @@ const UpdateUser = () => {
                                 />
                             <FormControl>
                                 <FormLabel id="demo-row-radio-buttons-group-label2">Account Status</FormLabel>
-                                <RadioGroup row name="row-radio-buttons-group" defaultValue="false">
-                                    <FormControlLabel value="false" control={<Radio />} label="Enabled" />
-                                    <FormControlLabel value="true" control={<Radio />} label="Disabled" />
+                                <RadioGroup row name="row-radio-buttons-group" defaultValue={true}
+                                onChange={(e) => dispatchSelectedUserCredential({ type : 'disabled', payload : e.target.value === 'true' ? true : false})}>
+                                    <FormControlLabel value={false} control={<Radio />} label="Enabled" />
+                                    <FormControlLabel value={true} control={<Radio />} label="Disabled" />
                                 </RadioGroup>
                             </FormControl>
                             <Box sx={{ width: '100%', display : 'flex', justifyContent: 'center'}}>
