@@ -26,7 +26,14 @@ const reducerAllUserCredentials = (state, action) => {
     }
 }
 
-const selectedUserInitialState = {};
+const selectedUserInitialState = {
+    uid: '',
+    email: '',
+    phoneNumber: '',
+    emailVerified:false,
+    displayName:'',
+    disabled:false
+};
 
 const reducerSelectedUser = (state, action) => {
     switch ( action.type ) {
@@ -90,6 +97,7 @@ const UpdateUser = () => {
         //? below codes are for the API
         const response = await fetch(`http://localhost:5000/api/update-user`, {
             method: "PATCH",
+            // TODO we need to limit the userCredential data to only required ones
             body: JSON.stringify(selectedUserCredential),
             headers: {
                 "Content-Type": "application/json",
@@ -109,8 +117,6 @@ const UpdateUser = () => {
             console.log("an user updated");
         }
     }
-
-    
     
     return (
         <Box>
