@@ -513,6 +513,8 @@ const UpdateUser = () => {
             },
         });
         const json = await response.json();
+
+        //? after getting the result, the access array is cleared
         access = [];
         if(!response.ok) {
             console.log(json.error);
