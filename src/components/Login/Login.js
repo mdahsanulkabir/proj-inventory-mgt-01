@@ -21,6 +21,7 @@ import CustomSnackBar from "../../Shared/SnackBar/CustomSnackBar";
 
 const theme = createTheme();
 
+
 export default function Login() {
   const navigate = useNavigate();
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);

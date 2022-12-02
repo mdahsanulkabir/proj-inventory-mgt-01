@@ -44,7 +44,7 @@ const Layout = () => {
   const [drawerState, setDrawerState] = useState(false);
   const [user] = useAuthState(auth);
   const { warehouses } = useLoadWarehouse();
-  const [token, setToken] = useState("");
+  const [ token, setToken ] = useState('')
 
   useEffect(() => {
     if (user) {

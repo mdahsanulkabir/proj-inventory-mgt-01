@@ -8,7 +8,7 @@
 import { ManageAccounts, Person } from '@mui/icons-material';
 import { Box, Button, Checkbox, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Radio, RadioGroup, Tab, Tabs, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useReducer, useRef } from 'react';
+import { useReducer } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import PropTypes from 'prop-types';
@@ -75,250 +75,247 @@ const reducerSelectedUser = (state, action) => {
     }
 }
 
+
+const userAccessControlInitialState = {
+    createUser: false,
+    modifyUser: false,
+    createPart: false,
+    modifyPart: false,
+    createSFG: false,
+    modifySFG: false,
+    create3rdPartySFG: false,
+    modify3rdPartySFG: false,
+    addUnit: false,
+    lcEntry: false,
+    lcEdit: false,
+    storeRmRecvEntry: false,
+    storeRmRecvEdit: false,
+    warehouseCreate: false,
+    warehouseModify: false,
+    srFromOtherThanProdAndQC: false,
+    srFromQC: false,
+    srFromThermoforming: false,
+    srFromDoorFoaming: false,
+    srFromPowerPress: false,
+    srFromRollForming: false,
+    srFromEvaWrap: false,
+    srFromPreAssembly: false,
+    srFromBodyFoaming: false,
+    srFromPostAssembly: false,
+    srFromFinishingLine: false,
+    srFromUShell: false,
+    srFromHeaters: false,
+    srFromPadPrint: false,
+    srFromHotStamp: false,
+    srFromClinching: false,
+    srFromServiceInternal: false,
+    deliveryFromFirstShed: false,
+    deliveryFromThirdShed: false,
+    deliveryFromForthShed: false,
+    deliveryFromFGShed: false,
+    deliveryFromOutsideShed: false,
+    deliveryFromSMCPremises: false,
+    deliveryFromQC: false,
+    deliveryFromThermoforming: false,
+    deliveryFromDoorFoaming: false,
+    deliveryFromPowerPress: false,
+    deliveryFromRollForming: false,
+    deliveryFromEvaWrap: false,
+    deliveryFromPreAssembly: false,
+    deliveryFromBodyFoaming: false,
+    deliveryFromPostAssembly: false,
+    deliveryFromFinishingLine: false,
+    deliveryFromUShell: false,
+    deliveryFromHeaters: false,
+    deliveryFromPadPrint: false,
+    deliveryFromHotStamp: false,
+    deliveryFromClinching: false,
+    deliveryFromServiceInternal: false,
+    rmRcvOtherThanProdAndQC: false,
+    rmRcvQC: false,
+    rmRcvThermoforming: false,
+    rmRcvDoorFoaming: false,
+    rmRcvPowerPress: false,
+    rmRcvRollForming: false,
+    rmRcvEvaWrap: false,
+    rmRcvPreAssembly: false,
+    rmRcvBodyFoaming: false,
+    rmRcvPostAssembly: false,
+    rmRcvFinishingLine: false,
+    rmRcvUShell: false,
+    rmRcvHeaters: false,
+    rmRcvPadPrint: false,
+    rmRcvHotStamp: false,
+    rmRcvClinching: false,
+    rmPush: false,
+    fgProdEntry: false,
+    fgProdEdit: false,
+    gasChargingProdEntry: false,
+    gasChargingProdEdit: false,
+    postDoorFittingProdEntry: false,
+    postDoorFittingProdEdit: false,
+    bodyFoamingProdEntry: false,
+    bodyFoamingProdEdit: false,
+    preAssemblyProdEntry: false,
+    preAssemblyProdEdit: false,
+    evaWrapProdEntry: false,
+    evaWrapProdEdit: false,
+    thermoformingProdEntry: false,
+    thermoformingProdEdit: false,
+    doorFoamingProdEntry: false,
+    doorFoamingProdEdit: false,
+    powerPressProdEntry: false,
+    powerPressProdEdit: false,
+    sideSheetProdEntry: false,
+    sideSheetProdEdit: false,
+    uShellProdEntry: false,
+    uShellProdEdit: false,
+    heaterProdEntry: false,
+    heaterProdEdit: false,
+    clinchingProdEntry: false,
+    clinchingProdEdit: false,
+    padPrintProdEntry: false,
+    padPrintProdEdit: false,
+    hotStampProdEntry: false,
+    hotStampProdEdit: false,
+    iqcEntry: false,
+    iqcEdit: false,
+    osdEntry: false,
+    osdEdit: false,
+    SSCSR: false,
+    disposalRequest: false,
+    disposalApproval: false,
+}
+const reducerUserAccessControl = ( state, action ) => {
+    switch ( action.type ) {
+        case 'Initialize_userAccessControl' :   return action.payload;
+        case 'createUser' :                     return { ...state, createUser : action.payload}
+        case 'modifyUser' :                     return { ...state, modifyUser : action.payload}
+        case 'createPart' :                     return { ...state, createPart : action.payload}
+        case 'modifyPart' :                     return { ...state, modifyPart : action.payload}
+        case 'createSFG' :                      return { ...state, createSFG : action.payload}
+        case 'modifySFG' :                      return { ...state, modifySFG : action.payload}
+        case 'create3rdPartySFG' :              return { ...state, create3rdPartySFG : action.payload}
+        case 'modify3rdPartySFG' :              return { ...state, modify3rdPartySFG : action.payload}
+        case 'addUnit' :                        return { ...state, addUnit : action.payload}
+        case 'lcEntry' :                        return { ...state, lcEntry : action.payload}
+        case 'lcEdit' :                         return { ...state, lcEdit : action.payload}
+        case 'storeRmRecvEntry' :               return { ...state, storeRmRecvEntry : action.payload}
+        case 'storeRmRecvEdit' :                return { ...state, storeRmRecvEdit : action.payload}
+        case 'warehouseCreate' :                return { ...state, warehouseCreate : action.payload}
+        case 'warehouseModify' :                return { ...state, warehouseModify : action.payload}
+        case 'srFromOtherThanProdAndQC' :       return { ...state, srFromOtherThanProdAndQC : action.payload}
+        case 'srFromQC' :                       return { ...state, srFromQC : action.payload}
+        case 'srFromThermoforming' :            return { ...state, srFromThermoforming : action.payload}
+        case 'srFromDoorFoaming' :              return { ...state, srFromDoorFoaming : action.payload}
+        case 'srFromPowerPress' :               return { ...state, srFromPowerPress : action.payload}
+        case 'srFromRollForming' :              return { ...state, srFromRollForming : action.payload}
+        case 'srFromEvaWrap' :                  return { ...state, srFromEvaWrap : action.payload}
+        case 'srFromPreAssembly' :              return { ...state, srFromPreAssembly : action.payload}
+        case 'srFromBodyFoaming' :              return { ...state, srFromBodyFoaming : action.payload}
+        case 'srFromPostAssembly' :             return { ...state, srFromPostAssembly : action.payload}
+        case 'srFromFinishingLine' :            return { ...state, srFromFinishingLine : action.payload}
+        case 'srFromUShell' :                   return { ...state, srFromUShell : action.payload}
+        case 'srFromHeaters' :                  return { ...state, srFromHeaters : action.payload}
+        case 'srFromPadPrint' :                 return { ...state, srFromPadPrint : action.payload}
+        case 'srFromHotStamp' :                 return { ...state, srFromHotStamp : action.payload}
+        case 'srFromClinching' :                return { ...state, srFromClinching : action.payload}
+        case 'srFromServiceInternal' :          return { ...state, srFromServiceInternal : action.payload}
+        case 'deliveryFromFirstShed' :          return { ...state, deliveryFromFirstShed : action.payload}
+        case 'deliveryFromThirdShed' :          return { ...state, deliveryFromThirdShed : action.payload}
+        case 'deliveryFromForthShed' :          return { ...state, deliveryFromForthShed : action.payload}
+        case 'deliveryFromFGShed' :             return { ...state, deliveryFromFGShed : action.payload}
+        case 'deliveryFromOutsideShed' :        return { ...state, deliveryFromOutsideShed : action.payload}
+        case 'deliveryFromSMCPremises' :        return { ...state, deliveryFromSMCPremises : action.payload}
+        case 'deliveryFromQC' :                 return { ...state, deliveryFromQC : action.payload}
+        case 'deliveryFromThermoforming' :      return { ...state, deliveryFromThermoforming : action.payload}
+        case 'deliveryFromDoorFoaming' :        return { ...state, deliveryFromDoorFoaming : action.payload}
+        case 'deliveryFromPowerPress' :         return { ...state, deliveryFromPowerPress : action.payload}
+        case 'deliveryFromRollForming' :        return { ...state, deliveryFromRollForming : action.payload}
+        case 'deliveryFromEvaWrap' :            return { ...state, deliveryFromEvaWrap : action.payload}
+        case 'deliveryFromPreAssembly' :        return { ...state, deliveryFromPreAssembly : action.payload}
+        case 'deliveryFromBodyFoaming' :        return { ...state, deliveryFromBodyFoaming : action.payload}
+        case 'deliveryFromPostAssembly' :       return { ...state, deliveryFromPostAssembly : action.payload}
+        case 'deliveryFromFinishingLine' :      return { ...state, deliveryFromFinishingLine : action.payload}
+        case 'deliveryFromUShell' :             return { ...state, deliveryFromUShell : action.payload}
+        case 'deliveryFromHeaters' :            return { ...state, deliveryFromHeaters : action.payload}
+        case 'deliveryFromPadPrint' :           return { ...state, deliveryFromPadPrint : action.payload}
+        case 'deliveryFromHotStamp' :           return { ...state, deliveryFromHotStamp : action.payload}
+        case 'deliveryFromClinching' :          return { ...state, deliveryFromClinching : action.payload}
+        case 'deliveryFromServiceInternal' :    return { ...state, deliveryFromServiceInternal : action.payload}
+        case 'rmRcvOtherThanProdAndQC' :        return { ...state, rmRcvOtherThanProdAndQC : action.payload}
+        case 'rmRcvQC' :                        return { ...state, rmRcvQC : action.payload}
+        case 'rmRcvThermoforming' :             return { ...state, rmRcvThermoforming : action.payload}
+        case 'rmRcvDoorFoaming' :               return { ...state, rmRcvDoorFoaming : action.payload}
+        case 'rmRcvPowerPress' :                return { ...state, rmRcvPowerPress : action.payload}
+        case 'rmRcvRollForming' :               return { ...state, rmRcvRollForming : action.payload}
+        case 'rmRcvEvaWrap' :                   return { ...state, rmRcvEvaWrap : action.payload}
+        case 'rmRcvPreAssembly' :               return { ...state, rmRcvPreAssembly : action.payload}
+        case 'rmRcvBodyFoaming' :               return { ...state, rmRcvBodyFoaming : action.payload}
+        case 'rmRcvPostAssembly' :              return { ...state, rmRcvPostAssembly : action.payload}
+        case 'rmRcvFinishingLine' :             return { ...state, rmRcvFinishingLine : action.payload}
+        case 'rmRcvUShell' :                    return { ...state, rmRcvUShell : action.payload}
+        case 'rmRcvHeaters' :                   return { ...state, rmRcvHeaters : action.payload}
+        case 'rmRcvPadPrint' :                  return { ...state, rmRcvPadPrint : action.payload}
+        case 'rmRcvHotStamp' :                  return { ...state, rmRcvHotStamp : action.payload}
+        case 'rmRcvClinching' :                 return { ...state, rmRcvClinching : action.payload}
+        case 'rmPush' :                         return { ...state, rmPush : action.payload}
+        case 'fgProdEntry' :                    return { ...state, fgProdEntry : action.payload}
+        case 'fgProdEdit' :                     return { ...state, fgProdEdit : action.payload}
+        case 'gasChargingProdEntry' :           return { ...state, gasChargingProdEntry : action.payload}
+        case 'gasChargingProdEdit' :            return { ...state, gasChargingProdEdit : action.payload}
+        case 'postDoorFittingProdEntry' :       return { ...state, postDoorFittingProdEntry : action.payload}
+        case 'postDoorFittingProdEdit' :        return { ...state, postDoorFittingProdEdit : action.payload}
+        case 'bodyFoamingProdEntry' :           return { ...state, bodyFoamingProdEntry : action.payload}
+        case 'bodyFoamingProdEdit' :            return { ...state, bodyFoamingProdEdit : action.payload}
+        case 'preAssemblyProdEntry' :           return { ...state, preAssemblyProdEntry : action.payload}
+        case 'preAssemblyProdEdit' :            return { ...state, preAssemblyProdEdit : action.payload}
+        case 'evaWrapProdEntry' :               return { ...state, evaWrapProdEntry : action.payload}
+        case 'evaWrapProdEdit' :                return { ...state, evaWrapProdEdit : action.payload}
+        case 'thermoformingProdEntry' :         return { ...state, thermoformingProdEntry : action.payload}
+        case 'thermoformingProdEdit' :          return { ...state, thermoformingProdEdit : action.payload}
+        case 'doorFoamingProdEntry' :           return { ...state, doorFoamingProdEntry : action.payload}
+        case 'doorFoamingProdEdit' :            return { ...state, doorFoamingProdEdit : action.payload}
+        case 'powerPressProdEntry' :            return { ...state, powerPressProdEntry : action.payload}
+        case 'powerPressProdEdit' :             return { ...state, powerPressProdEdit : action.payload}
+        case 'sideSheetProdEntry' :             return { ...state, sideSheetProdEntry : action.payload}
+        case 'sideSheetProdEdit' :              return { ...state, sideSheetProdEdit : action.payload}
+        case 'uShellProdEntry' :                return { ...state, uShellProdEntry : action.payload}
+        case 'uShellProdEdit' :                 return { ...state, uShellProdEdit : action.payload}
+        case 'heaterProdEntry' :                return { ...state, heaterProdEntry : action.payload}
+        case 'heaterProdEdit' :                 return { ...state, heaterProdEdit : action.payload}
+        case 'clinchingProdEntry' :             return { ...state, clinchingProdEntry : action.payload}
+        case 'clinchingProdEdit' :              return { ...state, clinchingProdEdit : action.payload}
+        case 'padPrintProdEntry' :              return { ...state, padPrintProdEntry : action.payload}
+        case 'padPrintProdEdit' :               return { ...state, padPrintProdEdit : action.payload}
+        case 'hotStampProdEntry' :              return { ...state, hotStampProdEntry : action.payload}
+        case 'hotStampProdEdit' :               return { ...state, hotStampProdEdit : action.payload}
+        case 'iqcEntry' :                       return { ...state, iqcEntry : action.payload}
+        case 'iqcEdit' :                        return { ...state, iqcEdit : action.payload}
+        case 'osdEntry' :                       return { ...state, osdEntry : action.payload}
+        case 'osdEdit' :                        return { ...state, osdEdit : action.payload}
+        case 'SSCSR' :                          return { ...state, SSCSR : action.payload}
+        case 'disposalRequest' :                return { ...state, disposalRequest : action.payload}
+        case 'disposalApproval' :               return { ...state, disposalApproval : action.payload}
+        default:                                throw new Error(`Unknown action type: ${action.type}`);
+
+    }
+}
+
+
+
+
 const UpdateUser = () => {
     
-    const [ allUserCredentialsState, dispatchAllUserCredentials ]       = useReducer ( reducerAllUserCredentials, allUserInitialState );
-    const [ selectedUserCredential, dispatchSelectedUserCredential ]    = useReducer ( reducerSelectedUser , selectedUserInitialState );
+    const [ allUserCredentialsState, dispatchAllUserCredentials ] = useReducer ( reducerAllUserCredentials, allUserInitialState );
+    const [ selectedUserCredential, dispatchSelectedUserCredential ] = useReducer ( reducerSelectedUser , selectedUserInitialState );
+    const [ userAccessControlState, dispatchUserAccessControl ] = useReducer ( reducerUserAccessControl, userAccessControlInitialState );
     
 
     const [tabValue, setTabValue] = React.useState(0);
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
     };
-
-    let access = []
-
-    const accessControlInitialState = {
-        createUser: false,
-        modifyUser: false,
-    
-        createPart: false,
-        modifyPart: false,
-        createSFG: false,
-        modifySFG: false,
-        create3rdPartySFG: false,
-        modify3rdPartySFG: false,
-        addUnit: false,
-    
-        lcEntry: false,
-        lcEdit: false,
-    
-        storeRmRecvEntry:false,
-        storeRmRecvEdit:false,
-    
-        warehouseCreate: false,
-        warehouseModify: false,
-    
-        srFromOtherThanProdAndQC: false,
-        srFromQC: false,
-        srFromThermoforming: false,
-        srFromDoorFoaming: false,
-        srFromPowerPress: false,
-        srFromRollForming: false,
-        srFromEvaWrap: false,
-        srFromPreAssembly: false,
-        srFromBodyFoaming: false,
-        srFromPostAssembly: false,
-        srFromFinishingLine: false,
-        srFromUShell: false,
-        srFromHeaters: false,
-        srFromPadPrint: false,
-        srFromHotStamp: false,
-        srFromClinching: false,
-        srFromServiceInternal: false,
-    
-        deliveryFromFirstShed: false,
-        deliveryFromThirdShed: false,
-        deliveryFromForthShed: false,
-        deliveryFromFGShed: false,
-        deliveryFromOutsideShed: false,
-        deliveryFromSMCPremises: false,
-        deliveryFromQC: false,
-        deliveryFromThermoforming: false,
-        deliveryFromDoorFoaming: false,
-        deliveryFromPowerPress: false,
-        deliveryFromRollForming: false,
-        deliveryFromEvaWrap: false,
-        deliveryFromPreAssembly: false,
-        deliveryFromBodyFoaming: false,
-        deliveryFromPostAssembly: false,
-        deliveryFromFinishingLine: false,
-        deliveryFromUShell: false,
-        deliveryFromHeaters: false,
-        deliveryFromPadPrint: false,
-        deliveryFromHotStamp: false,
-        deliveryFromClinching: false,
-        deliveryFromServiceInternal: false,
-    
-        rmRcvOtherThanProdAndQC: false,
-        rmRcvQC: false,
-        rmRcvThermoforming: false,
-        rmRcvDoorFoaming: false,
-        rmRcvPowerPress: false,
-        rmRcvRollForming: false,
-        rmRcvEvaWrap: false,
-        rmRcvPreAssembly: false,
-        rmRcvBodyFoaming: false,
-        rmRcvPostAssembly: false,
-        rmRcvFinishingLine: false,
-        rmRcvUShell: false,
-        rmRcvHeaters: false,
-        rmRcvPadPrint: false,
-        rmRcvHotStamp: false,
-        rmRcvClinching: false,
-    
-        rmPush: false,
-    
-        fgProdEntry: false,
-        fgProdEdit: false,
-        gasChargingProdEntry: false,
-        gasChargingProdEdit: false,
-        postDoorFittingProdEntry: false,
-        postDoorFittingProdEdit: false,
-        bodyFoamingProdEntry: false,
-        bodyFoamingProdEdit: false,
-        preAssemblyProdEntry: false,
-        preAssemblyProdEdit: false,
-        evaWrapProdEntry: false,
-        evaWrapProdEdit: false,
-        thermoformingProdEntry: false,
-        thermoformingProdEdit: false,
-        doorFoamingProdEntry: false,
-        doorFoamingProdEdit: false,
-        powerPressProdEntry: false,
-        powerPressProdEdit: false,
-        sideSheetProdEntry: false,
-        sideSheetProdEdit: false,
-        uShellProdEntry: false,
-        uShellProdEdit: false,
-        heaterProdEntry: false,
-        heaterProdEdit: false,
-        clinchingProdEntry: false,
-        clinchingProdEdit: false,
-        padPrintProdEntry: false,
-        padPrintProdEdit: false,
-        hotStampProdEntry: false,
-        hotStampProdEdit: false,
-    
-        iqcEntry: false,
-        iqcEdit: false,
-        osdEntry: false,
-        osdEdit: false,
-        SSCSR: false,
-    
-        disposalRequest: false,
-        disposalApproval: false,
-    }
-
-    const createUser = useRef(accessControlInitialState.createUser);
-    const modifyUser = useRef(accessControlInitialState.modifyUser);
-    const createPart = useRef(accessControlInitialState.createPart);
-    const modifyPart = useRef(accessControlInitialState.modifyPart);
-    const createSFG = useRef(accessControlInitialState.createSFG);
-    const modifySFG = useRef(accessControlInitialState.modifySFG);
-    const create3rdPartySFG = useRef(accessControlInitialState.create3rdPartySFG);
-    const modify3rdPartySFG = useRef(accessControlInitialState.modify3rdPartySFG);
-    const addUnit = useRef(accessControlInitialState.addUnit);
-    const lcEntry = useRef(accessControlInitialState.lcEntry);
-    const lcEdit = useRef(accessControlInitialState.lcEdit);
-    const storeRmRecvEntry = useRef(accessControlInitialState.storeRmRecvEntry);
-    const storeRmRecvEdit = useRef(accessControlInitialState.storeRmRecvEdit);
-    const warehouseCreate = useRef(accessControlInitialState.warehouseCreate);
-    const warehouseModify = useRef(accessControlInitialState.warehouseModify);
-    const srFromOtherThanProdAndQC = useRef(accessControlInitialState.srFromOtherThanProdAndQC);
-    const srFromQC = useRef(accessControlInitialState.srFromQC);
-    const srFromThermoforming = useRef(accessControlInitialState.srFromThermoforming);
-    const srFromDoorFoaming = useRef(accessControlInitialState.srFromDoorFoaming);
-    const srFromPowerPress = useRef(accessControlInitialState.srFromPowerPress);
-    const srFromRollForming = useRef(accessControlInitialState.srFromRollForming);
-    const srFromEvaWrap = useRef(accessControlInitialState.srFromEvaWrap);
-    const srFromPreAssembly = useRef(accessControlInitialState.srFromPreAssembly);
-    const srFromBodyFoaming = useRef(accessControlInitialState.srFromBodyFoaming);
-    const srFromPostAssembly = useRef(accessControlInitialState.srFromPostAssembly);
-    const srFromFinishingLine = useRef(accessControlInitialState.srFromFinishingLine);
-    const srFromUShell = useRef(accessControlInitialState.srFromUShell);
-    const srFromHeaters = useRef(accessControlInitialState.srFromHeaters);
-    const srFromPadPrint = useRef(accessControlInitialState.srFromPadPrint);
-    const srFromHotStamp = useRef(accessControlInitialState.srFromHotStamp);
-    const srFromClinching = useRef(accessControlInitialState.srFromClinching);
-    const srFromServiceInternal = useRef(accessControlInitialState.srFromServiceInternal);
-    const deliveryFromFirstShed = useRef(accessControlInitialState.deliveryFromFirstShed);
-    const deliveryFromThirdShed = useRef(accessControlInitialState.deliveryFromThirdShed);
-    const deliveryFromForthShed = useRef(accessControlInitialState.deliveryFromForthShed);
-    const deliveryFromFGShed = useRef(accessControlInitialState.deliveryFromFGShed);
-    const deliveryFromOutsideShed = useRef(accessControlInitialState.deliveryFromOutsideShed);
-    const deliveryFromSMCPremises = useRef(accessControlInitialState.deliveryFromSMCPremises);
-    const deliveryFromQC = useRef(accessControlInitialState.deliveryFromQC);
-    const deliveryFromThermoforming = useRef(accessControlInitialState.deliveryFromThermoforming);
-    const deliveryFromDoorFoaming = useRef(accessControlInitialState.deliveryFromDoorFoaming);
-    const deliveryFromPowerPress = useRef(accessControlInitialState.deliveryFromPowerPress);
-    const deliveryFromRollForming = useRef(accessControlInitialState.deliveryFromRollForming);
-    const deliveryFromEvaWrap = useRef(accessControlInitialState.deliveryFromEvaWrap);
-    const deliveryFromPreAssembly = useRef(accessControlInitialState.deliveryFromPreAssembly);
-    const deliveryFromBodyFoaming = useRef(accessControlInitialState.deliveryFromBodyFoaming);
-    const deliveryFromPostAssembly = useRef(accessControlInitialState.deliveryFromPostAssembly);
-    const deliveryFromFinishingLine = useRef(accessControlInitialState.deliveryFromFinishingLine);
-    const deliveryFromUShell = useRef(accessControlInitialState.deliveryFromUShell);
-    const deliveryFromHeaters = useRef(accessControlInitialState.deliveryFromHeaters);
-    const deliveryFromPadPrint = useRef(accessControlInitialState.deliveryFromPadPrint);
-    const deliveryFromHotStamp = useRef(accessControlInitialState.deliveryFromHotStamp);
-    const deliveryFromClinching = useRef(accessControlInitialState.deliveryFromClinching);
-    const deliveryFromServiceInternal = useRef(accessControlInitialState.deliveryFromServiceInternal);
-    const rmRcvOtherThanProdAndQC = useRef(accessControlInitialState.rmRcvOtherThanProdAndQC);
-    const rmRcvQC = useRef(accessControlInitialState.rmRcvQC);
-    const rmRcvThermoforming = useRef(accessControlInitialState.rmRcvThermoforming);
-    const rmRcvDoorFoaming = useRef(accessControlInitialState.rmRcvDoorFoaming);
-    const rmRcvPowerPress = useRef(accessControlInitialState.rmRcvPowerPress);
-    const rmRcvRollForming = useRef(accessControlInitialState.rmRcvRollForming);
-    const rmRcvEvaWrap = useRef(accessControlInitialState.rmRcvEvaWrap);
-    const rmRcvPreAssembly = useRef(accessControlInitialState.rmRcvPreAssembly);
-    const rmRcvBodyFoaming = useRef(accessControlInitialState.rmRcvBodyFoaming);
-    const rmRcvPostAssembly = useRef(accessControlInitialState.rmRcvPostAssembly);
-    const rmRcvFinishingLine = useRef(accessControlInitialState.rmRcvFinishingLine);
-    const rmRcvUShell = useRef(accessControlInitialState.rmRcvUShell);
-    const rmRcvHeaters = useRef(accessControlInitialState.rmRcvHeaters);
-    const rmRcvPadPrint = useRef(accessControlInitialState.rmRcvPadPrint);
-    const rmRcvHotStamp = useRef(accessControlInitialState.rmRcvHotStamp);
-    const rmRcvClinching = useRef(accessControlInitialState.rmRcvClinching);
-    const rmPush = useRef(accessControlInitialState.rmPush);
-    const fgProdEntry = useRef(accessControlInitialState.fgProdEntry);
-    const fgProdEdit = useRef(accessControlInitialState.fgProdEdit);
-    const gasChargingProdEntry = useRef(accessControlInitialState.gasChargingProdEntry);
-    const gasChargingProdEdit = useRef(accessControlInitialState.gasChargingProdEdit);
-    const postDoorFittingProdEntry = useRef(accessControlInitialState.postDoorFittingProdEntry);
-    const postDoorFittingProdEdit = useRef(accessControlInitialState.postDoorFittingProdEdit);
-    const bodyFoamingProdEntry = useRef(accessControlInitialState.bodyFoamingProdEntry);
-    const bodyFoamingProdEdit = useRef(accessControlInitialState.bodyFoamingProdEdit);
-    const preAssemblyProdEntry = useRef(accessControlInitialState.preAssemblyProdEntry);
-    const preAssemblyProdEdit = useRef(accessControlInitialState.preAssemblyProdEdit);
-    const evaWrapProdEntry = useRef(accessControlInitialState.evaWrapProdEntry);
-    const evaWrapProdEdit = useRef(accessControlInitialState.evaWrapProdEdit);
-    const thermoformingProdEntry = useRef(accessControlInitialState.thermoformingProdEntry);
-    const thermoformingProdEdit = useRef(accessControlInitialState.thermoformingProdEdit);
-    const doorFoamingProdEntry = useRef(accessControlInitialState.doorFoamingProdEntry);
-    const doorFoamingProdEdit = useRef(accessControlInitialState.doorFoamingProdEdit);
-    const powerPressProdEntry = useRef(accessControlInitialState.powerPressProdEntry);
-    const powerPressProdEdit = useRef(accessControlInitialState.powerPressProdEdit);
-    const sideSheetProdEntry = useRef(accessControlInitialState.sideSheetProdEntry);
-    const sideSheetProdEdit = useRef(accessControlInitialState.sideSheetProdEdit);
-    const uShellProdEntry = useRef(accessControlInitialState.uShellProdEntry);
-    const uShellProdEdit = useRef(accessControlInitialState.uShellProdEdit);
-    const heaterProdEntry = useRef(accessControlInitialState.heaterProdEntry);
-    const heaterProdEdit = useRef(accessControlInitialState.heaterProdEdit);
-    const clinchingProdEntry = useRef(accessControlInitialState.clinchingProdEntry);
-    const clinchingProdEdit = useRef(accessControlInitialState.clinchingProdEdit);
-    const padPrintProdEntry = useRef(accessControlInitialState.padPrintProdEntry);
-    const padPrintProdEdit = useRef(accessControlInitialState.padPrintProdEdit);
-    const hotStampProdEntry = useRef(accessControlInitialState.hotStampProdEntry);
-    const hotStampProdEdit = useRef(accessControlInitialState.hotStampProdEdit);
-    const iqcEntry = useRef(accessControlInitialState.iqcEntry);
-    const iqcEdit = useRef(accessControlInitialState.iqcEdit);
-    const osdEntry = useRef(accessControlInitialState.osdEntry);
-    const osdEdit = useRef(accessControlInitialState.osdEdit);
-    const SSCSR = useRef(accessControlInitialState.SSCSR);
-    const disposalRequest = useRef(accessControlInitialState.disposalRequest);
-    const disposalApproval = useRef(accessControlInitialState.disposalApproval);
-
 
     // TODO Move the token to global level and use useContext 
     const [ token, setToken ] = useState('');
@@ -348,24 +345,46 @@ const UpdateUser = () => {
             })
         })
         .catch(error => console.log(error))
-    },[selectedUserCredential])  //TODO it is not a good approach. because we are unnecessarily re-rendering of every input change while typing data in textfields
-                                 //TODO we can use useRef();
+    },[]) 
 
-    allUserCredentialsState && console.log(allUserCredentialsState);
+    
+    
+    // allUserCredentialsState && console.log(allUserCredentialsState);
 
-    const handleSelectedUser = (email) => {
+    const handleSelectedUser = async (email) => {
         const selectedUser = allUserCredentialsState.find(getuser => getuser.email === email);
         dispatchSelectedUserCredential({
             type: 'Initialise_selectedUser',
             payload: selectedUser
         })
-        console.log(selectedUser);
+        dispatchUserAccessControl({
+            type : 'Initialize_userAccessControl',
+            payload : userAccessControlInitialState
+        })
+        // console.log(selectedUser);
+
+        // console.log(email);
+        const response = await fetch(`http://localhost:5000/api/getUserAccessControl/${email}`,{
+            method : 'GET',
+            headers: {
+                "Content-Type" : "application/json",
+                Authorization: 'Bearer ' + token,
+            },
+        })
+        const data = await response.json();
+        if(response.ok) {
+            console.log(data.access);
+            data.access.map(item => 
+                dispatchUserAccessControl({
+                    type : item,
+                    payload : true
+            }))
+        }
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(selectedUserCredential);
-
         //? below codes are for the API
         const response = await fetch(`http://localhost:5000/api/update-user`, {
             method: "PATCH",
@@ -376,134 +395,138 @@ const UpdateUser = () => {
                 Authorization: 'Bearer ' + token,
             },
         });
-
         const json = await response.json();
-        
-
         if (!response.ok) {
             dispatchSelectedUserCredential({ type : 'error', payload : json.error})
         }
-
         if(response.ok){
             dispatchSelectedUserCredential({ type : 'reset'})
             console.log(`an user updated`);
         }
     }
 
+    const handleToggleUserAccess = (userAccess, event) => {
+        console.log(userAccess, event.target.checked);
+        dispatchUserAccessControl({
+            type : userAccess,
+            payload: event.target.checked
 
+    })
+    }
 
     const handleAccessRecordSave = async () => {
-        createUser.current.checked && access.push("createUser");
-        modifyUser.current.checked && access.push("modifyUser");
-        createPart.current.checked && access.push("createPart");
-        modifyPart.current.checked && access.push("modifyPart");
-        createSFG.current.checked && access.push("createSFG");
-        modifySFG.current.checked && access.push("modifySFG");
-        create3rdPartySFG.current.checked && access.push("create3rdPartySFG");
-        modify3rdPartySFG.current.checked && access.push("modify3rdPartySFG");
-        addUnit.current.checked && access.push("addUnit");
-        lcEntry.current.checked && access.push("lcEntry");
-        lcEdit.current.checked && access.push("lcEdit");
-        storeRmRecvEntry.current.checked && access.push("storeRmRecvEntry");
-        storeRmRecvEdit.current.checked && access.push("storeRmRecvEdit");
-        warehouseCreate.current.checked && access.push("warehouseCreate");
-        warehouseModify.current.checked && access.push("warehouseModify");
-        srFromOtherThanProdAndQC.current.checked && access.push("srFromOtherThanProdAndQC");
-        srFromQC.current.checked && access.push("srFromQC");
-        srFromThermoforming.current.checked && access.push("srFromThermoforming");
-        srFromDoorFoaming.current.checked && access.push("srFromDoorFoaming");
-        srFromPowerPress.current.checked && access.push("srFromPowerPress");
-        srFromRollForming.current.checked && access.push("srFromRollForming");
-        srFromEvaWrap.current.checked && access.push("srFromEvaWrap");
-        srFromPreAssembly.current.checked && access.push("srFromPreAssembly");
-        srFromBodyFoaming.current.checked && access.push("srFromBodyFoaming");
-        srFromPostAssembly.current.checked && access.push("srFromPostAssembly");
-        srFromFinishingLine.current.checked && access.push("srFromFinishingLine");
-        srFromUShell.current.checked && access.push("srFromUShell");
-        srFromHeaters.current.checked && access.push("srFromHeaters");
-        srFromPadPrint.current.checked && access.push("srFromPadPrint");
-        srFromHotStamp.current.checked && access.push("srFromHotStamp");
-        srFromClinching.current.checked && access.push("srFromClinching");
-        srFromServiceInternal.current.checked && access.push("srFromServiceInternal");
-        deliveryFromFirstShed.current.checked && access.push("deliveryFromFirstShed");
-        deliveryFromThirdShed.current.checked && access.push("deliveryFromThirdShed");
-        deliveryFromForthShed.current.checked && access.push("deliveryFromForthShed");
-        deliveryFromFGShed.current.checked && access.push("deliveryFromFGShed");
-        deliveryFromOutsideShed.current.checked && access.push("deliveryFromOutsideShed");
-        deliveryFromSMCPremises.current.checked && access.push("deliveryFromSMCPremises");
-        deliveryFromQC.current.checked && access.push("deliveryFromQC");
-        deliveryFromThermoforming.current.checked && access.push("deliveryFromThermoforming");
-        deliveryFromDoorFoaming.current.checked && access.push("deliveryFromDoorFoaming");
-        deliveryFromPowerPress.current.checked && access.push("deliveryFromPowerPress");
-        deliveryFromRollForming.current.checked && access.push("deliveryFromRollForming");
-        deliveryFromEvaWrap.current.checked && access.push("deliveryFromEvaWrap");
-        deliveryFromPreAssembly.current.checked && access.push("deliveryFromPreAssembly");
-        deliveryFromBodyFoaming.current.checked && access.push("deliveryFromBodyFoaming");
-        deliveryFromPostAssembly.current.checked && access.push("deliveryFromPostAssembly");
-        deliveryFromFinishingLine.current.checked && access.push("deliveryFromFinishingLine");
-        deliveryFromUShell.current.checked && access.push("deliveryFromUShell");
-        deliveryFromHeaters.current.checked && access.push("deliveryFromHeaters");
-        deliveryFromPadPrint.current.checked && access.push("deliveryFromPadPrint");
-        deliveryFromHotStamp.current.checked && access.push("deliveryFromHotStamp");
-        deliveryFromClinching.current.checked && access.push("deliveryFromClinching");
-        deliveryFromServiceInternal.current.checked && access.push("deliveryFromServiceInternal");
-        rmRcvOtherThanProdAndQC.current.checked && access.push("rmRcvOtherThanProdAndQC");
-        rmRcvQC.current.checked && access.push("rmRcvQC");
-        rmRcvThermoforming.current.checked && access.push("rmRcvThermoforming");
-        rmRcvDoorFoaming.current.checked && access.push("rmRcvDoorFoaming");
-        rmRcvPowerPress.current.checked && access.push("rmRcvPowerPress");
-        rmRcvRollForming.current.checked && access.push("rmRcvRollForming");
-        rmRcvEvaWrap.current.checked && access.push("rmRcvEvaWrap");
-        rmRcvPreAssembly.current.checked && access.push("rmRcvPreAssembly");
-        rmRcvBodyFoaming.current.checked && access.push("rmRcvBodyFoaming");
-        rmRcvPostAssembly.current.checked && access.push("rmRcvPostAssembly");
-        rmRcvFinishingLine.current.checked && access.push("rmRcvFinishingLine");
-        rmRcvUShell.current.checked && access.push("rmRcvUShell");
-        rmRcvHeaters.current.checked && access.push("rmRcvHeaters");
-        rmRcvPadPrint.current.checked && access.push("rmRcvPadPrint");
-        rmRcvHotStamp.current.checked && access.push("rmRcvHotStamp");
-        rmRcvClinching.current.checked && access.push("rmRcvClinching");
-        rmPush.current.checked && access.push("rmPush");
-        fgProdEntry.current.checked && access.push("fgProdEntry");
-        fgProdEdit.current.checked && access.push("fgProdEdit");
-        gasChargingProdEntry.current.checked && access.push("gasChargingProdEntry");
-        gasChargingProdEdit.current.checked && access.push("gasChargingProdEdit");
-        postDoorFittingProdEntry.current.checked && access.push("postDoorFittingProdEntry");
-        postDoorFittingProdEdit.current.checked && access.push("postDoorFittingProdEdit");
-        bodyFoamingProdEntry.current.checked && access.push("bodyFoamingProdEntry");
-        bodyFoamingProdEdit.current.checked && access.push("bodyFoamingProdEdit");
-        preAssemblyProdEntry.current.checked && access.push("preAssemblyProdEntry");
-        preAssemblyProdEdit.current.checked && access.push("preAssemblyProdEdit");
-        evaWrapProdEntry.current.checked && access.push("evaWrapProdEntry");
-        evaWrapProdEdit.current.checked && access.push("evaWrapProdEdit");
-        thermoformingProdEntry.current.checked && access.push("thermoformingProdEntry");
-        thermoformingProdEdit.current.checked && access.push("thermoformingProdEdit");
-        doorFoamingProdEntry.current.checked && access.push("doorFoamingProdEntry");
-        doorFoamingProdEdit.current.checked && access.push("doorFoamingProdEdit");
-        powerPressProdEntry.current.checked && access.push("powerPressProdEntry");
-        powerPressProdEdit.current.checked && access.push("powerPressProdEdit");
-        sideSheetProdEntry.current.checked && access.push("sideSheetProdEntry");
-        sideSheetProdEdit.current.checked && access.push("sideSheetProdEdit");
-        uShellProdEntry.current.checked && access.push("uShellProdEntry");
-        uShellProdEdit.current.checked && access.push("uShellProdEdit");
-        heaterProdEntry.current.checked && access.push("heaterProdEntry");
-        heaterProdEdit.current.checked && access.push("heaterProdEdit");
-        clinchingProdEntry.current.checked && access.push("clinchingProdEntry");
-        clinchingProdEdit.current.checked && access.push("clinchingProdEdit");
-        padPrintProdEntry.current.checked && access.push("padPrintProdEntry");
-        padPrintProdEdit.current.checked && access.push("padPrintProdEdit");
-        hotStampProdEntry.current.checked && access.push("hotStampProdEntry");
-        hotStampProdEdit.current.checked && access.push("hotStampProdEdit");
-        iqcEntry.current.checked && access.push("iqcEntry");
-        iqcEdit.current.checked && access.push("iqcEdit");
-        osdEntry.current.checked && access.push("osdEntry");
-        osdEdit.current.checked && access.push("osdEdit");
-        SSCSR.current.checked && access.push("SSCSR");
-        disposalRequest.current.checked && access.push("disposalRequest");
-        disposalApproval.current.checked && access.push("disposalApproval");
+        let access = [];
+        userAccessControlState?.createUser && access.push("createUser");
+        userAccessControlState?.modifyUser && access.push("modifyUser");
+        userAccessControlState?.createPart && access.push("createPart");
+        userAccessControlState?.modifyPart && access.push("modifyPart");
+        userAccessControlState?.createSFG && access.push("createSFG");
+        userAccessControlState?.modifySFG && access.push("modifySFG");
+        userAccessControlState?.create3rdPartySFG && access.push("create3rdPartySFG");
+        userAccessControlState?.modify3rdPartySFG && access.push("modify3rdPartySFG");
+        userAccessControlState?.addUnit && access.push("addUnit");
+        userAccessControlState?.lcEntry && access.push("lcEntry");
+        userAccessControlState?.lcEdit && access.push("lcEdit");
+        userAccessControlState?.storeRmRecvEntry && access.push("storeRmRecvEntry");
+        userAccessControlState?.storeRmRecvEdit && access.push("storeRmRecvEdit");
+        userAccessControlState?.warehouseCreate && access.push("warehouseCreate");
+        userAccessControlState?.warehouseModify && access.push("warehouseModify");
+        userAccessControlState?.srFromOtherThanProdAndQC && access.push("srFromOtherThanProdAndQC");
+        userAccessControlState?.srFromQC && access.push("srFromQC");
+        userAccessControlState?.srFromThermoforming && access.push("srFromThermoforming");
+        userAccessControlState?.srFromDoorFoaming && access.push("srFromDoorFoaming");
+        userAccessControlState?.srFromPowerPress && access.push("srFromPowerPress");
+        userAccessControlState?.srFromRollForming && access.push("srFromRollForming");
+        userAccessControlState?.srFromEvaWrap && access.push("srFromEvaWrap");
+        userAccessControlState?.srFromPreAssembly && access.push("srFromPreAssembly");
+        userAccessControlState?.srFromBodyFoaming && access.push("srFromBodyFoaming");
+        userAccessControlState?.srFromPostAssembly && access.push("srFromPostAssembly");
+        userAccessControlState?.srFromFinishingLine && access.push("srFromFinishingLine");
+        userAccessControlState?.srFromUShell && access.push("srFromUShell");
+        userAccessControlState?.srFromHeaters && access.push("srFromHeaters");
+        userAccessControlState?.srFromPadPrint && access.push("srFromPadPrint");
+        userAccessControlState?.srFromHotStamp && access.push("srFromHotStamp");
+        userAccessControlState?.srFromClinching && access.push("srFromClinching");
+        userAccessControlState?.srFromServiceInternal && access.push("srFromServiceInternal");
+        userAccessControlState?.deliveryFromFirstShed && access.push("deliveryFromFirstShed");
+        userAccessControlState?.deliveryFromThirdShed && access.push("deliveryFromThirdShed");
+        userAccessControlState?.deliveryFromForthShed && access.push("deliveryFromForthShed");
+        userAccessControlState?.deliveryFromFGShed && access.push("deliveryFromFGShed");
+        userAccessControlState?.deliveryFromOutsideShed && access.push("deliveryFromOutsideShed");
+        userAccessControlState?.deliveryFromSMCPremises && access.push("deliveryFromSMCPremises");
+        userAccessControlState?.deliveryFromQC && access.push("deliveryFromQC");
+        userAccessControlState?.deliveryFromThermoforming && access.push("deliveryFromThermoforming");
+        userAccessControlState?.deliveryFromDoorFoaming && access.push("deliveryFromDoorFoaming");
+        userAccessControlState?.deliveryFromPowerPress && access.push("deliveryFromPowerPress");
+        userAccessControlState?.deliveryFromRollForming && access.push("deliveryFromRollForming");
+        userAccessControlState?.deliveryFromEvaWrap && access.push("deliveryFromEvaWrap");
+        userAccessControlState?.deliveryFromPreAssembly && access.push("deliveryFromPreAssembly");
+        userAccessControlState?.deliveryFromBodyFoaming && access.push("deliveryFromBodyFoaming");
+        userAccessControlState?.deliveryFromPostAssembly && access.push("deliveryFromPostAssembly");
+        userAccessControlState?.deliveryFromFinishingLine && access.push("deliveryFromFinishingLine");
+        userAccessControlState?.deliveryFromUShell && access.push("deliveryFromUShell");
+        userAccessControlState?.deliveryFromHeaters && access.push("deliveryFromHeaters");
+        userAccessControlState?.deliveryFromPadPrint && access.push("deliveryFromPadPrint");
+        userAccessControlState?.deliveryFromHotStamp && access.push("deliveryFromHotStamp");
+        userAccessControlState?.deliveryFromClinching && access.push("deliveryFromClinching");
+        userAccessControlState?.deliveryFromServiceInternal && access.push("deliveryFromServiceInternal");
+        userAccessControlState?.rmRcvOtherThanProdAndQC && access.push("rmRcvOtherThanProdAndQC");
+        userAccessControlState?.rmRcvQC && access.push("rmRcvQC");
+        userAccessControlState?.rmRcvThermoforming && access.push("rmRcvThermoforming");
+        userAccessControlState?.rmRcvDoorFoaming && access.push("rmRcvDoorFoaming");
+        userAccessControlState?.rmRcvPowerPress && access.push("rmRcvPowerPress");
+        userAccessControlState?.rmRcvRollForming && access.push("rmRcvRollForming");
+        userAccessControlState?.rmRcvEvaWrap && access.push("rmRcvEvaWrap");
+        userAccessControlState?.rmRcvPreAssembly && access.push("rmRcvPreAssembly");
+        userAccessControlState?.rmRcvBodyFoaming && access.push("rmRcvBodyFoaming");
+        userAccessControlState?.rmRcvPostAssembly && access.push("rmRcvPostAssembly");
+        userAccessControlState?.rmRcvFinishingLine && access.push("rmRcvFinishingLine");
+        userAccessControlState?.rmRcvUShell && access.push("rmRcvUShell");
+        userAccessControlState?.rmRcvHeaters && access.push("rmRcvHeaters");
+        userAccessControlState?.rmRcvPadPrint && access.push("rmRcvPadPrint");
+        userAccessControlState?.rmRcvHotStamp && access.push("rmRcvHotStamp");
+        userAccessControlState?.rmRcvClinching && access.push("rmRcvClinching");
+        userAccessControlState?.rmPush && access.push("rmPush");
+        userAccessControlState?.fgProdEntry && access.push("fgProdEntry");
+        userAccessControlState?.fgProdEdit && access.push("fgProdEdit");
+        userAccessControlState?.gasChargingProdEntry && access.push("gasChargingProdEntry");
+        userAccessControlState?.gasChargingProdEdit && access.push("gasChargingProdEdit");
+        userAccessControlState?.postDoorFittingProdEntry && access.push("postDoorFittingProdEntry");
+        userAccessControlState?.postDoorFittingProdEdit && access.push("postDoorFittingProdEdit");
+        userAccessControlState?.bodyFoamingProdEntry && access.push("bodyFoamingProdEntry");
+        userAccessControlState?.bodyFoamingProdEdit && access.push("bodyFoamingProdEdit");
+        userAccessControlState?.preAssemblyProdEntry && access.push("preAssemblyProdEntry");
+        userAccessControlState?.preAssemblyProdEdit && access.push("preAssemblyProdEdit");
+        userAccessControlState?.evaWrapProdEntry && access.push("evaWrapProdEntry");
+        userAccessControlState?.evaWrapProdEdit && access.push("evaWrapProdEdit");
+        userAccessControlState?.thermoformingProdEntry && access.push("thermoformingProdEntry");
+        userAccessControlState?.thermoformingProdEdit && access.push("thermoformingProdEdit");
+        userAccessControlState?.doorFoamingProdEntry && access.push("doorFoamingProdEntry");
+        userAccessControlState?.doorFoamingProdEdit && access.push("doorFoamingProdEdit");
+        userAccessControlState?.powerPressProdEntry && access.push("powerPressProdEntry");
+        userAccessControlState?.powerPressProdEdit && access.push("powerPressProdEdit");
+        userAccessControlState?.sideSheetProdEntry && access.push("sideSheetProdEntry");
+        userAccessControlState?.sideSheetProdEdit && access.push("sideSheetProdEdit");
+        userAccessControlState?.uShellProdEntry && access.push("uShellProdEntry");
+        userAccessControlState?.uShellProdEdit && access.push("uShellProdEdit");
+        userAccessControlState?.heaterProdEntry && access.push("heaterProdEntry");
+        userAccessControlState?.heaterProdEdit && access.push("heaterProdEdit");
+        userAccessControlState?.clinchingProdEntry && access.push("clinchingProdEntry");
+        userAccessControlState?.clinchingProdEdit && access.push("clinchingProdEdit");
+        userAccessControlState?.padPrintProdEntry && access.push("padPrintProdEntry");
+        userAccessControlState?.padPrintProdEdit && access.push("padPrintProdEdit");
+        userAccessControlState?.hotStampProdEntry && access.push("hotStampProdEntry");
+        userAccessControlState?.hotStampProdEdit && access.push("hotStampProdEdit");
+        userAccessControlState?.iqcEntry && access.push("iqcEntry");
+        userAccessControlState?.iqcEdit && access.push("iqcEdit");
+        userAccessControlState?.osdEntry && access.push("osdEntry");
+        userAccessControlState?.osdEdit && access.push("osdEdit");
+        userAccessControlState?.SSCSR && access.push("SSCSR");
+        userAccessControlState?.disposalRequest && access.push("disposalRequest");
+        userAccessControlState?.disposalApproval && access.push("disposalApproval");
 
         const sendAccessData = { email: selectedUserCredential.email, access}
-        console.log(access);
+
         const response = await fetch(`http://localhost:5000/api/update-user-access`, {
             method: "PATCH",
             body: JSON.stringify(sendAccessData),
@@ -515,7 +538,6 @@ const UpdateUser = () => {
         const json = await response.json();
 
         //? after getting the result, the access array is cleared
-        access = [];
         if(!response.ok) {
             console.log(json.error);
             
@@ -628,96 +650,167 @@ const UpdateUser = () => {
                                     <FormControl>
 
                                     <FormLabel id="user-control" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>User Control</FormLabel>
-                                        <FormControlLabel inputRef={createUser}  label="Create User" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={modifyUser}  label="Modify User" control={<Checkbox  />}/>
+                                        <FormControlLabel label="Create User" control={<Checkbox checked={userAccessControlState.createUser}  
+                                            onChange={(event)=> handleToggleUserAccess("createUser", event)}/>}/>
+                                        <FormControlLabel label="Modify User" control={<Checkbox checked={userAccessControlState.modifyUser}  
+                                            onChange={(event)=> handleToggleUserAccess("modifyUser", event)}/>}/>
 
                                     <FormLabel id="part-control" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>Part/SFG Control</FormLabel>
-                                        <FormControlLabel inputRef={createPart}  label="Create Part" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={modifyPart}  label="Modify Part" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={createSFG}  label="Create SFG" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={modifySFG}  label="Modify SFG" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={create3rdPartySFG}  label="Create 3rd Party SFG" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={modify3rdPartySFG}  label="Modify 3rd Party SFG" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={addUnit}  label="Add Unit" control={<Checkbox  />}/>
+                                        <FormControlLabel label="Create Part" control={<Checkbox checked={userAccessControlState.createPart}  
+                                            onChange={(event)=> handleToggleUserAccess("createPart", event)}/>}/>
+                                        <FormControlLabel label="Modify Part" control={<Checkbox checked={userAccessControlState.modifyPart}  
+                                            onChange={(event)=> handleToggleUserAccess("modifyPart", event)}/>}/>
+                                        <FormControlLabel label="Create SFG" control={<Checkbox checked={userAccessControlState.createSFG}  
+                                            onChange={(event)=> handleToggleUserAccess("createSFG", event)}/>}/>
+                                        <FormControlLabel label="Modify SFG" control={<Checkbox checked={userAccessControlState.modifySFG}  
+                                            onChange={(event)=> handleToggleUserAccess("modifySFG", event)}/>}/>
+                                        <FormControlLabel label="Create 3rd Party SFG" control={<Checkbox checked={userAccessControlState.create3rdPartySFG}  
+                                            onChange={(event)=> handleToggleUserAccess("create3rdPartySFG", event)}/>}/>
+                                        <FormControlLabel label="Modify 3rd Party SFG" control={<Checkbox checked={userAccessControlState.modify3rdPartySFG}  
+                                            onChange={(event)=> handleToggleUserAccess("modify3rdPartySFG", event)}/>}/>
+                                        <FormControlLabel label="Add Unit" control={<Checkbox checked={userAccessControlState.addUnit}  
+                                            onChange={(event)=> handleToggleUserAccess("addUnit", event)}/>}/>
 
                                     <FormLabel id="lc-process" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>LC Process</FormLabel>
-                                        <FormControlLabel inputRef={lcEntry}  label="LC Entry" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={lcEdit}  label="LC Edit" control={<Checkbox  />}/>
+                                        <FormControlLabel label="LC Entry" control={<Checkbox checked={userAccessControlState.lcEntry}  
+                                            onChange={(event)=> handleToggleUserAccess("lcEntry", event)}/>}/>
+                                        <FormControlLabel label="LC Edit" control={<Checkbox checked={userAccessControlState.lcEdit}  
+                                            onChange={(event)=> handleToggleUserAccess("lcEdit", event)}/>}/>
 
                                     <FormLabel id="store-rm-receive" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>Store RM Receive</FormLabel>
-                                        <FormControlLabel inputRef={storeRmRecvEntry}  label="Store RM RCV Entry" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={storeRmRecvEdit}  label="Store RM RCV Edit" control={<Checkbox  />}/>
+                                        <FormControlLabel label="Store RM RCV Entry" control={<Checkbox checked={userAccessControlState.storeRmRecvEntry}  
+                                            onChange={(event)=> handleToggleUserAccess("storeRmRecvEntry", event)}/>}/>
+                                        <FormControlLabel label="Store RM RCV Edit" control={<Checkbox checked={userAccessControlState.storeRmRecvEdit}  
+                                            onChange={(event)=> handleToggleUserAccess("storeRmRecvEdit", event)}/>}/>
 
                                     <FormLabel id="warehouse-setup" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>Warehouse Setup</FormLabel>
-                                        <FormControlLabel inputRef={warehouseCreate}  label="Warehouse Create" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={warehouseModify}  label="Warehouse Modify" control={<Checkbox  />}/>
+                                        <FormControlLabel label="Warehouse Create" control={<Checkbox checked={userAccessControlState.warehouseCreate}  
+                                            onChange={(event)=> handleToggleUserAccess("warehouseCreate", event)}/>}/>
+                                        <FormControlLabel label="Warehouse Modify" control={<Checkbox checked={userAccessControlState.warehouseModify}  
+                                            onChange={(event)=> handleToggleUserAccess("warehouseModify", event)}/>}/>
                                     
                                     {/* //? SR is for requisition, i.e., requesting to get something */}
                                     <FormLabel id="sr-issue" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>SR ISSUE</FormLabel>
-                                        <FormControlLabel inputRef={srFromOtherThanProdAndQC}  label="SR From Other Than Production and QC" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromQC}  label="SR From QC" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromThermoforming}  label="SR From Thermoforming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromDoorFoaming}  label="SR From Door Foaming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromPowerPress}  label="SR From Power Press" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromRollForming}  label="SR From Roll Forming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromEvaWrap}  label="SR From Eva Wrap" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromPreAssembly}  label="SR From Pre Assembly" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromBodyFoaming}  label="SR From Body Foaming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromPostAssembly}  label="SR From Post Assembly" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromFinishingLine}  label="SR From Finishing Line" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromUShell}  label="SR From U Shell" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromHeaters}  label="SR From Heaters" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromPadPrint}  label="SR From Pad Print" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromHotStamp}  label="SR From Hot Stamp" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromClinching}  label="SR From Clinching" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={srFromServiceInternal}  label="SR From Service (Internal)" control={<Checkbox  />}/>
+                                        <FormControlLabel label="SR From Other Than Production and QC" control={<Checkbox checked={userAccessControlState.srFromOtherThanProdAndQC}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromOtherThanProdAndQC", event)}/>}/>
+                                        <FormControlLabel label="SR From QC" control={<Checkbox checked={userAccessControlState.srFromQC}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromQC", event)}/>}/>
+                                        <FormControlLabel label="SR From Thermoforming" control={<Checkbox checked={userAccessControlState.srFromThermoforming}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromThermoforming", event)}/>}/>
+                                        <FormControlLabel label="SR From Door Foaming" control={<Checkbox checked={userAccessControlState.srFromDoorFoaming}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromDoorFoaming", event)}/>}/>
+                                        <FormControlLabel label="SR From Power Press" control={<Checkbox checked={userAccessControlState.srFromPowerPress}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromPowerPress", event)}/>}/>
+                                        <FormControlLabel label="SR From Roll Forming" control={<Checkbox checked={userAccessControlState.srFromRollForming}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromRollForming", event)}/>}/>
+                                        <FormControlLabel label="SR From Eva Wrap" control={<Checkbox checked={userAccessControlState.srFromEvaWrap}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromEvaWrap", event)}/>}/>
+                                        <FormControlLabel label="SR From Pre Assembly" control={<Checkbox checked={userAccessControlState.srFromPreAssembly}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromPreAssembly", event)}/>}/>
+                                        <FormControlLabel label="SR From Body Foaming" control={<Checkbox checked={userAccessControlState.srFromBodyFoaming}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromBodyFoaming", event)}/>}/>
+                                        <FormControlLabel label="SR From Post Assembly" control={<Checkbox checked={userAccessControlState.srFromPostAssembly}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromPostAssembly", event)}/>}/>
+                                        <FormControlLabel label="SR From Finishing Line" control={<Checkbox checked={userAccessControlState.srFromFinishingLine}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromFinishingLine", event)}/>}/>
+                                        <FormControlLabel label="SR From U Shell" control={<Checkbox checked={userAccessControlState.srFromUShell}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromUShell", event)}/>}/>
+                                        <FormControlLabel label="SR From Heaters" control={<Checkbox checked={userAccessControlState.srFromHeaters}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromHeaters", event)}/>}/>
+                                        <FormControlLabel label="SR From Pad Print" control={<Checkbox checked={userAccessControlState.srFromPadPrint}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromPadPrint", event)}/>}/>
+                                        <FormControlLabel label="SR From Hot Stamp" control={<Checkbox checked={userAccessControlState.srFromHotStamp}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromHotStamp", event)}/>}/>
+                                        <FormControlLabel label="SR From Clinching" control={<Checkbox checked={userAccessControlState.srFromClinching}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromClinching", event)}/>}/>
+                                        <FormControlLabel label="SR From Service (Internal)" control={<Checkbox checked={userAccessControlState.srFromServiceInternal}  
+                                            onChange={(event)=> handleToggleUserAccess("srFromServiceInternal", event)}/>}/>
                                         
                                     <FormLabel id="delivery" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>Delivery Against SR</FormLabel>
-                                        <FormControlLabel inputRef={deliveryFromFirstShed}  label="Delivery From 'First Shed' warehouse" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromThirdShed}  label="Delivery From 'Third Shed' warehouse" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromForthShed}  label="Delivery From 'Forth Shed' warehouse" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromFGShed}  label="Delivery From 'FG Shed' warehouse" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromOutsideShed}  label="Delivery From 'Outside Shed' warehouse" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromSMCPremises}  label="Delivery From 'SMC Premises' warehouse" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromQC}  label="Delivery From QC" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromThermoforming}  label="Delivery From Thermoforming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromDoorFoaming}  label="Delivery From Door Foaming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromPowerPress}  label="Delivery From Power Press" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromRollForming}  label="Delivery From Roll Forming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromEvaWrap}  label="Delivery From Eva Wrap" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromPreAssembly}  label="Delivery From Pre Assembly" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromBodyFoaming}  label="Delivery From Body Foaming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromPostAssembly}  label="Delivery From Post Assembly" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromFinishingLine}  label="Delivery From Finishing Line" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromUShell}  label="Delivery From U Shell" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromHeaters}  label="Delivery From Heaters" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromPadPrint}  label="Delivery From Pad Print" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromHotStamp}  label="Delivery From Hot Stamp" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromClinching}  label="Delivery From Clinching" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={deliveryFromServiceInternal}  label="Delivery From Service (Internal)" control={<Checkbox  />}/>
+                                        <FormControlLabel label="Delivery From 'First Shed' warehouse" control={<Checkbox checked={userAccessControlState.deliveryFromFirstShed}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromFirstShed", event)}/>}/>
+                                        <FormControlLabel label="Delivery From 'Third Shed' warehouse" control={<Checkbox checked={userAccessControlState.deliveryFromThirdShed}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromThirdShed", event)}/>}/>
+                                        <FormControlLabel label="Delivery From 'Forth Shed' warehouse" control={<Checkbox checked={userAccessControlState.deliveryFromForthShed}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromForthShed", event)}/>}/>
+                                        <FormControlLabel label="Delivery From 'FG Shed' warehouse" control={<Checkbox checked={userAccessControlState.deliveryFromFGShed}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromFGShed", event)}/>}/>
+                                        <FormControlLabel label="Delivery From 'Outside Shed' warehouse" control={<Checkbox checked={userAccessControlState.deliveryFromOutsideShed}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromOutsideShed", event)}/>}/>
+                                        <FormControlLabel label="Delivery From 'SMC Premises' warehouse" control={<Checkbox checked={userAccessControlState.deliveryFromSMCPremises}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromSMCPremises", event)}/>}/>
+                                        <FormControlLabel label="Delivery From QC" control={<Checkbox checked={userAccessControlState.deliveryFromQC}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromQC", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Thermoforming" control={<Checkbox checked={userAccessControlState.deliveryFromThermoforming}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromThermoforming", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Door Foaming" control={<Checkbox checked={userAccessControlState.deliveryFromDoorFoaming}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromDoorFoaming", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Power Press" control={<Checkbox checked={userAccessControlState.deliveryFromPowerPress}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromPowerPress", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Roll Forming" control={<Checkbox checked={userAccessControlState.deliveryFromRollForming}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromRollForming", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Eva Wrap" control={<Checkbox checked={userAccessControlState.deliveryFromEvaWrap}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromEvaWrap", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Pre Assembly" control={<Checkbox checked={userAccessControlState.deliveryFromPreAssembly}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromPreAssembly", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Body Foaming" control={<Checkbox checked={userAccessControlState.deliveryFromBodyFoaming}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromBodyFoaming", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Post Assembly" control={<Checkbox checked={userAccessControlState.deliveryFromPostAssembly}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromPostAssembly", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Finishing Line" control={<Checkbox checked={userAccessControlState.deliveryFromFinishingLine}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromFinishingLine", event)}/>}/>
+                                        <FormControlLabel label="Delivery From U Shell" control={<Checkbox checked={userAccessControlState.deliveryFromUShell}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromUShell", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Heaters" control={<Checkbox checked={userAccessControlState.deliveryFromHeaters}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromHeaters", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Pad Print" control={<Checkbox checked={userAccessControlState.deliveryFromPadPrint}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromPadPrint", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Hot Stamp" control={<Checkbox checked={userAccessControlState.deliveryFromHotStamp}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromHotStamp", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Clinching" control={<Checkbox checked={userAccessControlState.deliveryFromClinching}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromClinching", event)}/>}/>
+                                        <FormControlLabel label="Delivery From Service (Internal)" control={<Checkbox checked={userAccessControlState.deliveryFromServiceInternal}  
+                                            onChange={(event)=> handleToggleUserAccess("deliveryFromServiceInternal", event)}/>}/>
                                     
                                     {/* //? receive from store, or from a Push request */}
                                     <FormLabel id="rm-rcv-no-store" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>RM Recv - other than store</FormLabel>
-                                        <FormControlLabel inputRef={rmRcvOtherThanProdAndQC}  label="RM Rcv Other Than Production and QC" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvQC}  label="RM Rcv QC" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvThermoforming}  label="RM Rcv Thermoforming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvDoorFoaming}  label="RM Rcv Door Foaming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvPowerPress}  label="RM Rcv Power Press" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvRollForming}  label="RM Rcv Roll Forming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvEvaWrap}  label="RM Rcv Eva Wrap" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvPreAssembly}  label="RM Rcv Pre Assembly" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvBodyFoaming}  label="RM Rcv Body Foaming" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvPostAssembly}  label="RM Rcv Post Assembly" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvFinishingLine}  label="RM Rcv Finishing Line" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvUShell}  label="RM Rcv U Shell" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvHeaters}  label="RM Rcv Heaters" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvPadPrint}  label="RM Rcv Pad Print" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvHotStamp}  label="RM Rcv Hot Stamp" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={rmRcvClinching}  label="RM Rcv Clinching" control={<Checkbox  />}/>
+                                        <FormControlLabel label="RM Rcv Other Than Production and QC" control={<Checkbox checked={userAccessControlState.rmRcvOtherThanProdAndQC}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvOtherThanProdAndQC", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv QC" control={<Checkbox checked={userAccessControlState.rmRcvQC}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvQC", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Thermoforming" control={<Checkbox checked={userAccessControlState.rmRcvThermoforming}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvThermoforming", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Door Foaming" control={<Checkbox checked={userAccessControlState.rmRcvDoorFoaming}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvDoorFoaming", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Power Press" control={<Checkbox checked={userAccessControlState.rmRcvPowerPress}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvPowerPress", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Roll Forming" control={<Checkbox checked={userAccessControlState.rmRcvRollForming}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvRollForming", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Eva Wrap" control={<Checkbox checked={userAccessControlState.rmRcvEvaWrap}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvEvaWrap", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Pre Assembly" control={<Checkbox checked={userAccessControlState.rmRcvPreAssembly}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvPreAssembly", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Body Foaming" control={<Checkbox checked={userAccessControlState.rmRcvBodyFoaming}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvBodyFoaming", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Post Assembly" control={<Checkbox checked={userAccessControlState.rmRcvPostAssembly}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvPostAssembly", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Finishing Line" control={<Checkbox checked={userAccessControlState.rmRcvFinishingLine}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvFinishingLine", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv U Shell" control={<Checkbox checked={userAccessControlState.rmRcvUShell}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvUShell", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Heaters" control={<Checkbox checked={userAccessControlState.rmRcvHeaters}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvHeaters", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Pad Print" control={<Checkbox checked={userAccessControlState.rmRcvPadPrint}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvPadPrint", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Hot Stamp" control={<Checkbox checked={userAccessControlState.rmRcvHotStamp}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvHotStamp", event)}/>}/>
+                                        <FormControlLabel label="RM Rcv Clinching" control={<Checkbox checked={userAccessControlState.rmRcvClinching}  
+                                            onChange={(event)=> handleToggleUserAccess("rmRcvClinching", event)}/>}/>
                                     
                                     {/* //? if any section/department (request to) send anything to any other section/department */}
                                     <FormLabel id="rm-rcv-no-store" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>RM/Part Push</FormLabel>
-                                        <FormControlLabel inputRef={rmPush}  label="RM Push" control={<Checkbox  />}/>
+                                        <FormControlLabel label="RM Push" control={<Checkbox checked={userAccessControlState.rmPush}  
+                                            onChange={(event)=> handleToggleUserAccess("rmPush", event)}/>}/>
                                     
                                     <FormLabel id="production-control" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>Production Control</FormLabel>
                                         <Grid container >
@@ -725,107 +818,137 @@ const UpdateUser = () => {
                                                 <FormLabel id="production-control1">FG Production Control</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={fgProdEntry}  label="FG Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={fgProdEdit}  label="FG Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="FG Prod Entry" control={<Checkbox checked={userAccessControlState.fgProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("fgProdEntry", event)}/>}/>
+                                                <FormControlLabel label="FG Prod Edit" control={<Checkbox checked={userAccessControlState.fgProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("fgProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control2">Gas Charging Production Control</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={gasChargingProdEntry}  label="GC Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={gasChargingProdEdit}  label="GC Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="GC Prod Entry" control={<Checkbox checked={userAccessControlState.gasChargingProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("gasChargingProdEntry", event)}/>}/>
+                                                <FormControlLabel label="GC Prod Edit" control={<Checkbox checked={userAccessControlState.gasChargingProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("gasChargingProdEdit", event)}/>}/>
                                             </Grid>
                                             
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control3">Door Fitting Control</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={postDoorFittingProdEntry}  label="Post Door Fitting Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={postDoorFittingProdEdit}  label="Post Door Fitting Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Post Door Fitting Entry" control={<Checkbox checked={userAccessControlState.postDoorFittingProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("postDoorFittingProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Post Door Fitting Edit" control={<Checkbox checked={userAccessControlState.postDoorFittingProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("postDoorFittingProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control4">Body Foaming Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={bodyFoamingProdEntry}  label="Body Foam Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={bodyFoamingProdEdit}  label="Body Foam Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Body Foam Prod Entry" control={<Checkbox checked={userAccessControlState.bodyFoamingProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("bodyFoamingProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Body Foam Prod Edit" control={<Checkbox checked={userAccessControlState.bodyFoamingProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("bodyFoamingProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control5">Pre Assmb Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={preAssemblyProdEntry}  label="Pre Assmb Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={preAssemblyProdEdit}  label="Pre Assmb Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Pre Assmb Prod Entry" control={<Checkbox checked={userAccessControlState.preAssemblyProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("preAssemblyProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Pre Assmb Prod Edit" control={<Checkbox checked={userAccessControlState.preAssemblyProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("preAssemblyProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control6">Evaporator Wrapping</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={evaWrapProdEntry}  label="Eva Wrap Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={evaWrapProdEdit}  label="Eva Wrap Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Eva Wrap Entry" control={<Checkbox checked={userAccessControlState.evaWrapProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("evaWrapProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Eva Wrap Edit" control={<Checkbox checked={userAccessControlState.evaWrapProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("evaWrapProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control7">Thermoforming Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={thermoformingProdEntry}  label="Thermo Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={thermoformingProdEdit}  label="Thermo Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Thermo Prod Entry" control={<Checkbox checked={userAccessControlState.thermoformingProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("thermoformingProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Thermo Prod Edit" control={<Checkbox checked={userAccessControlState.thermoformingProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("thermoformingProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control8">Door Foaming Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={doorFoamingProdEntry} label="Door Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={doorFoamingProdEdit} label="Door Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Door Prod Entry" control={<Checkbox checked={userAccessControlState.doorFoamingProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("doorFoamingProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Door Prod Edit" control={<Checkbox checked={userAccessControlState.doorFoamingProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("doorFoamingProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control9">Power Press Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={powerPressProdEntry} label="Power Press Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={powerPressProdEdit} label="Power Press Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Power Press Prod Entry" control={<Checkbox checked={userAccessControlState.powerPressProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("powerPressProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Power Press Prod Edit" control={<Checkbox checked={userAccessControlState.powerPressProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("powerPressProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control10">Side Sheet Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={sideSheetProdEntry} label="Side Sheet Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={sideSheetProdEdit} label="Side Sheet Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Side Sheet Prod Entry" control={<Checkbox checked={userAccessControlState.sideSheetProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("sideSheetProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Side Sheet Prod Edit" control={<Checkbox checked={userAccessControlState.sideSheetProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("sideSheetProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control11">U Shell Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={uShellProdEntry} label="U Shell Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={uShellProdEdit} label="U Shell Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="U Shell Prod Entry" control={<Checkbox checked={userAccessControlState.uShellProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("uShellProdEntry", event)}/>}/>
+                                                <FormControlLabel label="U Shell Prod Edit" control={<Checkbox checked={userAccessControlState.uShellProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("uShellProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control12">Heater Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={heaterProdEntry} label="Heater Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={heaterProdEdit} label="Heater Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Heater Prod Entry" control={<Checkbox checked={userAccessControlState.heaterProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("heaterProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Heater Prod Edit" control={<Checkbox checked={userAccessControlState.heaterProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("heaterProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control13">Clinching Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={clinchingProdEntry} label="Clinching Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={clinchingProdEdit} label="Clinching Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Clinching Prod Entry" control={<Checkbox checked={userAccessControlState.clinchingProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("clinchingProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Clinching Prod Edit" control={<Checkbox checked={userAccessControlState.clinchingProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("clinchingProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control14">Pad Print Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={padPrintProdEntry} label="Pad Print Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={padPrintProdEdit} label="Pad Print Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Pad Print Prod Entry" control={<Checkbox checked={userAccessControlState.padPrintProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("padPrintProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Pad Print Prod Edit" control={<Checkbox checked={userAccessControlState.padPrintProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("padPrintProdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="production-control15">Hot Stamp Production</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={hotStampProdEntry} label="Hot Stamp Prod Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={hotStampProdEdit} label="Hot Stamp Prod Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="Hot Stamp Prod Entry" control={<Checkbox checked={userAccessControlState.hotStampProdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("hotStampProdEntry", event)}/>}/>
+                                                <FormControlLabel label="Hot Stamp Prod Edit" control={<Checkbox checked={userAccessControlState.hotStampProdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("hotStampProdEdit", event)}/>}/>
                                             </Grid>
                                         </Grid>
                                     
@@ -835,27 +958,34 @@ const UpdateUser = () => {
                                                 <FormLabel id="quality-control1">IQC</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={iqcEntry} label="IQC Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={iqcEdit} label="IQC Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="IQC Entry" control={<Checkbox checked={userAccessControlState.iqcEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("iqcEntry", event)}/>}/>
+                                                <FormControlLabel label="IQC Edit" control={<Checkbox checked={userAccessControlState.iqcEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("iqcEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="quality-control2">OSD</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={osdEntry} label="OSD Entry" control={<Checkbox  />}/>
-                                                <FormControlLabel inputRef={osdEdit} label="OSD Edit" control={<Checkbox  />}/>
+                                                <FormControlLabel label="OSD Entry" control={<Checkbox checked={userAccessControlState.osdEntry}  
+                                                    onChange={(event)=> handleToggleUserAccess("osdEntry", event)}/>}/>
+                                                <FormControlLabel label="OSD Edit" control={<Checkbox checked={userAccessControlState.osdEdit}  
+                                                    onChange={(event)=> handleToggleUserAccess("osdEdit", event)}/>}/>
                                             </Grid>
                                             <Grid item xs={4} sx={{alignSelf: 'center'}}>
                                                 <FormLabel id="quality-control3">SR Singer service</FormLabel>
                                             </Grid>
                                             <Grid item xs={8} sx={{alignSelf: 'center'}}>
-                                                <FormControlLabel inputRef={SSCSR} label="SR Singer Service" control={<Checkbox  />}/>
+                                                <FormControlLabel label="SR Singer Service" control={<Checkbox checked={userAccessControlState.SSCSR}  
+                                                    onChange={(event)=> handleToggleUserAccess("SSCSR", event)}/>}/>
                                             </Grid>
                                             
                                         </Grid>
                                     <FormLabel id="disposal" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>Disposal</FormLabel>
-                                        <FormControlLabel inputRef={disposalRequest} label="Disposal Request" control={<Checkbox  />}/>
-                                        <FormControlLabel inputRef={disposalApproval} label="Disposal Approval" control={<Checkbox />}/>
+                                        <FormControlLabel label="Disposal Request" control={<Checkbox checked={userAccessControlState.disposalRequest}  
+                                            onChange={(event)=> handleToggleUserAccess("disposalRequest", event)}/>}/>
+                                        <FormControlLabel label="Disposal Approval" control={<Checkbox checked={userAccessControlState.disposalApproval}  
+                                            onChange={(event)=> handleToggleUserAccess("disposalApproval", event)}/>}/>
                                     </FormControl>
                                 </Box>
                                 <Button variant="contained" sx={{ mt: 3, mb: 2, }} onClick={()=>handleAccessRecordSave()}>Approval</Button>
