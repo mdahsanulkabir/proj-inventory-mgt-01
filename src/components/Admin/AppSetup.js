@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import AdminWarehouse from './AdminWarehouse';
 import AdminPart from './AdminPart';
 import AdminSKU from './AdminSKU';
+import AdminSupplier from './AdminSupplier';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,7 +54,7 @@ export default function AppSetup() {
       <TabPanel component='div' value={value} index={0}><AdminWarehouse/></TabPanel>
       <TabPanel value={value} index={1}><AdminPart/></TabPanel>
       <TabPanel value={value} index={2}><AdminSKU /></TabPanel>
-      <TabPanel value={value} index={3}>Supplier</TabPanel>
+      <TabPanel value={value} index={3}><AdminSupplier /></TabPanel>
     </Box>
   );
 }

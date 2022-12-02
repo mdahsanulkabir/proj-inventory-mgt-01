@@ -32,8 +32,8 @@ import { Button, Collapse } from "@mui/material";
 import useLoadWarehouse from "../../Hooks/useLoadWarehouse";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-import { getAuth, signOut } from "firebase/auth";
-import { useEffect } from "react";
+import { signOut } from "firebase/auth";
+// import { TokenContext } from '../../App'
 
 const drawerWidth = 240;
 
@@ -44,13 +44,10 @@ const Layout = () => {
   const [drawerState, setDrawerState] = useState(false);
   const [user] = useAuthState(auth);
   const { warehouses } = useLoadWarehouse();
-  const [ token, setToken ] = useState('')
-
-  useEffect(() => {
-    if (user) {
-      user.getIdToken().then((res) => setToken(res));
-    }
-  }, []);
+  // const myValue = useContext(TokenContext);
+  // const printTheText = () => {
+  //   console.log(myValue);
+  // }
 
   const handleStoresSubList = (e) => {
     setStoreSubListMenu(!storeSubListMenu);

@@ -7,11 +7,12 @@
 
 import { ManageAccounts, Person } from '@mui/icons-material';
 import { Box, Button, Checkbox, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Radio, RadioGroup, Tab, Tabs, TextField, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useReducer } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import auth from '../../firebase.init';
+// import { useAuthState } from 'react-firebase-hooks/auth';
+// import auth from '../../firebase.init';
 import PropTypes from 'prop-types';
+import { TokenContext } from '../../App';
 
 
 //function for tab
@@ -77,6 +78,7 @@ const reducerSelectedUser = (state, action) => {
 
 
 const userAccessControlInitialState = {
+    admin: false,
     createUser: false,
     modifyUser: false,
     createPart: false,
@@ -186,9 +188,10 @@ const userAccessControlInitialState = {
     disposalRequest: false,
     disposalApproval: false,
 }
-const reducerUserAccessControl = ( state, action ) => {
+const reducerUserAccessControl = ( state, action ) => {    // TODO i think there might be a good way to handle this reducer function
     switch ( action.type ) {
         case 'Initialize_userAccessControl' :   return action.payload;
+        case 'admin' :                          return { ...state, admin : action.payload}
         case 'createUser' :                     return { ...state, createUser : action.payload}
         case 'modifyUser' :                     return { ...state, modifyUser : action.payload}
         case 'createPart' :                     return { ...state, createPart : action.payload}
@@ -317,16 +320,25 @@ const UpdateUser = () => {
         setTabValue(newValue);
     };
 
+
+    //? test use context
+    const token = useContext(TokenContext);
+    // const textContextValue = () => {
+    //     console.log(token);   ///  <================== test use context
+    // }
+
+
     // TODO Move the token to global level and use useContext 
-    const [ token, setToken ] = useState('');
-    const [user] = useAuthState(auth);
-    useEffect(()=> {
-        if(user){
-            user.getIdToken(true)
-            .then(res => setToken(res))
-            .catch(error => console.log(error))
-        }
-        },[user])
+    // const [ token, setToken ] = useState('');
+    // const [user] = useAuthState(auth);
+    // console.log(user);     // <--------------------------------
+    // useEffect(()=> {
+    //     if(user){
+    //         user.getIdToken(true)
+    //         .then(res => setToken(res))
+    //         .catch(error => console.log(error))
+    //     }
+    //     },[user])
     
 
     //? loading all user credentials
@@ -378,7 +390,8 @@ const UpdateUser = () => {
                 dispatchUserAccessControl({
                     type : item,
                     payload : true
-            }))
+                })
+            )
         }
     }
 
@@ -416,6 +429,7 @@ const UpdateUser = () => {
 
     const handleAccessRecordSave = async () => {
         let access = [];
+        userAccessControlState?.admin && access.push("admin");;
         userAccessControlState?.createUser && access.push("createUser");
         userAccessControlState?.modifyUser && access.push("modifyUser");
         userAccessControlState?.createPart && access.push("createPart");

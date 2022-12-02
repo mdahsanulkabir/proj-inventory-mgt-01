@@ -13,16 +13,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useNavigate } from "react-router-dom";
-import Counter from "./renderProp/CounterProp";
-import ClickCountProp from "./renderProp/ClickCountProp";
-import HoverCountProp from "./renderProp/HoverCountProp";
 import { CircularProgress } from "@mui/material";
 import CustomSnackBar from "../../Shared/SnackBar/CustomSnackBar";
 
 const theme = createTheme();
 
 
-export default function Login() {
+export default function Login(props) {
+  const { tokenHandler } = props;
+
   const navigate = useNavigate();
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
@@ -36,6 +35,7 @@ export default function Login() {
   };
 
   if (user) {
+    tokenHandler(user.user);
     navigate("/layout");
   }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import AdminPanel from "./components/Admin/AdminPanel";
@@ -16,29 +16,41 @@ import ProductionHistoryWeekly from "./components/Production/ProductionHistoryWe
 import ProductionHistoryMonthly from "./components/Production/ProductionHistoryMonthly";
 import ProductionHistoryYearly from "./components/Production/ProductionHistoryYearly";
 
+export const TokenContext = createContext('')
+
 const App = () => {
+    const [ myToken, setMyToken ] = useState('');
+
+    const tokenHandler = (props) => {
+        setMyToken(props);
+    }
     return (
         <div>
             <Routes>
-                <Route path="/" element={<Login />} />
+                <Route path="/" element={<Login tokenHandler={tokenHandler}/>} />
                 <Route path="/testApp" element={<TestApp />} />
-                <Route path="/layout" element={<Layout />}>
-                    <Route index element={<Dashboard />} />
-                    <Route path="allSKU" element={<AllSku />} />
+                
+                    <Route path="/layout" element={
+                        <TokenContext.Provider value={myToken}>
+                            <Layout />
+                        </TokenContext.Provider>
+                    }>
+                        <Route index element={<Dashboard />} />
+                        <Route path="allSKU" element={<AllSku />} />
 
-                    <Route path="allParts" element={<AllParts />} />
-                    <Route path="admin" element={<AdminPanel />}>
-                        <Route index element={<AdminDashboard />} />
-                        <Route path="userMgt" element={<UserManagement />} />
-                        <Route path="appSetup" element={<AppSetup />} />
+                        <Route path="allParts" element={<AllParts />} />
+                        <Route path="admin" element={<AdminPanel />}>
+                            <Route index element={<AdminDashboard />} />
+                            <Route path="userMgt" element={<UserManagement />} />
+                            <Route path="appSetup" element={<AppSetup />} />
+                        </Route>
+                        <Route path="showProduction" element={<ShowProduction />}>
+                            <Route index element={<ProductionHistoryDaily />}/>
+                            <Route path="weeklyProduction" element={<ProductionHistoryWeekly />}/>
+                            <Route path="monthlyProduction" element={<ProductionHistoryMonthly />}/>
+                            <Route path="yearlyProduction" element={<ProductionHistoryYearly />}/>
+                        </Route>
                     </Route>
-                    <Route path="showProduction" element={<ShowProduction />}>
-                        <Route index element={<ProductionHistoryDaily />}/>
-                        <Route path="weeklyProduction" element={<ProductionHistoryWeekly />}/>
-                        <Route path="monthlyProduction" element={<ProductionHistoryMonthly />}/>
-                        <Route path="yearlyProduction" element={<ProductionHistoryYearly />}/>
-                    </Route>
-                </Route>
             </Routes>
         </div>
     );
