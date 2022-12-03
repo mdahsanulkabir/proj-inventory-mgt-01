@@ -11,12 +11,19 @@ const supplierInitialState = {
     supplierAddress : '',
     supplierContactPerson : '',
     supplierContactPersonPhoneNumber : '',
-    SupplierCategory : '',
+    supplierCategory : '',
 }
 
 const reducerSupplier = ( state, action ) => {
+    console.log(action);
     switch ( action.type ) {
-
+        case 'supplierID' : return { ...state, supplierID : action.payload };
+        case 'supplierName' : return { ...state, supplierName : action.payload };
+        case 'supplierEmail' : return { ...state, supplierEmail : action.payload };
+        case 'supplierAddress' : return { ...state, supplierAddress : action.payload };
+        case 'supplierContactPerson' : return { ...state, supplierContactPerson : action.payload };
+        case 'supplierContactPersonPhoneNumber' : return { ...state, supplierContactPersonPhoneNumber : action.payload };
+        case 'supplierCategory' : return { ...state, supplierCategory : action.payload };
         case 'reset' :  return supplierInitialState;
         default:        throw new Error(`Unknown action type: ${action.type}`);
     }
@@ -27,6 +34,14 @@ const CreateSupplier = () => {
     const [error, setError] = useState('');
     const token = useContext(TokenContext);
 
+    // const supplierID = supplierState.supplierID
+    // const supplierName = supplierState.supplierName
+    // const supplierEmail = supplierState.supplierEmail
+    // const supplierAddress = supplierState.supplierAddress
+    // const supplierContactPerson = supplierState.supplierContactPerson
+    // const supplierContactPersonPhoneNumber = supplierState.supplierContactPersonPhoneNumber
+    // const supplierCategory = supplierState.supplierCategory
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         // const newSupplier = { 
@@ -36,9 +51,11 @@ const CreateSupplier = () => {
         //     supplierAddress,
         //     supplierContactPerson,
         //     supplierContactPersonPhoneNumber,
-        //     SupplierCategory
+        //     supplierCategory
         // }
-        const response = await fetch(`http://localhost:5000/api/rm`, {
+        console.log(supplierState);
+        console.log(token);
+        const response = await fetch(`http://localhost:5000/api/createSupplier`, {
             method: "POST",
             body: JSON.stringify(supplierState),
             headers: {
@@ -130,7 +147,7 @@ const CreateSupplier = () => {
                             required
                             fullWidth
                             id="supplierAddress"
-                            label="Source Category"
+                            label="Source Address"
                             onChange={(e) => dispatchSupplier({
                                 type : 'supplierAddress',
                                 payload : e.target.value})}
@@ -162,7 +179,7 @@ const CreateSupplier = () => {
                             <FormLabel id="demo-row-radio-buttons-group-label">Email Verified</FormLabel>
                             <RadioGroup row name="row-radio-buttons-group" defaultValue="local"
                                 onChange={(e) => dispatchSupplier({
-                                    type : 'SupplierCategory',
+                                    type : 'supplierCategory',
                                     payload : e.target.value})}
                             >
                                 <FormControlLabel value="local" control={<Radio />} label="Local Supplier" />
@@ -181,7 +198,7 @@ const CreateSupplier = () => {
                             variant="contained"
                             sx={{ mt: 3, mb: 2, }}
                         >
-                            Create Part
+                            Create Supplier
                         </Button>
                         </Box>
                         {error && <div className="error">{error}</div>}

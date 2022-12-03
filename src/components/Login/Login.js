@@ -10,7 +10,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useAuthState, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
@@ -23,7 +23,7 @@ export default function Login(props) {
   const { tokenHandler } = props;
 
   const navigate = useNavigate();
-  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [ signInWithEmailAndPassword, user, loading, error ] = useSignInWithEmailAndPassword(auth);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,9 +34,32 @@ export default function Login(props) {
     signInWithEmailAndPassword(email, password);
   };
 
-  if (user) {
-    tokenHandler(user.user);
-    navigate("/layout");
+
+    //? token direct from firebase
+    const [ token, setToken ] = React.useState('');
+    const [user1] = useAuthState(auth);
+    React.useEffect(()=> {
+        if(user1){
+            user1.getIdToken(true)
+            .then(res => setToken(res))
+            .catch(error => console.log(error))
+        }
+        },[user1])
+    if (token) {
+      console.log("token at Login -", token);
+      tokenHandler(token);
+      
+      // const [ token, setToken ] = useState('');
+      // const [user] = useAuthState(auth);
+      // console.log(user1);     // <--------------------------------
+      // useEffect(()=> {
+      //     if(user){
+      //         user.getIdToken(true)
+      //         .then(res => setToken(res))
+      //         .catch(error => console.log(error))
+      //     }
+      //     },[user])
+      navigate("/layout");
   }
 
   if (error) {

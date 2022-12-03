@@ -323,6 +323,7 @@ const UpdateUser = () => {
 
     //? test use context
     const token = useContext(TokenContext);
+    console.log("token =  > " , token);
     // const textContextValue = () => {
     //     console.log(token);   ///  <================== test use context
     // }
@@ -361,7 +362,7 @@ const UpdateUser = () => {
 
     
     
-    // allUserCredentialsState && console.log(allUserCredentialsState);
+    allUserCredentialsState && console.log(allUserCredentialsState);
 
     const handleSelectedUser = async (email) => {
         const selectedUser = allUserCredentialsState.find(getuser => getuser.email === email);
@@ -423,8 +424,7 @@ const UpdateUser = () => {
         dispatchUserAccessControl({
             type : userAccess,
             payload: event.target.checked
-
-    })
+        })
     }
 
     const handleAccessRecordSave = async () => {
