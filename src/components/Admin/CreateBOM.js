@@ -1,4 +1,4 @@
-import { Widgets } from '@mui/icons-material';
+import { Source, Widgets } from '@mui/icons-material';
 import { Autocomplete, Box, Button, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { TokenContext } from '../../App';
@@ -7,13 +7,14 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 const CreateBOM = () => {
-    // const [value, setValue] = useState(null);
-    const [qty, setQty] = useState(0);
     const token = useContext(TokenContext);
     const { parts } = useLoadParts();
-    const [ partsAndSFG, setPartsAndSFG ] = useState([{ _id: "", obj_id : "", model_type : "", quantity : 0}]);
-    // console.log(parts);
-    // console.log(value?.id , "qty = ", qty);
+    const [ sfgSource, setSFGSource ] = useState('F');
+    const [ partsAndSFG, setPartsAndSFG ] = useState([{ _id: "", obj_id : "", model_type : "", quantity : 0, unit: ""}]);
+    const [ sfgObject_id, setSFGObject_id ] = useState('');
+    const [ sfgName, setSFGName ] = useState('')
+    const [ sfgSisCode, setSfgSisCode ] = useState('')
+
     console.log(partsAndSFG);
 
     const part_model_type = "RM";
@@ -27,19 +28,42 @@ const CreateBOM = () => {
             unit : part.unit,
             model_type: "RM"
         })
-)
+    )
 
     const handleSubmit = () => {
-        console.log(partsAndSFG);
+        console.log({
+            object_id : sfgObject_id,
+            material_name : sfgName,
+            sis_code : sfgSisCode,
+            source_category : sfgSource,
+            children : Object.values(partsAndSFG),
+        });
+    }
+    
+    const handleSFGObject_id = (e) => {
+        setSFGObject_id(e.target.value);
+    }
+    
+    const handleSFGName = (e) => {
+        setSFGName(e.target.value);
+    }
+
+    const handleSFGSISCode = (e) => {
+        setSfgSisCode(e.target.value)
+    }
+
+    const handleSource = (e) => {
+        setSFGSource(e.target.value);
     }
 
     const handleParts = (e, index, newValue) => {
         console.log(newValue);
-        const { _id, obj_id, model_type } = newValue;
+        const { _id, obj_id, model_type, unit } = newValue;
         const list = [ ...partsAndSFG ];
         list[index].obj_id = obj_id;
         list[index].model_type = model_type;
         list[index]._id = _id;
+        list[index].unit = unit;
     }
 
     const handleQtyChange = (e, index) => {
@@ -57,7 +81,7 @@ const CreateBOM = () => {
     }
     
     const handlePartsAndSFGAdd = () => {
-        setPartsAndSFG([ ...partsAndSFG, {_id : "", obj_id : "", model_type : "", quantity : 0} ])
+        setPartsAndSFG([ ...partsAndSFG, {_id : "", obj_id : "", model_type : "", quantity : 0, unit : ""} ])
     }
 
     return (
@@ -85,7 +109,7 @@ const CreateBOM = () => {
                     </Box>
                     <Box
                         component="form"
-                        onSubmit={handleSubmit}
+                        // onSubmit={handleSubmit}
                         noValidate
                         sx={{ mt: 1, marginInline: '20px'}}
                     >
@@ -96,10 +120,8 @@ const CreateBOM = () => {
                             id="sfgID"
                             label="SFG Object ID"
                             autoFocus
-                            onChange={(e) => {
-
-                            }}
-                            value={""}
+                            onChange={(e) => handleSFGObject_id(e)}
+                            value={sfgObject_id}
                             helperText="Must be Unique"
                         />
 
@@ -109,10 +131,8 @@ const CreateBOM = () => {
                             fullWidth
                             id="sfgName"
                             label="SFG Name"
-                            onChange={(e) => {
-
-                            }}
-                            value={""}
+                            onChange={(e) => handleSFGName(e)}
+                            value={sfgName}
                         />
                         <TextField
                             margin="normal"
@@ -120,18 +140,14 @@ const CreateBOM = () => {
                             fullWidth
                             id="sisCode"
                             label="SIS Code"
-                            onChange={(e) => {
-
-                            }}
-                            value={""}
+                            onChange={(e) => handleSFGSISCode(e)}
+                            value={sfgSisCode}
                             helperText="Must be Unique"
                         />
                         <FormControl>
                             <FormLabel id="demo-row-radio-buttons-group-label">SFG Source</FormLabel>
-                            <RadioGroup row name="row-radio-buttons-group" defaultValue="F"
-                                onChange={(e) => {
-
-                                }}
+                            <RadioGroup row name="row-radio-buttons-group" value={sfgSource}
+                                onChange={(e) => handleSource(e)}
                             >
                                 <FormControlLabel value="F" control={<Radio />} label="Internal Production" />
                                 <FormControlLabel value="3rd-Plastic" control={<Radio />} label="3rd Party Plastic" />
@@ -173,7 +189,7 @@ const CreateBOM = () => {
                                                 }}
                                             />
                                         )}
-                                        onChange={(e, newValue) => handleParts(e, index, newValue)}
+                                        onChange={(e, newValue) => newValue && handleParts(e, index, newValue)}
                                         // value={partsAndSFG[index]}
                                     />
                                     <TextField
@@ -181,7 +197,7 @@ const CreateBOM = () => {
                                         margin="normal"
                                         required
                                         id="sisCode"
-                                        label="Quantity"
+                                        label={`Quantity - (${partsAndSFG[index].unit})`}
                                         onChange={(e) => {
                                             handleQtyChange(e, index)
                                         }}
