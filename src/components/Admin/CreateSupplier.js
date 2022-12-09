@@ -115,7 +115,8 @@ const CreateSupplier = () => {
                             autoFocus
                             onChange={(e) => dispatchSupplier({
                                 type : 'supplierID',
-                                payload : e.target.value})}
+                                payload : e.target.value}
+                            )}
                             value={ supplierState.supplierID }
                         />
                         <TextField
@@ -147,7 +148,7 @@ const CreateSupplier = () => {
                             required
                             fullWidth
                             id="supplierAddress"
-                            label="Source Address"
+                            label="Supplier Address"
                             onChange={(e) => dispatchSupplier({
                                 type : 'supplierAddress',
                                 payload : e.target.value})}

@@ -55,7 +55,7 @@ export default function AllParts() {
       sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
     >
       <Toolbar />
-      <Paper sx={{maxWidth: 1200}} elevation={5}>
+      <Paper sx={{maxWidth: 1200, marginInline: 'auto'}} elevation={5}>
       <TableContainer sx={{ height: 700 }}>
         <Table stickyHeader size="small" aria-label="simple table">
           <TableHead>

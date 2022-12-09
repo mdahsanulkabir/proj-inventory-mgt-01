@@ -37,7 +37,6 @@ export default function AdminWarehouse() {
     <Box sx={{ height: "100%", display: "flex" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider", width: "110px" }}>
         <Tabs
-          dense
           orientation="vertical"
           value={value}
           onChange={handleChange}

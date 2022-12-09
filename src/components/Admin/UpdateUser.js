@@ -81,6 +81,8 @@ const userAccessControlInitialState = {
     admin: false,
     createUser: false,
     modifyUser: false,
+    createSupplier: false,
+    modifySupplier: false,
     createPart: false,
     modifyPart: false,
     createSFG: false,
@@ -194,6 +196,8 @@ const reducerUserAccessControl = ( state, action ) => {    // TODO i think there
         case 'admin' :                          return { ...state, admin : action.payload}
         case 'createUser' :                     return { ...state, createUser : action.payload}
         case 'modifyUser' :                     return { ...state, modifyUser : action.payload}
+        case 'createSupplier' :                     return { ...state, createSupplier : action.payload}
+        case 'modifySupplier' :                     return { ...state, modifySupplier : action.payload}
         case 'createPart' :                     return { ...state, createPart : action.payload}
         case 'modifyPart' :                     return { ...state, modifyPart : action.payload}
         case 'createSFG' :                      return { ...state, createSFG : action.payload}
@@ -432,6 +436,8 @@ const UpdateUser = () => {
         userAccessControlState?.admin && access.push("admin");;
         userAccessControlState?.createUser && access.push("createUser");
         userAccessControlState?.modifyUser && access.push("modifyUser");
+        userAccessControlState?.createSupplier && access.push("createSupplier");
+        userAccessControlState?.modifySupplier && access.push("modifySupplier");
         userAccessControlState?.createPart && access.push("createPart");
         userAccessControlState?.modifyPart && access.push("modifyPart");
         userAccessControlState?.createSFG && access.push("createSFG");
@@ -668,6 +674,10 @@ const UpdateUser = () => {
                                             onChange={(event)=> handleToggleUserAccess("createUser", event)}/>}/>
                                         <FormControlLabel label="Modify User" control={<Checkbox checked={userAccessControlState.modifyUser}  
                                             onChange={(event)=> handleToggleUserAccess("modifyUser", event)}/>}/>
+                                        <FormControlLabel label="Create Supplier" control={<Checkbox checked={userAccessControlState.createSupplier}  
+                                            onChange={(event)=> handleToggleUserAccess("createSupplier", event)}/>}/>
+                                        <FormControlLabel label="Modify Supplier" control={<Checkbox checked={userAccessControlState.modifySupplier}  
+                                            onChange={(event)=> handleToggleUserAccess("modifySupplier", event)}/>}/>
 
                                     <FormLabel id="part-control" sx={{ borderBottom: 1, borderColor: 'rebeccapurple' }}>Part/SFG Control</FormLabel>
                                         <FormControlLabel label="Create Part" control={<Checkbox checked={userAccessControlState.createPart}  

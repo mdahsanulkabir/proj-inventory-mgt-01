@@ -15,6 +15,7 @@ import ProductionHistoryDaily from "./components/Production/ProductionHistoryDai
 import ProductionHistoryWeekly from "./components/Production/ProductionHistoryWeekly";
 import ProductionHistoryMonthly from "./components/Production/ProductionHistoryMonthly";
 import ProductionHistoryYearly from "./components/Production/ProductionHistoryYearly";
+import Test from "./components/Admin/test";
 
 export const TokenContext = createContext('')
 
@@ -28,6 +29,8 @@ const App = () => {
         <div>
             <Routes>
                 <Route path="/" element={<Login tokenHandler={tokenHandler}/>} />
+
+                <Route path="/test2" element={<Test />} />
                 <Route path="/testApp" element={<TestApp />} />
                 
                     <Route path="/layout" element={
