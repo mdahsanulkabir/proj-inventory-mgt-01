@@ -1,24 +1,29 @@
-import { Source, Widgets } from '@mui/icons-material';
+import { Widgets } from '@mui/icons-material';
 import { Autocomplete, Box, Button, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { TokenContext } from '../../App';
-import useLoadParts from '../../Hooks/useLoadParts';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import useLoadParts from '../../Hooks/useLoadParts';
+import useLoadSFGSourceCategory from '../../Hooks/useLoadSFGSourceCategory';
+import useLoadSFGCategory from '../../Hooks/useLoadSFGCategory';
 
 
 const CreateBOM = () => {
     const token = useContext(TokenContext);
     const { parts } = useLoadParts();
-    const [ sfgSource, setSFGSource ] = useState('F');
+    const { sfgSourceCategories } = useLoadSFGSourceCategory();
+    const { sfgCategories } = useLoadSFGCategory();
     const [ partsAndSFG, setPartsAndSFG ] = useState([{ _id: "", obj_id : "", model_type : "", quantity : 0, unit: ""}]);
     const [ sfgObject_id, setSFGObject_id ] = useState('');
     const [ sfgName, setSFGName ] = useState('')
+    const [ sfgSource, setSFGSource ] = useState('F');
+    const [ sfgCategory, setSFGCategory ] = useState('')
+    const [ sfgSAPCode, setSfgSAPCode ] = useState('')
     const [ sfgSisCode, setSfgSisCode ] = useState('')
 
-    console.log(partsAndSFG);
-
-    const part_model_type = "RM";
-    const sfg_model_type = "SFGBOM";
+    // console.log(partsAndSFG);
+    // console.log(sfgSourceCategories);
+    // console.log(sfgSAPCode);
 
     const partOptions = parts.map(part => ({
             label : part.material_name,
@@ -30,14 +35,78 @@ const CreateBOM = () => {
         })
     )
 
-    const handleSubmit = () => {
+    const sfgSourceCategoryOptions = sfgSourceCategories.map(sfgSourceCategory => ({
+        label: sfgSourceCategory.source_category,
+        _id: sfgSourceCategory._id
+    }))
+
+    const sfgCategoryOptions = sfgCategories.map(sfgCategory => ({
+        label: sfgCategory.sfg_category,
+        _id: sfgCategory._id
+    }))
+
+        const handleParts = (e, index, newValue) => {
+        console.log(newValue);
+        const { _id, obj_id, model_type, unit } = newValue;
+        const list = [ ...partsAndSFG ];
+        list[index].obj_id = obj_id;
+        list[index].model_type = model_type;
+        list[index]._id = _id;
+        list[index].unit = unit;
+    }
+
+    const handleSubmit = async () => {
+        
+        const hello = partsAndSFG.map((part, index) =>  ({
+                    object_id : part._id,
+                    model_type : part.model_type,
+                    quantity : part.quantity
+                })
+        )
+
         console.log({
             object_id : sfgObject_id,
             material_name : sfgName,
-            sis_code : sfgSisCode,
             source_category : sfgSource,
-            children : Object.values(partsAndSFG),
+            sfg_category: sfgCategory,
+            sap_code: sfgSAPCode,
+            sis_code : sfgSisCode,
+            children : hello    //  Object.values(partsAndSFG)
         });
+
+        const newSFGBOM = {
+            object_id : sfgObject_id,
+            material_name : sfgName,
+            source_category : sfgSource,
+            sfg_category: sfgCategory,
+            sap_code: sfgSAPCode,
+            sis_code : sfgSisCode,
+            children : hello //Object.values(partsAndSFG),
+        }
+
+        const response = await fetch(`http://localhost:5000/api/createSFGBOM`, {
+            method: "POST",
+            body: JSON.stringify(newSFGBOM),
+            headers: {
+                "Content-Type": "application/json",
+                // Authorization: 'Bearer ' + token,
+            },
+        });
+
+        const json = await response.json();
+        
+
+        if (!response.ok) {
+            console.log(json.error);
+        }
+
+        if(response.ok){
+            // dispatch({ type : 'reset'})
+            console.log("a new BOM added");
+            console.log(json);
+        }
+
+
     }
     
     const handleSFGObject_id = (e) => {
@@ -48,23 +117,23 @@ const CreateBOM = () => {
         setSFGName(e.target.value);
     }
 
+    const handleSAPCode = (e) => {
+        setSfgSAPCode(prev => e.target.value)
+    }
+
     const handleSFGSISCode = (e) => {
         setSfgSisCode(e.target.value)
     }
 
-    const handleSource = (e) => {
-        setSFGSource(e.target.value);
+    const handleSFGSource = (value) => {
+        setSFGSource(value._id)
     }
 
-    const handleParts = (e, index, newValue) => {
-        console.log(newValue);
-        const { _id, obj_id, model_type, unit } = newValue;
-        const list = [ ...partsAndSFG ];
-        list[index].obj_id = obj_id;
-        list[index].model_type = model_type;
-        list[index]._id = _id;
-        list[index].unit = unit;
+    const handleSFGCategory = (value) => {
+        setSFGCategory(value._id);
     }
+
+
 
     const handleQtyChange = (e, index) => {
         console.log("qty =", e.target.value);
@@ -134,6 +203,64 @@ const CreateBOM = () => {
                             onChange={(e) => handleSFGName(e)}
                             value={sfgName}
                         />
+                        <Autocomplete 
+                            disablePortal
+                            options={sfgSourceCategoryOptions}
+                            getOptionLabel = {(option) => option.label}
+                            isOptionEqualToValue = {(option, value) => {
+                                return option.id === value.id
+                            }}
+                            renderOption = {(props, option) => (
+                                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                                    {option.label}
+                                </Box>
+                            )}
+                            renderInput = {(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Choose a SFG source category"
+                                    inputProps={{
+                                        ...params.inputProps,
+                                        autoComplete: 'new-password', // disable autocomplete and autofill
+                                    }}
+                                />
+                            )}
+                            onChange = {(e, newValue ) => newValue && handleSFGSource(newValue)}
+                        />
+                        <Autocomplete 
+                            disablePortal
+                            options={sfgCategoryOptions}
+                            getOptionLabel = {(option) => option.label}
+                            isOptionEqualToValue = {(option, value) => {
+                                return option.id === value.id
+                            }}
+                            renderOption = {(props, option) => (
+                                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                                    {option.label}
+                                </Box>
+                            )}
+                            renderInput = {(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Choose a SFG category"
+                                    inputProps={{
+                                        ...params.inputProps,
+                                        autoComplete: 'new-password', // disable autocomplete and autofill
+                                    }}
+                                />
+                            )}
+                            onChange = {(e, newValue ) => newValue && handleSFGCategory(newValue)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="sapCode"
+                            label="SAP Code"
+                            onChange={(e) => handleSAPCode(e)}
+                            value={sfgSAPCode}
+                            helperText="Must be Unique"
+                        />
                         <TextField
                             margin="normal"
                             required
@@ -145,14 +272,7 @@ const CreateBOM = () => {
                             helperText="Must be Unique"
                         />
                         <FormControl>
-                            <FormLabel id="demo-row-radio-buttons-group-label">SFG Source</FormLabel>
-                            <RadioGroup row name="row-radio-buttons-group" value={sfgSource}
-                                onChange={(e) => handleSource(e)}
-                            >
-                                <FormControlLabel value="F" control={<Radio />} label="Internal Production" />
-                                <FormControlLabel value="3rd-Plastic" control={<Radio />} label="3rd Party Plastic" />
-                                <FormControlLabel value="3rd-Sheet" control={<Radio />} label="3rd Party Sheet" />
-                            </RadioGroup>
+                            
 
                         {/* //? the repeating component     */}
                         {
@@ -223,7 +343,7 @@ const CreateBOM = () => {
                             ))
                         }
                         </FormControl> 
-                        <Button variant="contained" onClick={()=>handleSubmit()}>
+                        <Button variant="contained" onClick={handleSubmit}>
                             Save SFG BOM <span><ArrowForwardIosIcon sx={{ fontSize: 15 }} /></span>
                         </Button>
                     </Box>
