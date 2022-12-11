@@ -27,8 +27,17 @@ const CreateBOM = () => {
     // console.log(sfgSourceCategories);
     // console.log(sfgSAPCode);
     console.log(sfgBOMs);
+    const sfgPart = sfgBOMs.map(part => ({
+            label : part.material_name,
+            _id : part._id,
+            obj_id : part.object_id,
+            sis_code : part.sis_code,
+            unit : part.unit,
+            model_type: "RM"
+    }))
+    
 
-    const partOptions = parts.map(part => ({
+    const rmParts = parts.map(part => ({
             label : part.material_name,
             _id : part._id,
             obj_id : part.object_id,
@@ -37,6 +46,20 @@ const CreateBOM = () => {
             model_type: "RM"
         })
     )
+
+    const partOptions = rmParts.concat(sfgPart)
+    // const partOptions = parts.map(part => ({
+    //         label : part.material_name,
+    //         _id : part._id,
+    //         obj_id : part.object_id,
+    //         sis_code : part.sis_code,
+    //         unit : part.unit,
+    //         model_type: "RM"
+    //     })
+    // )
+
+    console.log(rmParts);
+    console.log(sfgPart);
 
     const sfgSourceCategoryOptions = sfgSourceCategories.map(sfgSourceCategory => ({
         label: sfgSourceCategory.source_category,
