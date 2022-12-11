@@ -6,6 +6,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useLoadParts from '../../Hooks/useLoadParts';
 import useLoadSFGSourceCategory from '../../Hooks/useLoadSFGSourceCategory';
 import useLoadSFGCategory from '../../Hooks/useLoadSFGCategory';
+import useLoadSFGBOM from '../../Hooks/useLoadSFGBOM';
 
 
 const CreateBOM = () => {
@@ -13,6 +14,7 @@ const CreateBOM = () => {
     const { parts } = useLoadParts();
     const { sfgSourceCategories } = useLoadSFGSourceCategory();
     const { sfgCategories } = useLoadSFGCategory();
+    const { sfgBOMs } = useLoadSFGBOM();
     const [ partsAndSFG, setPartsAndSFG ] = useState([{ _id: "", obj_id : "", model_type : "", quantity : 0, unit: ""}]);
     const [ sfgObject_id, setSFGObject_id ] = useState('');
     const [ sfgName, setSFGName ] = useState('')
@@ -24,6 +26,7 @@ const CreateBOM = () => {
     // console.log(partsAndSFG);
     // console.log(sfgSourceCategories);
     // console.log(sfgSAPCode);
+    console.log(sfgBOMs);
 
     const partOptions = parts.map(part => ({
             label : part.material_name,

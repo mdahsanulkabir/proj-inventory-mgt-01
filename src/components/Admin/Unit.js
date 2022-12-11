@@ -2,21 +2,18 @@ import { ScaleTwoTone, Widgets } from '@mui/icons-material';
 import { Box, Button, Container, CssBaseline, Paper, TextField, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import axios from 'axios';
 
 const Unit = () => {
     const [unitName, setUnitName] = useState("");
     const [unitSymbol, setUnitSymbol] = useState("");
+    const [ presentUnits, setPresentUnits ] = useState([])
     const [error, setError] = useState(null);
 
-    useEffect( async ()=> {
-
-        try {
-            const res = await axios.get('http://localhost:5000/api/units');
-            console.log(res.data);
-        } catch (error) {
-            console.log(error);
-        }
+    useEffect(()=> {
+        fetch('http://localhost:5000/api/units')
+        .then(res => res.json())
+        .then(data => setPresentUnits(data))
+        .catch(error => console.log(error))
     },[])
 
     const handleSubmit = async (e) => {
@@ -59,6 +56,13 @@ const Unit = () => {
                                 color="primary.main"
                                 align="center"
                             >Present Units in Action</Typography>
+                        </Box>
+                        <Box sx={{alignItems:'center'}}>
+                            {
+                                presentUnits.map((presentUnit, index)=> (
+                                    <Typography key={index} variant='h6' component='h6' color='secondary.main'>{presentUnit.unitName}</Typography>
+                                ))
+                            }
                         </Box>
                         
                     </Box>
