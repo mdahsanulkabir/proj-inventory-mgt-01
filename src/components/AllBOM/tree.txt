@@ -1,0 +1,31 @@
+All Bom (AllBOM)
+--- BOM Dashboard (AllBOMDashboard)
+--- BOM For MRP
+    --- MRP for SKU
+    --- MRP for Parts and SFG
+--- Analysis (BOMAnalyse)
+--- Show BOM (ShowBOM)
+    --- SKU VS PARTS (BOMskuVSpart)
+        --- ONLY RAW ()
+        --- INHOUSE (SFG except 1st shed + EvaWrap) + 3RD SFG () + Remaining RAW parts
+    --- SFG INHOUSE ()
+        --- BarCode
+        --- Thermoforming
+        --- Roll Forming
+        --- Power Press
+        --- Eva Wrap
+        --- Bending Heaters
+        --- U Shell Bend
+        --- Clinching
+        --- Pre Assembly
+        --- Body Foaming
+        --- Door Foaming
+        --- Post Assembly
+        --- Pad Printing
+        --- Hot Stamping
+        --- Finishing
+    --- SFG THIRD PARTY ()
+        --- Summary (all sfg, third party names, etc)
+        --- SFG Sheets
+        --- SFG Plastics
+        --- Party wise SFG

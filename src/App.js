@@ -16,6 +16,10 @@ import ProductionHistoryWeekly from "./components/Production/ProductionHistoryWe
 import ProductionHistoryMonthly from "./components/Production/ProductionHistoryMonthly";
 import ProductionHistoryYearly from "./components/Production/ProductionHistoryYearly";
 import Test from "./components/Admin/test";
+import AllBOM from "./components/AllBOM/AllBOM";
+import AllBOMDashboard from "./components/AllBOM/AllBOMDashboard";
+import ShowBOM from "./components/AllBOM/ShowBOM"
+import BOMAnalyse from "./components/AllBOM/BOMAnalyse"
 
 export const TokenContext = createContext('')
 
@@ -42,6 +46,13 @@ const App = () => {
                         <Route path="allSKU" element={<AllSku />} />
 
                         <Route path="allParts" element={<AllParts />} />
+
+                        <Route path="allbom" element={<AllBOM />}>
+                            <Route index element={<AllBOMDashboard />} />
+                            <Route path="showBOM" element={<ShowBOM />} />
+                            <Route path="bomAnalyse" element={<BOMAnalyse />} />
+                        </Route>
+                        
                         <Route path="admin" element={<AdminPanel />}>
                             <Route index element={<AdminDashboard />} />
                             <Route path="userMgt" element={<UserManagement />} />

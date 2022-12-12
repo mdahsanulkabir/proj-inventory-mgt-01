@@ -191,6 +191,16 @@ const Layout = () => {
               </ListItemButton>
             </ListItem>
           </List>
+          <List >
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate("allbom")}>
+                <ListItemIcon>
+                  <Widgets color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="ALL BOM" />
+              </ListItemButton>
+            </ListItem>
+          </List>
           <Divider />
           <List >
             <ListItem disablePadding>
