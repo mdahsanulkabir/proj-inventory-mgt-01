@@ -48,7 +48,7 @@ const MRPsfg = () => {
                 </Tabs>
             </Box>
             <Box sx={{marginInline: "auto"}}>
-                <TabPanel value={value} index={0}>Tab 1</TabPanel>
+                <TabPanel value={value} index={0}><img src="../../assets/construction.png" alt="site under construction"/></TabPanel>
                 <TabPanel value={value} index={1}>Tab 2</TabPanel>
             </Box>
         </Box>

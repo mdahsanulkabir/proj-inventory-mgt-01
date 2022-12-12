@@ -84,7 +84,7 @@ const CreateBOM = () => {
         const hello = partsAndSFG.map((part, index) =>  ({
                     object_id : part._id,
                     model_type : part.model_type,
-                    quantity : part.quantity
+                    quantity : parseFloat(part.quantity) ? parseFloat(part.quantity) : 0
                 })
         )
 
@@ -160,11 +160,21 @@ const CreateBOM = () => {
 
 
     const handleQtyChange = (e, index) => {
-        console.log("qty =", e.target.value);
-        const { value } = e.target;
-        const list = [ ...partsAndSFG ];
-        list[index].quantity = parseFloat(value);
-        setPartsAndSFG(list);
+        if(e.target.value) {
+            // console.log("qty =", e.target.value);
+            // console.log("type =", typeof e.target.value)
+            const { value } = e.target;
+            const list = [ ...partsAndSFG ];
+            list[index].quantity = value;
+            // console.log("type =", typeof list[index].quantity)
+            // console.log("val =",  list[index].quantity)
+            setPartsAndSFG(list);
+        } else {
+            // console.log("qty =", 0);
+            const list = [ ...partsAndSFG ];
+            list[index].quantity = "";
+            setPartsAndSFG(list);
+        };
     }
 
     const handlePartsRemove = (index) => {
