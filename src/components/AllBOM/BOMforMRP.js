@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useState } from "react";
-import BOMskuVSpart from "./BOMskuVSpart";
-import SFGinhouse from "./SFGinhouse";
-import SFG3rdParty from "./SFG3rdParty";
+import MRPsku from "./MRPsku";
+import MRPsfg from "./MRPsfg";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -32,7 +31,7 @@ TabPanel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-const ShowBOM = () => {
+const BOMforMRP = () => {
     const [value, setValue] = useState(0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -42,16 +41,14 @@ const ShowBOM = () => {
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange}>
-                    <Tab label="SKU Vs Parts"/>
-                    <Tab label="SFG Inhouse"/>
-                    <Tab label="SFG Third Party"/>
+                    <Tab label="MRP for SKU"/>
+                    <Tab label="MRP for SFG"/>
                 </Tabs>
             </Box>
-            <TabPanel value={value} index={0}><BOMskuVSpart /></TabPanel>
-            <TabPanel value={value} index={1}><SFGinhouse /></TabPanel>
-            <TabPanel value={value} index={2}><SFG3rdParty /></TabPanel>
+            <TabPanel value={value} index={0}><MRPsku /></TabPanel>
+            <TabPanel value={value} index={1}><MRPsfg /></TabPanel>
         </Box>
     );
 };
 
-export default ShowBOM;
+export default BOMforMRP;

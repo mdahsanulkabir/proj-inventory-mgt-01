@@ -20,6 +20,7 @@ import AllBOM from "./components/AllBOM/AllBOM";
 import AllBOMDashboard from "./components/AllBOM/AllBOMDashboard";
 import ShowBOM from "./components/AllBOM/ShowBOM"
 import BOMAnalyse from "./components/AllBOM/BOMAnalyse"
+import BOMforMRP from "./components/AllBOM/BOMforMRP";
 
 export const TokenContext = createContext('')
 
@@ -51,6 +52,7 @@ const App = () => {
                             <Route index element={<AllBOMDashboard />} />
                             <Route path="showBOM" element={<ShowBOM />} />
                             <Route path="bomAnalyse" element={<BOMAnalyse />} />
+                            <Route path="bomMRP" element={<BOMforMRP />} />
                         </Route>
                         
                         <Route path="admin" element={<AdminPanel />}>

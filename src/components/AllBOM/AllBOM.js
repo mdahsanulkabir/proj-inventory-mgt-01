@@ -12,7 +12,7 @@ const AllBOM = () => {
                         <ButtonGroup variant="contained">
                             <Button onClick={()=>navigate("showBOM")}>Show BOM</Button>
                             <Button onClick={()=>navigate("bomAnalyse")}>Analyse</Button>
-                            <Button onClick={()=>navigate("")}>BOM FOR MRP</Button>
+                            <Button onClick={()=>navigate("bomMRP")}>BOM FOR MRP</Button>
                             <Button onClick={()=>navigate("/layout/allbom")}>BOM Dashboard</Button>
                         </ButtonGroup>
                     </Grid>

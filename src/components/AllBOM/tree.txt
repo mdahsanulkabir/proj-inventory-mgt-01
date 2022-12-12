@@ -1,14 +1,14 @@
 All Bom (AllBOM)
 --- BOM Dashboard (AllBOMDashboard)
---- BOM For MRP
-    --- MRP for SKU
-    --- MRP for Parts and SFG
+--- BOM For MRP (BOMforMRP)
+    --- MRP for SKU (MRPsku)
+    --- MRP for Parts and SFG (MRPsfg)
 --- Analysis (BOMAnalyse)
 --- Show BOM (ShowBOM)
     --- SKU VS PARTS (BOMskuVSpart)
         --- ONLY RAW ()
         --- INHOUSE (SFG except 1st shed + EvaWrap) + 3RD SFG () + Remaining RAW parts
-    --- SFG INHOUSE ()
+    --- SFG INHOUSE (SFGinhouse)
         --- BarCode
         --- Thermoforming
         --- Roll Forming
@@ -24,7 +24,7 @@ All Bom (AllBOM)
         --- Pad Printing
         --- Hot Stamping
         --- Finishing
-    --- SFG THIRD PARTY ()
+    --- SFG THIRD PARTY (SFG3rdParty)
         --- Summary (all sfg, third party names, etc)
         --- SFG Sheets
         --- SFG Plastics
