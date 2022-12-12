@@ -1,16 +1,14 @@
 import { Widgets } from '@mui/icons-material';
-import { Autocomplete, Box, Button, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, Container, CssBaseline, FormControl, Paper, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import { TokenContext } from '../../App';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useLoadParts from '../../Hooks/useLoadParts';
 import useLoadSFGSourceCategory from '../../Hooks/useLoadSFGSourceCategory';
 import useLoadSFGCategory from '../../Hooks/useLoadSFGCategory';
 import useLoadSFGBOM from '../../Hooks/useLoadSFGBOM';
-
+import { TokenContext } from '../../App';
 
 const CreateBOM = () => {
-    const token = useContext(TokenContext);
     const { parts } = useLoadParts();
     const { sfgSourceCategories } = useLoadSFGSourceCategory();
     const { sfgCategories } = useLoadSFGCategory();
@@ -22,6 +20,7 @@ const CreateBOM = () => {
     const [ sfgCategory, setSFGCategory ] = useState('')
     const [ sfgSAPCode, setSfgSAPCode ] = useState('')
     const [ sfgSisCode, setSfgSisCode ] = useState('')
+    const token = useContext(TokenContext);
 
     // console.log(partsAndSFG);
     // console.log(sfgSourceCategories);
@@ -33,10 +32,9 @@ const CreateBOM = () => {
             obj_id : part.object_id,
             sis_code : part.sis_code,
             unit : part.unit,
-            model_type: "RM"
+            model_type: "SFGBOM"
     }))
     
-
     const rmParts = parts.map(part => ({
             label : part.material_name,
             _id : part._id,
@@ -115,7 +113,7 @@ const CreateBOM = () => {
             body: JSON.stringify(newSFGBOM),
             headers: {
                 "Content-Type": "application/json",
-                // Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + token,
             },
         });
 

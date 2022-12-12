@@ -1,4 +1,3 @@
-import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -8,6 +7,7 @@ import AdminPart from './AdminPart';
 import AdminSKU from './AdminSKU';
 import AdminSupplier from './AdminSupplier';
 import AdminBOM from './AdminBOM';
+import { useState } from 'react';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -36,8 +36,7 @@ TabPanel.propTypes = {
 };
 
 export default function AppSetup() {
-  const [value, setValue] = React.useState(0);
-
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
