@@ -69,14 +69,14 @@ const CreateBOM = () => {
         _id: sfgCategory._id
     }))
 
-        const handleParts = (e, index, newValue) => {
-        console.log(newValue);
-        const { _id, obj_id, model_type, unit } = newValue;
-        const list = [ ...partsAndSFG ];
-        list[index].obj_id = obj_id;
-        list[index].model_type = model_type;
-        list[index]._id = _id;
-        list[index].unit = unit;
+    const handleParts = (e, index, newValue) => {
+    console.log(newValue);
+    const { _id, obj_id, model_type, unit } = newValue;
+    const list = [ ...partsAndSFG ];
+    list[index].obj_id = obj_id;
+    list[index].model_type = model_type;
+    list[index]._id = _id;
+    list[index].unit = unit;
     }
 
     const handleSubmit = async () => {
@@ -107,6 +107,7 @@ const CreateBOM = () => {
             sis_code : sfgSisCode,
             children : hello //Object.values(partsAndSFG),
         }
+
 
         const response = await fetch(`http://localhost:5000/api/createSFGBOM`, {
             method: "POST",
@@ -154,6 +155,7 @@ const CreateBOM = () => {
     }
 
     const handleSFGCategory = (value) => {
+        console.log(value);
         setSFGCategory(value._id);
     }
 
@@ -306,8 +308,6 @@ const CreateBOM = () => {
                             helperText="Must be Unique"
                         />
                         <FormControl>
-                            
-
                         {/* //? the repeating component     */}
                         {
                             partsAndSFG.map((singlePartAndSFG, index) => (
