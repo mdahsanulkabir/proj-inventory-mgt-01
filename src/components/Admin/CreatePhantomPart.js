@@ -3,7 +3,7 @@ import React from 'react';
 const CreatePhantomPart = () => {
     return (
         <div>
-            create phantom part
+            Create phantom part
         </div>
     );
 };

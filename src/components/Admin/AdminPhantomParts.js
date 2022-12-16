@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useState } from "react";
+import AllPhantomParts from "./AllPhantomParts";
 import CreatePhantomPart from "./CreatePhantomPart";
 import UpdatePhantomPart from "./UpdatePhantomPart";
 import DeletePhantomPart from "./DeletePhantomPart";
@@ -53,9 +54,10 @@ const AdminPhantomParts = () => {
                 </Tabs>
             </Box>
             <Box sx={{marginInline: "auto"}}>
-                <TabPanel value={value} index={0}><CreatePhantomPart /></TabPanel>
-                <TabPanel value={value} index={1}><UpdatePhantomPart /></TabPanel>
-                <TabPanel value={value} index={1}><DeletePhantomPart /></TabPanel>
+                <TabPanel value={value} index={0}><AllPhantomParts /></TabPanel>
+                <TabPanel value={value} index={1}><CreatePhantomPart /></TabPanel>
+                <TabPanel value={value} index={2}><UpdatePhantomPart /></TabPanel>
+                <TabPanel value={value} index={3}><DeletePhantomPart /></TabPanel>
             </Box>
     </Box>
     );
