@@ -8,6 +8,7 @@ import AdminSKU from './AdminSKU';
 import AdminSupplier from './AdminSupplier';
 import AdminBOM from './AdminBOM';
 import { useState } from 'react';
+import AdminPhantomParts from './AdminPhantomParts';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,6 +51,7 @@ export default function AppSetup() {
           <Tab label="SKU"/>
           <Tab label="Supplier"/>
           <Tab label="Bom" />
+          <Tab label="Phantom Parts" />
         </Tabs>
       </Box>
       <TabPanel component='div' value={value} index={0}><AdminWarehouse/></TabPanel>
@@ -57,6 +59,7 @@ export default function AppSetup() {
       <TabPanel value={value} index={2}><AdminSKU /></TabPanel>
       <TabPanel value={value} index={3}><AdminSupplier /></TabPanel>
       <TabPanel value={value} index={4}><AdminBOM /></TabPanel>
+      <TabPanel value={value} index={5}><AdminPhantomParts /></TabPanel>
     </Box>
   );
 }
