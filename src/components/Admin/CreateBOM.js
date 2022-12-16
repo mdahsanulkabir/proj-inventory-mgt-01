@@ -46,15 +46,6 @@ const CreateBOM = () => {
     )
 
     const partOptions = rmParts.concat(sfgPart)
-    // const partOptions = parts.map(part => ({
-    //         label : part.material_name,
-    //         _id : part._id,
-    //         obj_id : part.object_id,
-    //         sis_code : part.sis_code,
-    //         unit : part.unit,
-    //         model_type: "RM"
-    //     })
-    // )
 
     console.log(rmParts);
     console.log(sfgPart);
@@ -81,7 +72,7 @@ const CreateBOM = () => {
 
     const handleSubmit = async () => {
         
-        const hello = partsAndSFG.map((part, index) =>  ({
+        const addedChildren = partsAndSFG.map((part, index) =>  ({
                     object_id : part._id,
                     model_type : part.model_type,
                     quantity : parseFloat(part.quantity) ? parseFloat(part.quantity) : 0
@@ -95,7 +86,7 @@ const CreateBOM = () => {
             sfg_category: sfgCategory,
             sap_code: sfgSAPCode,
             sis_code : sfgSisCode,
-            children : hello    //  Object.values(partsAndSFG)
+            children : addedChildren    //  Object.values(partsAndSFG)
         });
 
         const newSFGBOM = {
@@ -105,7 +96,7 @@ const CreateBOM = () => {
             sfg_category: sfgCategory,
             sap_code: sfgSAPCode,
             sis_code : sfgSisCode,
-            children : hello //Object.values(partsAndSFG),
+            children : addedChildren //Object.values(partsAndSFG),
         }
 
 
@@ -127,7 +118,7 @@ const CreateBOM = () => {
 
         if(response.ok){
             // dispatch({ type : 'reset'})
-            console.log("a new BOM added");
+            console.info("a new BOM added");
             console.log(json);
         }
 
