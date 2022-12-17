@@ -33,7 +33,7 @@ const ProductionHistoryDaily = () => {
     .then(res => res.json())
     .then(data => setDailyFGProdData(data));
 },[ startDate, endDate ]);
-
+ 
   // console.log(dailyFGProdData);
 
   //get the dates of the selected duration range
@@ -54,58 +54,56 @@ const ProductionHistoryDaily = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <Box sx={{ p: 3, width: "100%" }}>
-      <Grid container spacing={2}>
-        <Grid item md={4}>
-        <DesktopDatePicker
-          label="Start Date"
-          inputFormat="MM/DD/YYYY"
-          value={startDate}
-          onChange={(newStartDate)=>handleStartDate(newStartDate)}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        <DesktopDatePicker
-          label="End Date"
-          inputFormat="MM/DD/YYYY"
-          value={endDate}
-          onChange={(newEndDate)=>handleEndDate(newEndDate)}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        </Grid>
-        <Grid item md={4}>
-          <Typography
-            variant="h5"
-            component="h5"
-            color="secondary"
-            sx={{ textAlign: "center", fontWeight: 700 }}
-          >
-            Production History Daily
-          </Typography>
-        </Grid>
-        <Grid item md={4}></Grid>
+        <Grid container spacing={2}>
+          <Grid item md={4}>
+            <DesktopDatePicker
+              label="Start Date"
+              inputFormat="MM/DD/YYYY"
+              value={startDate}
+              onChange={(newStartDate)=>handleStartDate(newStartDate)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <DesktopDatePicker
+              label="End Date"
+              inputFormat="MM/DD/YYYY"
+              value={endDate}
+              onChange={(newEndDate)=>handleEndDate(newEndDate)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </Grid>
+          <Grid item md={4}>
+            <Typography
+              variant="h5"
+              component="h5"
+              color="secondary"
+              sx={{ textAlign: "center", fontWeight: 700 }}
+            >
+              Production History Daily
+            </Typography>
+          </Grid>
+          <Grid item md={4}></Grid>
       </Grid>
 
       <Box
-        component="main"
         sx={{ flexGrow: 1, bgcolor: "background.default", p: 0 }}
       >
         <TableContainer component={Paper} sx={{ width: "100%", height: 650 }}>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell align="center">
-                  SL
-                </TableCell>
+                <TableCell align="center" >SL</TableCell>
                 <TableCell align="center">MODEL</TableCell>
                 <TableCell align="center">COLOR</TableCell>
                 <TableCell align="center" width={100} sx={{
                         position: 'sticky',
                         left: 0,
+                        top: 0,
                         background: 'white',
-                        zIndex: 1200,
+                        zIndex: 1201,
                     }} >SKU</TableCell>
                 {uniqueDates.map((date) => {
                   return (
-                    <TableCell align="center" key={date}>
+                    <TableCell align="center" key={date} >
                       {date.split('T')[0]}
                     </TableCell>
                   );

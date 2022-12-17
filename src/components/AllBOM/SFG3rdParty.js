@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import SFG3rdPartyPlastic from "./SFG3rdPartyPlastic";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -35,10 +36,10 @@ const SFG3rdParty = () => {
     };
 
     return (
-        <Box sx={{ height: "100%", display: "flex" }}>
+        <Box sx={{ height: "100%", display: "flex", background: 'blue' }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider", width: '110px' }}>
                 <Tabs
-                    dense
+                    // dense
                     orientation="vertical"
                     value={value}
                     onChange={handleChange}
@@ -49,10 +50,10 @@ const SFG3rdParty = () => {
                     <Tab label="Party Wise" />
                 </Tabs>
             </Box>
-            <Box sx={{marginInline: "auto"}}>
+            <Box sx={{marginInline: "auto", background: 'yellow', width: '100%', overflow: 'scroll'}}>
                 <TabPanel value={value} index={0}>Summary</TabPanel>
                 <TabPanel value={value} index={1}>Metal Sheets</TabPanel>
-                <TabPanel value={value} index={2}>Plastics</TabPanel>
+                <TabPanel value={value} index={2}><SFG3rdPartyPlastic /></TabPanel>
                 <TabPanel value={value} index={3}>Party Wise</TabPanel>
             </Box>
         </Box>

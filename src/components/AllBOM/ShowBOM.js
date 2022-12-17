@@ -18,7 +18,9 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-            <Box sx={{ p: 3 }}>
+            <Box 
+                sx={{ p: 3 }}
+            >
                 <Box>{children}</Box>
             </Box>
             )}
@@ -39,7 +41,7 @@ const ShowBOM = () => {
     };
 
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%',background: 'red' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange}>
                     <Tab label="SKU Vs Parts"/>
