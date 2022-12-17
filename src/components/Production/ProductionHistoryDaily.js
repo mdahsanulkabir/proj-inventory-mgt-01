@@ -127,20 +127,24 @@ const ProductionHistoryDaily = () => {
                         background: 'white',
                         zIndex: 1200,
                     }}>{sku.sku}</TableCell>
-                    {uniqueDates.map((date, index) => {
-                      return (
-                        <TableCell align="center" key={index}>
-                          {dailyFGProdData.find(
-                            (data) => data.date === date && data.sku === sku._id
-                          )
-                            ? dailyFGProdData.find(
-                                (data) =>
-                                  data.date === date && data.sku === sku._id
-                              ).quantity
-                            : ""}
-                        </TableCell>
-                      );
-                    })}
+
+
+                    {
+                      uniqueDates.map((date, index) => {
+                        return (
+                          <TableCell align="center" key={index}>
+                            {
+                              dailyFGProdData.find(
+                                (data) => data.date === date && data.sku === sku._id
+                              )
+                              ? dailyFGProdData.find(
+                                  (data) => data.date === date && data.sku === sku._id
+                                ).quantity
+                              : ""}
+                          </TableCell>
+                        );
+                      })
+                    }
                   </TableRow>
                 );
               })}

@@ -10,14 +10,13 @@ import {
     TableRow,
     TextField,
     Typography,
-  } from "@mui/material";
+} from "@mui/material";
 import React, { useEffect, useState } from 'react';
 
 
 const SFG3rdPartyPlastic = () => {
 
     const [ bomData, setBomData ] = useState([])
-    const [ trial , setTrial ] = useState(null)
 
     useEffect(()=>{
         fetch('http://localhost:5000/api/getsfgtestdata')
@@ -25,11 +24,10 @@ const SFG3rdPartyPlastic = () => {
         .then(data => setBomData(data))
     },[])
 
-    console.log(bomData);
+    // console.log(bomData);
     let all_rm = []
     bomData.forEach(bom => {
-        const childrenOfBom = bom.children;
-        childrenOfBom.forEach(childofchild => {
+        bom.children.forEach(childofchild => {
             all_rm.push ({
                 _id : childofchild.object_id._id, 
                 material_name : childofchild.object_id.material_name, 
@@ -38,24 +36,24 @@ const SFG3rdPartyPlastic = () => {
         })
     })
     const rm_ids = [...new Set(all_rm.map(bb => bb._id))]
-    console.log(rm_ids);
+    // console.log(rm_ids);
     const rms = rm_ids.map(rm_id => {
         return all_rm.find(item => item._id === rm_id)
         
     })
 
-    console.log(rms);
+    // console.log(rms);
 
-    rms.forEach(i => console.log(i.material_name))
+    // rms.forEach(i => console.log(i.material_name))
     return (
         <Box style={{backgroundColor : 'green'}}>
             <Box style={{width: '100%', height: '25px', border:"red solid 2px", color:"white"}}>
                 3rd party plastics bom
             </Box>
             <Box sx={{ flexGrow: 1, bgcolor: "background.default", p: 0 }}>
-                <TableContainer>
+                <TableContainer component={Paper}>
                     <Table stickyHeader>
-                        <TableHead>
+                        <TableHead >
                             <TableRow>
                                 <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>SL</TableCell>
                                 <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Object ID</TableCell>
@@ -65,7 +63,7 @@ const SFG3rdPartyPlastic = () => {
                                 {
                                     rms && rms.map(rm => {
                                         return (
-                                            <TableCell sx={{width : '30px', paddingInline: 1, border: '1px solid gray'}}>
+                                            <TableCell key={rm._id} sx={{width : '30px', paddingInline: 1, border: '1px solid gray'}} align='center'>
                                                 {rm.material_name}
                                             </TableCell>
                                         )
@@ -73,6 +71,35 @@ const SFG3rdPartyPlastic = () => {
                                 }
                             </TableRow>
                         </TableHead>
+                        <TableBody>
+                            {
+                                bomData.map((bom, index) => {
+                                    return (
+                                        <TableRow key={bom._id}>
+                                            <TableCell>{index + 1}</TableCell>
+                                            <TableCell>{bom.object_id}</TableCell>
+                                            <TableCell>{bom.sap_code}</TableCell>
+                                            <TableCell>{bom.material_name}</TableCell>
+                                            <TableCell>pcs</TableCell>
+                                            {
+                                                rms.map(rm => {
+                                                    return (
+                                                        <TableCell key={rm._id}>
+                                                            {
+                                                                bom.children.find(child => child.object_id._id === rm._id)
+                                                                ?
+                                                                bom.children.find(child => child.object_id._id === rm._id).quantity   
+                                                                : 0
+                                                            }
+                                                        </TableCell>
+                                                    )
+                                                })
+                                            }
+                                        </TableRow>
+                                    )
+                                })
+                            }
+                        </TableBody>
                     </Table>
                 </TableContainer>
             </Box>

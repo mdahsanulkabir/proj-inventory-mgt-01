@@ -50,7 +50,13 @@ const SFG3rdParty = () => {
                     <Tab label="Party Wise" />
                 </Tabs>
             </Box>
-            <Box sx={{marginInline: "auto", background: 'yellow', width: '100%', overflow: 'scroll'}}>
+            <Box sx={{  marginInline: "auto", 
+                        background: 'yellow', 
+                        width: '100%', 
+                        overflowX: 'auto',
+                        height: '80vh',
+                        display: 'flex'
+            }}>
                 <TabPanel value={value} index={0}>Summary</TabPanel>
                 <TabPanel value={value} index={1}>Metal Sheets</TabPanel>
                 <TabPanel value={value} index={2}><SFG3rdPartyPlastic /></TabPanel>
