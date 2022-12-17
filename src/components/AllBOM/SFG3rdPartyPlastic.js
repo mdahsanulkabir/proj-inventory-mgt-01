@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     Grid,
     Paper,
     Table,
@@ -12,6 +13,7 @@ import {
     Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from 'react';
+import * as xlsx from 'xlsx';
 
 
 const SFG3rdPartyPlastic = () => {
@@ -45,10 +47,44 @@ const SFG3rdPartyPlastic = () => {
     // console.log(rms);
 
     // rms.forEach(i => console.log(i.material_name))
+
+    let data = bomData.map ( (bom , index ) => {
+        let x = {
+            SL : index+1,
+            Object_ID : bom.object_id,
+            SAP_ID : bom.sap_code,
+            Material_name : bom.material_name,
+            unit : "pcs",
+        }
+        rms.forEach(rm => {
+            x[rm.material_name] = bom.children.find(child => child.object_id._id === rm._id)
+                                    ? bom.children.find(child => child.object_id._id === rm._id).quantity
+                                    : 0
+        })
+        return x;
+    })
+
+    // console.log("data = ",data);
+
+    const downloadFile = () => {
+        var wb = xlsx.utils.book_new();
+        const ws = xlsx.utils.json_to_sheet(data)
+
+        xlsx.utils.book_append_sheet(wb, ws, "my data");
+
+        xlsx.writeFile(wb, "MyFile.xlsx")
+    }
+
+
     return (
         <Box style={{backgroundColor : 'green'}}>
-            <Box style={{width: '100%', height: '25px', border:"red solid 2px", color:"white"}}>
-                3rd party plastics bom
+            <Box sx={{display : 'flex-start'}}>
+                <Box style={{width: '100%', height: '25px', border:"red solid 2px", color:"white"}}>
+                    3rd party plastics bom (actual)
+                </Box>
+                <Button variant='contained' onClick={downloadFile}>
+                    Download Data
+                </Button>
             </Box>
             <Box sx={{ flexGrow: 1, bgcolor: "background.default", p: 0 }}>
                 <TableContainer component={Paper}>
