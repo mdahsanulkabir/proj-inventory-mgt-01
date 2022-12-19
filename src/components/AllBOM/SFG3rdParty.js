@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import SFG3rdPartyMetalSheet from "./SFG3rdPartyMetalSheet";
 import SFG3rdPartyPlastic from "./SFG3rdPartyPlastic";
 
 function TabPanel(props) {
@@ -58,7 +59,7 @@ const SFG3rdParty = () => {
                         display: 'flex'
             }}>
                 <TabPanel value={value} index={0}>Summary</TabPanel>
-                <TabPanel value={value} index={1}>Metal Sheets</TabPanel>
+                <TabPanel value={value} index={1}><SFG3rdPartyMetalSheet /></TabPanel>
                 <TabPanel value={value} index={2}><SFG3rdPartyPlastic /></TabPanel>
                 <TabPanel value={value} index={3}>Party Wise</TabPanel>
             </Box>

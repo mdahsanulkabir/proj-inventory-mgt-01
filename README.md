@@ -1,5 +1,8 @@
 # Getting Started with Singer Inventory Management
 
+
+Notes: (December 29, 2022)  I yet don't know about Redux. After completing this project I will learn Redux and may replicate this project with Redux.
+
 This is project is live at [Create React App](https://github.com/facebook/create-react-app).
 
 ## Used Technologies

@@ -13,12 +13,12 @@ import React, { useEffect, useState } from 'react';
 import * as xlsx from 'xlsx';
 
 
-const SFG3rdPartyPlastic = () => {
+const SFG3rdPartyMetalSheet = () => {
 
     const [ bomData, setBomData ] = useState([])
 
     useEffect(()=>{
-        fetch('http://localhost:5000/api/getThirdPartyPlasticActualBOM')
+        fetch('http://localhost:5000/api/getThirdPartyMetalSheetsBOM')
         .then(res => res.json())
         .then(data => setBomData(data))
     },[])
@@ -74,7 +74,7 @@ const SFG3rdPartyPlastic = () => {
         xlsx.utils.book_append_sheet(wb, ws, "bom");
         xlsx.utils.book_append_sheet(wb, rmSheet, "rm definition");
 
-        xlsx.writeFile(wb, "Third party BOM (Actual).xlsx")
+        xlsx.writeFile(wb, "Third party Metal Items BOM.xlsx")
     }
 
 
@@ -145,4 +145,4 @@ const SFG3rdPartyPlastic = () => {
     );
 };
 
-export default SFG3rdPartyPlastic;
+export default SFG3rdPartyMetalSheet;
