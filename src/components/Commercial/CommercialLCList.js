@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import LCStatusOptions from "./LCStatusOptions";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -44,11 +45,13 @@ const CommercialLCList = () => {
                 >
                     <Tab label="Current LC" />
                     <Tab label="ALL LC" />
+                    <Tab label="LC Status Options" />
                 </Tabs>
             </Box>
             <Box sx={{marginInline: "auto"}}>
                 <TabPanel value={value} index={0}>Current LC List</TabPanel>
                 <TabPanel value={value} index={1}>ALL LC LIST</TabPanel>
+                <TabPanel value={value} index={2}><LCStatusOptions /></TabPanel>
             </Box>
         </Box>
     );

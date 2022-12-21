@@ -1,3 +1,7 @@
 CommercialMain
     --- Dashboard /index (CommercialDashBoard)
     --- details (CommercialDetails)
+        --- LC List
+            --- Current LC
+            --- ALL LC
+            --- LC STATUS OPTIONS
