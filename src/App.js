@@ -21,6 +21,9 @@ import AllBOMDashboard from "./components/AllBOM/AllBOMDashboard";
 import ShowBOM from "./components/AllBOM/ShowBOM"
 import BOMAnalyse from "./components/AllBOM/BOMAnalyse"
 import BOMforMRP from "./components/AllBOM/BOMforMRP";
+import CommercialMain from "./components/Commercial/CommercialMain";
+import CommercialDashBoard from "./components/Commercial/CommercialDashBoard";
+import CommercialDetails from "./components/Commercial/CommercialDetails";
 
 export const TokenContext = createContext('')
 
@@ -60,6 +63,12 @@ const App = () => {
                             <Route path="userMgt" element={<UserManagement />} />
                             <Route path="appSetup" element={<AppSetup />} />
                         </Route>
+
+                        <Route path="commercial" element={<CommercialMain />}>
+                            <Route index element={<CommercialDashBoard />}/>
+                            <Route path="commercialDetails" element={<CommercialDetails />} />
+                        </Route>
+
                         <Route path="showProduction" element={<ShowProduction />}>
                             <Route index element={<ProductionHistoryDaily />}/>
                             <Route path="weeklyProduction" element={<ProductionHistoryWeekly />}/>

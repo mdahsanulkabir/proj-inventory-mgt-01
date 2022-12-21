@@ -11,7 +11,7 @@ const supplierInitialState = {
     supplierAddress : '',
     supplierContactPerson : '',
     supplierContactPersonPhoneNumber : '',
-    supplierCategory : '',
+    supplierCategory : 'local',
 }
 
 const reducerSupplier = ( state, action ) => {
@@ -53,6 +53,7 @@ const CreateSupplier = () => {
         //     supplierContactPersonPhoneNumber,
         //     supplierCategory
         // }
+        setError("");
         console.log(supplierState);
         console.log(token);
         const response = await fetch(`http://localhost:5000/api/createSupplier`, {
@@ -152,7 +153,7 @@ const CreateSupplier = () => {
                             onChange={(e) => dispatchSupplier({
                                 type : 'supplierAddress',
                                 payload : e.target.value})}
-                            space={supplierState.supplierAddress}
+                            value={supplierState.supplierAddress}
                         />
                         <TextField
                             margin="normal"

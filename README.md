@@ -1,5 +1,6 @@
 # Getting Started with Singer Inventory Management
 
+Third party metal sheet bom and third party plastic bom can be used with higher order components.
 
 Notes: (December 29, 2022)  I yet don't know about Redux. After completing this project I will learn Redux and may replicate this project with Redux.
 

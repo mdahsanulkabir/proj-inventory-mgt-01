@@ -237,7 +237,7 @@ const Layout = () => {
           <Divider />
           <List >
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => navigate("commercial")}>
                 <ListItemIcon>
                   <ShoppingCart color="secondary" />
                 </ListItemIcon>

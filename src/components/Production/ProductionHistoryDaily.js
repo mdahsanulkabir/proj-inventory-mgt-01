@@ -87,11 +87,11 @@ const ProductionHistoryDaily = () => {
       <Box
         sx={{ flexGrow: 1, bgcolor: "background.default", p: 0 }}
       >
-        <TableContainer component={Paper} sx={{ width: "100%", height: 650 }}>
+        <TableContainer component={Paper} sx={{ maxWidth: "100%", height: 650 }}>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell align="center" >SL</TableCell>
+                <TableCell align="center" sx={{maxWidth: "30px"}} >SL</TableCell>
                 <TableCell align="center">MODEL</TableCell>
                 <TableCell align="center">COLOR</TableCell>
                 <TableCell align="center" width={100} sx={{

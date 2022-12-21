@@ -114,15 +114,15 @@ const SFG3rdPartyPlastic = () => {
                                 bomData.map((bom, index) => {
                                     return (
                                         <TableRow key={bom._id}>
-                                            <TableCell>{index + 1}</TableCell>
-                                            <TableCell>{bom.object_id}</TableCell>
-                                            <TableCell>{bom.sap_code}</TableCell>
-                                            <TableCell>{bom.material_name}</TableCell>
-                                            <TableCell>pcs</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{index + 1}</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{bom.object_id}</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{bom.sap_code}</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{bom.material_name}</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>pcs</TableCell>
                                             {
                                                 rms.map(rm => {
                                                     return (
-                                                        <TableCell key={rm._id}>
+                                                        <TableCell sx={{p : 1, border: '1px solid gray'}} align='center' key={rm._id}>
                                                             {
                                                                 bom.children.find(child => child.object_id._id === rm._id)
                                                                 ?
