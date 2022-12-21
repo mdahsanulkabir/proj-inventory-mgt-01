@@ -1,9 +1,18 @@
 import { Box, Button, FormControl, Grid, Paper, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 
 const LCStatusOptions = () => {
     const [ newStatusText, setNewStatusText ] = useState('')
     const [ newStatusDescription, setNewStatusDescription ] = useState('')
+    const [ allStatus, setAllStatus ] = useState([])
+
+    useEffect(()=> {
+        fetch("http://localhost:5000/api/getLCStatusOptions")
+        .then(res => res.json())
+        .then(data => console.log(data))
+    },[])
+
     const handleStatusText = (e) => {
         setNewStatusText(e.target.value);
     }
@@ -43,7 +52,7 @@ const LCStatusOptions = () => {
     return (
         <Box sx={{width:'60vw', height: '500px'}}>
             <Paper elevation={3}>
-                <Grid container spacing={2} sx={{m:2}}>
+                <Grid container spacing={2} sx={{p:2}}>
                     <Grid item md={6}>
                         <Typography> Create New Status Option</Typography>
                         <FormControl component='form' onSubmit={submit}>
@@ -63,17 +72,24 @@ const LCStatusOptions = () => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="statusText"
-                                label="LC Status Name"
+                                id="statusDescription"
+                                label="LC Status Description"
                                 onChange={(e) => handleStatusDescription(e)}
                                 value={newStatusDescription}
                                 // InputLabelProps={{ shrink: true }}
                             />
-                            <Button type='submit'> Create Status</Button>
+                            <Button type='submit' variant='outlined'> Create Status</Button>
                         </FormControl>
                     </Grid>
                     <Grid item md={6}>
                         <Typography>Show Status Options</Typography>
+                        {
+                            allStatus ? allStatus.map( ( status, index ) => {
+                                return (
+                                    `${index} = ${status.status} : ${status.description}`
+                                )
+                            }) : "Not found"
+                        }
                     </Grid>
                 </Grid>
             </Paper>
