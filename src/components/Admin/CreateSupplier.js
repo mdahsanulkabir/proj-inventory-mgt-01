@@ -178,7 +178,7 @@ const CreateSupplier = () => {
                             value={supplierState.supplierContactPersonPhoneNumber}
                         />
                         <FormControl>
-                            <FormLabel id="demo-row-radio-buttons-group-label">Email Verified</FormLabel>
+                            <FormLabel id="demo-row-radio-buttons-group-label">Supplier Category</FormLabel>
                             <RadioGroup row name="row-radio-buttons-group" defaultValue="local"
                                 onChange={(e) => dispatchSupplier({
                                     type : 'supplierCategory',
@@ -195,13 +195,13 @@ const CreateSupplier = () => {
                             display : 'flex',
                             justifyContent: 'center'
                         }}>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2, }}
-                        >
-                            Create Supplier
-                        </Button>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2, }}
+                            >
+                                Create Supplier
+                            </Button>
                         </Box>
                         {error && <div className="error">{error}</div>}
                     </Box>

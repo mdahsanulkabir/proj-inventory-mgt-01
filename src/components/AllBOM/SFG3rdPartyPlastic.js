@@ -105,7 +105,7 @@ const SFG3rdPartyPlastic = () => {
                                                 {rm.material_name}
                                             </TableCell>
                                         )
-                                    })
+                                    }) 
                                 }
                             </TableRow>
                         </TableHead>

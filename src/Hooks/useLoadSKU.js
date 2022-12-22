@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const useLoadSKU = () => {
     const [skus, setSkus] = useState([]);
     useEffect(()=>{
-        fetch(`https://srp-planning.onrender.com/api/skus`)
+        fetch(`http://localhost:5000/api/skus`)
         .then(res => res.json())
         .then(data => setSkus(data));
     },[]);

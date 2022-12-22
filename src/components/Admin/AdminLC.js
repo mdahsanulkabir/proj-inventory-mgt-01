@@ -1,7 +1,13 @@
-import { Box, Tab, Tabs } from "@mui/material";
 import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 import { useState } from "react";
-import LCStatusOptions from "./LCStatusOptions";
+import CreateLCSummary from "./CreateLCSummary";
+import UpdateLCSummary from "./UpdateLCSummary";
+import CreateLCDetails from "./CreateLCDetails";
+import UpdateLCDetails from "./UpdateLCDetails";
+
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -14,9 +20,7 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-            <Box sx={{ p: 1 }}>
-                {children}
-            </Box>
+                <Box sx={{ p: 2 }}>{children}</Box>
             )}
         </div>
     );
@@ -27,34 +31,34 @@ TabPanel.propTypes = {
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
 };
-const CommercialLCList = () => {
+
+export default function AdminLC () {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    return (
+    return(
         <Box sx={{ height: "100%", display: "flex" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider", width: '110px' }}>
                 <Tabs
-                    // dense
                     orientation="vertical"
                     value={value}
                     onChange={handleChange}
                 >
-                    <Tab label="Current LC" />
-                    <Tab label="ALL LC" />
-                    <Tab label="LC Status Options"/>
+                    <Tab label="Create LC Summary" />
+                    <Tab label="Update LC Summary" />
+                    <Tab label="Create LC Details" />
+                    <Tab label="Update LC Details" />
                 </Tabs>
             </Box>
             <Box sx={{marginInline: "auto"}}>
-                <TabPanel value={value} index={0}>Current LC List</TabPanel>
-                <TabPanel value={value} index={1}>ALL LC LIST</TabPanel>
-                <TabPanel value={value} index={2}><LCStatusOptions/></TabPanel>
+                <TabPanel value={value} index={0}><CreateLCSummary /></TabPanel>
+                <TabPanel value={value} index={1}><UpdateLCSummary /></TabPanel>
+                <TabPanel value={value} index={2}><CreateLCDetails /></TabPanel>
+                <TabPanel value={value} index={3}><UpdateLCDetails /></TabPanel>
             </Box>
-        </Box>
+    </Box>
     );
-};
-
-export default CommercialLCList;
+}

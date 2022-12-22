@@ -4,6 +4,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import CreateSupplier from "./CreateSupplier";
+import UpdateSupplier from "./UpdateSupplier";
 
 
 function TabPanel(props) {
@@ -53,7 +54,7 @@ export default function AdminSupplier() {
       </Box>
       <Box sx={{marginInline: "auto"}}>
         <TabPanel value={value} index={0}><CreateSupplier /></TabPanel>
-        <TabPanel value={value} index={1}>Update Supplier</TabPanel>
+        <TabPanel value={value} index={1}><UpdateSupplier /></TabPanel>
       </Box>
     </Box>
   );

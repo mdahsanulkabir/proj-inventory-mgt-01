@@ -8,9 +8,14 @@ const LCStatusOptions = () => {
     const [ allStatus, setAllStatus ] = useState([])
 
     useEffect(()=> {
-        fetch("http://localhost:5000/api/getLCStatusOptions")
+        fetch("https://srp-planning.onrender.com/api/getLCStatusOptions")
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => setAllStatus(data.map(singleData => {
+            return {
+                status : singleData.status,
+                description : singleData.description
+            }
+        })))
     },[])
 
     const handleStatusText = (e) => {
@@ -28,7 +33,7 @@ const LCStatusOptions = () => {
             description : newStatusDescription
         }
 
-        const response = await fetch(`http://localhost:5000/api/createLcStatus`, {
+        const response = await fetch(`https://srp-planning.onrender.com/api/createLcStatus`, {
             method: "POST",
             body: JSON.stringify(newStatus),
             headers: {
@@ -55,7 +60,7 @@ const LCStatusOptions = () => {
                 <Grid container spacing={2} sx={{p:2}}>
                     <Grid item md={6}>
                         <Typography> Create New Status Option</Typography>
-                        <FormControl component='form' onSubmit={submit}>
+                        <FormControl component='form' onSubmit={submit} sx={{width : '100%'}}>
                             <TextField
                                 margin="normal"
                                 required
@@ -78,7 +83,7 @@ const LCStatusOptions = () => {
                                 value={newStatusDescription}
                                 // InputLabelProps={{ shrink: true }}
                             />
-                            <Button type='submit' variant='outlined'> Create Status</Button>
+                            <Button type='submit'> Create Status</Button>
                         </FormControl>
                     </Grid>
                     <Grid item md={6}>
@@ -86,7 +91,9 @@ const LCStatusOptions = () => {
                         {
                             allStatus ? allStatus.map( ( status, index ) => {
                                 return (
-                                    `${index} = ${status.status} : ${status.description}`
+                                    <li key={index} sx={{listStyle: 'none'}}>
+                                        {index+1} = {status.status} : {status.description}
+                                    </li>
                                 )
                             }) : "Not found"
                         }
