@@ -155,10 +155,20 @@ const UpdateSupplier = () => {
         }
 
         if(response.ok){
-            // dispatch({ type : 'reset'})
+            console.log(json);
+            //? change the supplier data in ui
+            const updatedSupplierIndex = supplierList.findIndex(supplier => supplier._id === json._id)
+            const allSupplier = [...supplierList]
+            allSupplier[updatedSupplierIndex].supplierID = json.supplierID;
+            allSupplier[updatedSupplierIndex].supplierName = json.supplierName;
+            allSupplier[updatedSupplierIndex].supplierEmail = json.supplierEmail;
+            allSupplier[updatedSupplierIndex].supplierAddress = json.supplierAddress;
+            allSupplier[updatedSupplierIndex].supplierContactPerson = json.supplierContactPerson;
+            allSupplier[updatedSupplierIndex].supplierContactPersonPhoneNumber = json.supplierContactPersonPhoneNumber;
+            allSupplier[updatedSupplierIndex].supplierCategory = json.supplierCategory;
+            setSupplierList(allSupplier)
             
             console.info("Supplier updated ");
-            console.log(json);
         }
     }
 
