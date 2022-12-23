@@ -227,14 +227,9 @@ const UpdateSupplier = () => {
                     </Table>
                 </TableContainer>
             </Box>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
+            <Modal open={open} onClose={handleClose}>
                 <Box sx={modalStyle}>
-                <Box
+                    <Box
                         sx={{
                         display: "flex",
                         width: "100%",
