@@ -75,6 +75,8 @@ export default function AllParts() {
                 <StyledTableCell align="center">SAP CODE</StyledTableCell>
                 <StyledTableCell align="center">SIS CODE</StyledTableCell>
                 <StyledTableCell align="center">RM CATEGORY</StyledTableCell>
+                <StyledTableCell align="center">DB ID</StyledTableCell>
+
                 <StyledTableCell align="center" sx={{ maxWidth: 80 }}>
                   SOURCE CATEGORY
                 </StyledTableCell>
@@ -100,6 +102,7 @@ export default function AllParts() {
                     <TableCell align="center">{part.sap_code}</TableCell>
                     <TableCell align="left">{part.sis_code}</TableCell>
                     <TableCell align="left">{part.rm_category}</TableCell>
+                    <TableCell align="left">{part._id}</TableCell>
                     <TableCell align="left">{part.source_category}</TableCell>
                     <TableCell align="left">{part.sec_source_category}</TableCell>
                     <TableCell align="left">{part.unit}</TableCell>

@@ -25,6 +25,8 @@ const UploadBOM = () => {
     const { sfgSourceCategories } = useLoadSFGSourceCategory();
     const { sfgCategories } = useLoadSFGCategory();
 
+    const [ bomFromDB, setBomFromDB ] = useState([])
+
     const [open, setOpen] = useState(false);
     const handleOpen = (bom) => {
         setSelectedBOM(bom)
@@ -53,7 +55,7 @@ const UploadBOM = () => {
         // console.log(uploadedPartModelType);
         // const theModel = uploadedPartModelType.find(part => part.Codes === '6398657223328b7eeff92436')?.model
         // console.log("the model is = ", theModel)
-        const uploadedSfgs = uploadedBOMs.map(uploadedBOM => {
+        const uploadedSfgs_arranged = uploadedBOMs.map(uploadedBOM => {
             const {  object_id,
                         material_name,
                         sap_code,
@@ -85,11 +87,11 @@ const UploadBOM = () => {
         //! data for table
 
 
-    console.log(uploadedSfgs);
+    console.log(uploadedSfgs_arranged);
 
     const downloadFile = () => {
         var wb = xlsx.utils.book_new();
-        const ws = xlsx.utils.json_to_sheet(uploadedBOMs)
+        const ws = xlsx.utils.json_to_sheet(bomFromDB)
         xlsx.utils.book_append_sheet(wb, ws, "boms");
         xlsx.writeFile(wb, "SFG BOMs.xlsx")
     }
@@ -97,11 +99,32 @@ const UploadBOM = () => {
     const loadFromDB = () => {
         fetch(`http://localhost:5000/api/getDescriptionofSFG`)
         .then(res => res.json())
-        .then(data => setUploadedBOMs(data))
+        .then(data => setBomFromDB(data))
     }
 
-    const saveData = () => {
+    const saveData = async (e) => {
+        e.preventDefault();
+        //? below codes are for the API
+        const response = await fetch(`http://localhost:5000/api/createMultipleBOM`, {
+            method: "POST",
+            body: JSON.stringify(uploadedSfgs_arranged),
+            headers: {
+                "Content-Type": "application/json",
+                // Authorization: 'Bearer ' + token,
+            },
+        });
+        const json = await response.json();
+        
 
+        if (!response.ok) {
+            console.log(json.error);
+        }
+
+        if(response.ok){
+            // dispatch({ type : 'reset'})
+            console.info("BOMS ADDED ");
+            console.log(json);
+        }
     }
     return (
         <Box style={{backgroundColor : 'green'}}>
