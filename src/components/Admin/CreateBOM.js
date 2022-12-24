@@ -7,12 +7,14 @@ import useLoadSFGSourceCategory from '../../Hooks/useLoadSFGSourceCategory';
 import useLoadSFGCategory from '../../Hooks/useLoadSFGCategory';
 import useLoadSFGBOM from '../../Hooks/useLoadSFGBOM';
 import { TokenContext } from '../../App';
+import useLoadPhantomParts from '../../Hooks/useLoadPhantomParts';
 
 const CreateBOM = () => {
     const { parts } = useLoadParts();
+    const { sfgBOMs } = useLoadSFGBOM();
+    const { phantomParts } = useLoadPhantomParts();
     const { sfgSourceCategories } = useLoadSFGSourceCategory();
     const { sfgCategories } = useLoadSFGCategory();
-    const { sfgBOMs } = useLoadSFGBOM();
     const [ partsAndSFG, setPartsAndSFG ] = useState([{ _id: "", obj_id : "", model_type : "", quantity : 0, unit: ""}]);
     const [ sfgObject_id, setSFGObject_id ] = useState('');
     const [ sfgName, setSFGName ] = useState('')
@@ -25,7 +27,7 @@ const CreateBOM = () => {
     // console.log(partsAndSFG);
     // console.log(sfgSourceCategories);
     // console.log(sfgSAPCode);
-    console.log(sfgBOMs);
+    // console.log(sfgBOMs);
     const sfgPart = sfgBOMs.map(part => ({
             label : part.material_name,
             _id : part._id,
@@ -45,10 +47,21 @@ const CreateBOM = () => {
         })
     )
 
-    const partOptions = rmParts.concat(sfgPart)
+    const phantom_parts = phantomParts.map(phantomPart => ({
+        label : phantomPart.material_name,
+        _id : phantomPart._id,
+        obj_id : phantomPart.object_id,
+        sis_code : phantomPart.sis_code,
+        unit : phantomPart.unit,
+        model_type: "PHANTOMPART"
+    }))
+
+    const firstCombinedPartOption = rmParts.concat(sfgPart)
+    const partOptions = firstCombinedPartOption.concat(phantom_parts)
 
     console.log(rmParts);
     console.log(sfgPart);
+    console.log(phantom_parts);
 
     const sfgSourceCategoryOptions = sfgSourceCategories.map(sfgSourceCategory => ({
         label: sfgSourceCategory.source_category,

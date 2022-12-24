@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import CreateBOM from "./CreateBOM";
 import UpdateBOM from "./UpdateBOM";
+import UploadBOM from "./UploadBOM";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -46,11 +47,13 @@ export default function AdminBOM () {
                 >
                     <Tab label="Create BOM" />
                     <Tab label="Update BOM" />
+                    <Tab label="Upload BOM From File" />
                 </Tabs>
             </Box>
             <Box sx={{marginInline: "auto"}}>
                 <TabPanel value={value} index={0}><CreateBOM /></TabPanel>
                 <TabPanel value={value} index={1}><UpdateBOM /></TabPanel>
+                <TabPanel value={value} index={2}><UploadBOM /></TabPanel>
             </Box>
     </Box>
     );

@@ -36,8 +36,8 @@ const modalStyle = {
 const UpdateSupplier = () => {
     const [ supplierList, setSupplierList ] = useState([])
     const token = useContext(TokenContext);
-    const [open, setOpen] = useState(false);
     const [selectedSupplier, setSelectedSupplier] = useState({})
+    const [open, setOpen] = useState(false);
     const handleOpen = (supplier) => {
         setSelectedSupplier(supplier)
         setOpen(true);
