@@ -111,43 +111,43 @@ const ProductionHistoryDaily = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {skus?.map((sku, index) => {
-                return (
-                  <TableRow
-                    key={sku.sku}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row" align="center">{index + 1}</TableCell>
-                    <TableCell align="center">{sku.model}</TableCell>
-                    <TableCell align="center">{sku.color}</TableCell>
-                    <TableCell align="left" width="fitContent" 
-                      sx={{
-                        position: 'sticky',
-                        left: 0,
-                        background: 'white',
-                        zIndex: 1200,
-                    }}>{sku.sku}</TableCell>
-
-
-                    {
-                      uniqueDates.map((date, index) => {
-                        return (
-                          <TableCell align="center" key={index}>
-                            {
-                              dailyFGProdData.find(
-                                (data) => data.date === date && data.sku === sku._id
-                              )
-                              ? dailyFGProdData.find(
+              {
+                skus?.map((sku, index) => {
+                  return (
+                    <TableRow
+                      key={sku.sku}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row" align="center">{index + 1}</TableCell>
+                      <TableCell align="center">{sku.model}</TableCell>
+                      <TableCell align="center">{sku.color}</TableCell>
+                      <TableCell align="left" width="fitContent" 
+                        sx={{
+                          position: 'sticky',
+                          left: 0,
+                          background: 'white',
+                          zIndex: 1200,
+                      }}>{sku.sku}</TableCell>
+                      {
+                        uniqueDates.map((date, index) => {
+                          return (
+                            <TableCell align="center" key={index}>
+                              {
+                                dailyFGProdData.find(
                                   (data) => data.date === date && data.sku === sku._id
-                                ).quantity
-                              : ""}
-                          </TableCell>
-                        );
-                      })
-                    }
-                  </TableRow>
-                );
-              })}
+                                )
+                                ? dailyFGProdData.find(
+                                    (data) => data.date === date && data.sku === sku._id
+                                  ).quantity
+                                : ""}
+                            </TableCell>
+                          );
+                        })
+                      }
+                    </TableRow>
+                  );
+                })
+              }
             </TableBody>
           </Table>
         </TableContainer>
