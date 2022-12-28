@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import ThermoformingBOM from "./InHouseSFGBOM.js/ThermoformingBOM";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -35,7 +36,7 @@ const SFGinhouse = () => {
     };
 
     return (
-        <Box sx={{ height: "100%", display: "flex" }}>
+        <Box sx={{ height: "100%", display: "flex",background: 'blue' }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider", width: '110px' }}>
                 <Tabs
                     // dense
@@ -60,9 +61,12 @@ const SFGinhouse = () => {
                     <Tab label="Finishing" />
                 </Tabs>
             </Box>
-            <Box sx={{marginInline: "auto"}}>
+            <Box sx={{marginInline: "auto",background: 'yellow', 
+                        width: '100%', 
+                        overflowX: 'auto',
+                        height: '80vh',}}>
                 <TabPanel value={value} index={0}>BarCode</TabPanel>
-                <TabPanel value={value} index={1}>Thermoforming</TabPanel>
+                <TabPanel value={value} index={1}><ThermoformingBOM/></TabPanel>
                 <TabPanel value={value} index={2}>Roll Forming</TabPanel>
                 <TabPanel value={value} index={3}>Power Press</TabPanel>
                 <TabPanel value={value} index={4}>Eva Wrap</TabPanel>

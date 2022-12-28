@@ -1,0 +1,5 @@
+Inventory -> Inventory (main route)
+                --- InventoryDashboard
+                --- MonthlyInventoryReport
+                --- InventoryOnDemand
+                --- InventoryIsolation

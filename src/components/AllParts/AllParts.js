@@ -62,14 +62,12 @@ export default function AllParts() {
       sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
     >
       <Toolbar />
-      <Paper sx={{maxWidth: 1300, marginInline: 'auto'}} elevation={5}>
-        <TableContainer sx={{ height: 700 }}>
+      <Paper sx={{height: "100%", marginInline: 'auto', display: "flex", flexDirection: "column"}} elevation={5}>
+        <TableContainer sx={{ height: "80vh", flex : "auto" }}>
           <Table stickyHeader size="small">
             <TableHead>
               <TableRow>
-                <StyledTableCell align="center" width={50}>
-                  SL
-                </StyledTableCell>
+                <StyledTableCell align="center" width={50}>SL</StyledTableCell>
                 <StyledTableCell align="center">PART ID</StyledTableCell>
                 <StyledTableCell align="center">PART NAME</StyledTableCell>
                 <StyledTableCell align="center">SAP CODE</StyledTableCell>
@@ -123,7 +121,7 @@ export default function AllParts() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         /> */}
 
-        <Button variant='contained' onClick={downloadFile}>
+        <Button sx={{width : "10%"}} variant='contained' onClick={downloadFile}>
           Download Data
         </Button>
       </Paper>

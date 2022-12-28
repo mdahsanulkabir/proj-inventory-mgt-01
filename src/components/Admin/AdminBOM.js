@@ -38,7 +38,7 @@ export default function AdminBOM () {
     };
 
     return(
-        <Box sx={{ height: "100%", display: "flex" }}>
+        <Box sx={{ height: "100%", display: "flex", background: 'blue' }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider", width: '110px' }}>
                 <Tabs
                     orientation="vertical"
@@ -50,7 +50,10 @@ export default function AdminBOM () {
                     <Tab label="Upload BOM From File" />
                 </Tabs>
             </Box>
-            <Box sx={{marginInline: "auto"}}>
+            <Box sx={{marginInline: "auto" ,background: 'yellow', 
+                        width: '100%', 
+                        overflowX: 'auto',
+                        height: '80vh',}}>
                 <TabPanel value={value} index={0}><CreateBOM /></TabPanel>
                 <TabPanel value={value} index={1}><UpdateBOM /></TabPanel>
                 <TabPanel value={value} index={2}><UploadBOM /></TabPanel>

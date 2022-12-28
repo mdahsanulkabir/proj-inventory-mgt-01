@@ -24,6 +24,9 @@ import BOMforMRP from "./components/AllBOM/BOMforMRP";
 import CommercialMain from "./components/Commercial/CommercialMain";
 import CommercialDashBoard from "./components/Commercial/CommercialDashBoard";
 import CommercialDetails from "./components/Commercial/CommercialDetails";
+import { Box } from "@mui/material";
+import Inventory from "./components/Inventory/Inventory";
+import InventoryDashboard from "./components/Inventory/InventoryDashboard";
 
 export const TokenContext = createContext('')
 
@@ -34,7 +37,7 @@ const App = () => {
     //     setMyToken(props);
     // }
     return (
-        <div id="ahsan">
+        <Box id="ahsan" sx={{height : "100vh"}}>
             <Routes>
                 {/* <Route path="/" element={<Login tokenHandler={tokenHandler}/>} />//todo for now i am using local storage 
                 */} 
@@ -59,6 +62,13 @@ const App = () => {
                             <Route path="bomAnalyse" element={<BOMAnalyse />} />
                             <Route path="bomMRP" element={<BOMforMRP />} />
                         </Route>
+
+                        <Route path="inventory" element={<Inventory />}>
+                            <Route index element={<InventoryDashboard />} />
+                            {/* <Route path="showBOM" element={<ShowBOM />} /> */}
+                            {/* <Route path="bomAnalyse" element={<BOMAnalyse />} /> */}
+                            {/* <Route path="bomMRP" element={<BOMforMRP />} /> */}
+                        </Route>
                         
                         <Route path="admin" element={<AdminPanel />}>
                             <Route index element={<AdminDashboard />} />
@@ -79,7 +89,7 @@ const App = () => {
                         </Route>
                     </Route>
             </Routes>
-        </div>
+        </Box>
     );
 };
 

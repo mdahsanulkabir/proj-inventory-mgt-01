@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Grid,
   Paper,
   Table,
@@ -81,7 +82,9 @@ const ProductionHistoryDaily = () => {
               Production History Daily
             </Typography>
           </Grid>
-          <Grid item md={4}></Grid>
+          <Grid item md={4} sx={{textAlign : "right"}}>
+            <Button variant='contained' >Download Data</Button>
+          </Grid>
       </Grid>
 
       <Box

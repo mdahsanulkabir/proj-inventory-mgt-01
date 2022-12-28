@@ -192,6 +192,7 @@ const Layout = () => {
               </ListItemButton>
             </ListItem>
           </List>
+          <Divider />
           <List >
             <ListItem disablePadding>
               <ListItemButton onClick={() => navigate("allbom")}>
@@ -199,6 +200,28 @@ const Layout = () => {
                   <Widgets color="primary" />
                 </ListItemIcon>
                 <ListItemText primary="ALL BOM" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider />
+          <List >
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate("inventory")}>
+                <ListItemIcon>
+                  <Widgets color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="INVENTORY" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider />
+          <List >
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate("productionPlanning")}>
+                <ListItemIcon>
+                  <Widgets color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="PRODUCTION PLANNING" />
               </ListItemButton>
             </ListItem>
           </List>
