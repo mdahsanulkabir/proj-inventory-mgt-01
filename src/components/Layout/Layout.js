@@ -33,6 +33,7 @@ import useLoadWarehouse from "../../Hooks/useLoadWarehouse";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { signOut } from "firebase/auth";
+import zIndex from "@mui/material/styles/zIndex";
 // import { TokenContext } from '../../App'
 
 const drawerWidth = 240;
@@ -129,7 +130,7 @@ const Layout = () => {
         <Box
           role="presentation"
           onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)} sx={{zIndex:1250}}
         >
           <Toolbar />
           <List >

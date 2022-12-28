@@ -28,23 +28,25 @@ import CommercialDetails from "./components/Commercial/CommercialDetails";
 export const TokenContext = createContext('')
 
 const App = () => {
-    const [ myToken, setMyToken ] = useState('');
+    // const [ myToken, setMyToken ] = useState('');   //todo for now i am local storage
 
-    const tokenHandler = (props) => {
-        setMyToken(props);
-    }
+    // const tokenHandler = (props) => {
+    //     setMyToken(props);
+    // }
     return (
-        <div>
+        <div id="ahsan">
             <Routes>
-                <Route path="/" element={<Login tokenHandler={tokenHandler}/>} />
+                {/* <Route path="/" element={<Login tokenHandler={tokenHandler}/>} />//todo for now i am using local storage 
+                */} 
+                <Route path="/" element={<Login />} />
 
                 <Route path="/test2" element={<Test />} />
                 <Route path="/testApp" element={<TestApp />} />
                 
                     <Route path="/layout" element={
-                        <TokenContext.Provider value={myToken}>
+                        // <TokenContext.Provider value={myToken}>  //todo for now i am using local storage to keep the token
                             <Layout />
-                        </TokenContext.Provider>
+                        // </TokenContext.Provider>
                     }>
                         <Route index element={<Dashboard />} />
                         <Route path="allSKU" element={<AllSku />} />

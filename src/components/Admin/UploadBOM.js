@@ -18,7 +18,9 @@ const modalStyle = {
 };
 
 const UploadBOM = () => {
-    const token = useContext(TokenContext);
+    // const token = useContext(TokenContext); //todo for now i am using local storage 
+    const token = localStorage.getItem("token"); 
+
     const [ uploadedBOMs, setUploadedBOMs ] = useState([])
     const [ uploadedPartModelType, setUploadedPartModelType ] = useState([])
     const [selectedBOM, setSelectedBOM] = useState({})
@@ -105,10 +107,10 @@ const UploadBOM = () => {
     })
 
     // console.log("children are =", childrenofAllSFG, "unique ", [...new Set(childrenofAllSFG.map(child => child._id))]);
-    console.log(" unique children are =", allChildren);
+    //console.log(" unique children are =", allChildren);
     const uniqueChildrenID = [...new Set(allChildren.map(child => child._id))]
     const uniqueChildren = uniqueChildrenID.map(uniqueChild => allChildren.find(child => child._id === uniqueChild))
-    console.log(uniqueChildren);
+    //console.log(uniqueChildren);
 
 
     const sfgs = bomFromDB.map(singleSFG => {
@@ -118,7 +120,7 @@ const UploadBOM = () => {
             singleSFG?.children.find(child => child.object_id._id === uniqueChild._id).quantity : 0
             return {...uniqueChild, quantity}
         })
-        console.log(parts);
+        //console.log(parts);
         return {
             _id : singleSFG._id,
             sfg_objID : singleSFG.object_id,
@@ -169,7 +171,7 @@ const UploadBOM = () => {
         // }
     }
     return (
-        <Box style={{backgroundColor : 'green'}}>
+        <Box style={{backgroundColor : 'green', width: '100%'}}>
             <Box sx={{display : 'flex-start'}}>
                 <Box style={{width: '100%', height: '25px', border:"red solid 2px", color:"white"}}>
                     BOM List
@@ -187,88 +189,88 @@ const UploadBOM = () => {
                     Save to DB
                 </Button>
             </Box>
-        <Box sx={{ flexGrow: 1, bgcolor: "background.default", p: 0 }}>
-            <TableContainer component={Paper}>
-                <Table stickyHeader>
-                    <TableHead >
-                        <TableRow>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='right' colSpan={6}>SFG Object ID</TableCell>
+            <Box sx={{ flexGrow: 1, bgcolor: "background.default", p: 0 }}>
+                <TableContainer component={Paper} sx={{ maxWidth: "100%", height: 700 }}>
+                    <Table stickyHeader>
+                        <TableHead >
+                            <TableRow>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='right' colSpan={6}>SFG Object ID</TableCell>
+                                {
+                                    sfgs.map(sfg => {
+                                        return (
+                                            <TableCell key={sfg._id} sx={{p : 1, border: '1px solid gray'}} align='center'>{sfg.sfg_objID}</TableCell>
+                                        )
+                                    })
+                                }
+                            </TableRow>
+                            <TableRow>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='right' colSpan={6}>SFG SAP ID</TableCell>
+                                {
+                                    sfgs.map(sfg => {
+                                        return (
+                                            <TableCell key={sfg._id} sx={{p : 1, border: '1px solid gray'}} align='center'>{sfg.sfg_sapID}</TableCell>
+                                        )
+                                    })
+                                }
+                            </TableRow>
+                            <TableRow>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='right' colSpan={6}>SFG SIS CODE</TableCell>
+                                {
+                                    sfgs.map(sfg => {
+                                        return (
+                                            <TableCell key={sfg._id} sx={{p : 1, border: '1px solid gray'}} align='center'>{sfg.sfg_sisCode}</TableCell>
+                                        )
+                                    })
+                                }
+                            </TableRow>
+                            <TableRow>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='right' colSpan={6}>SFG NAME</TableCell>
+                                {
+                                    sfgs.map(sfg => {
+                                        return (
+                                            <TableCell key={sfg._id} sx={{p : 1, border: '1px solid gray'}} align='center'>{sfg.sfg_name}</TableCell>
+                                        )
+                                    })
+                                }
+                            </TableRow>
+                            <TableRow>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>SL</TableCell>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part Obj-ID</TableCell>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part SAP-ID</TableCell>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part Name</TableCell>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part Sis-Code</TableCell>
+                                <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part Unit</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
                             {
-                                sfgs.map(sfg => {
+                                uniqueChildren.map((child, index) => {
                                     return (
-                                        <TableCell key={sfg._id} sx={{p : 1, border: '1px solid gray'}} align='center'>{sfg.sfg_objID}</TableCell>
+                                        <TableRow key={child._id ? child._id : index} > 
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{index + 1}</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.object_id}</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.sap_code}</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.material_name}</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.sis_code}</TableCell>
+                                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.unit}</TableCell>
+                                            {
+                                                sfgs.map(sfg => (
+                                                    <TableCell key={sfg._id}sx={{p : 1, border: '1px solid gray'}} align='center'>
+                                                        {
+                                                            sfg.parts.find(part => part._id === child._id).quantity
+                                                        }
+                                                    </TableCell>
+                                                ))
+                                            }
+                                        </TableRow>
                                     )
                                 })
                             }
-                        </TableRow>
-                        <TableRow>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='right' colSpan={6}>SFG SAP ID</TableCell>
-                            {
-                                sfgs.map(sfg => {
-                                    return (
-                                        <TableCell key={sfg._id} sx={{p : 1, border: '1px solid gray'}} align='center'>{sfg.sfg_sapID}</TableCell>
-                                    )
-                                })
-                            }
-                        </TableRow>
-                        <TableRow>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='right' colSpan={6}>SFG SIS CODE</TableCell>
-                            {
-                                sfgs.map(sfg => {
-                                    return (
-                                        <TableCell key={sfg._id} sx={{p : 1, border: '1px solid gray'}} align='center'>{sfg.sfg_sisCode}</TableCell>
-                                    )
-                                })
-                            }
-                        </TableRow>
-                        <TableRow>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='right' colSpan={6}>SFG NAME</TableCell>
-                            {
-                                sfgs.map(sfg => {
-                                    return (
-                                        <TableCell key={sfg._id} sx={{p : 1, border: '1px solid gray'}} align='center'>{sfg.sfg_name}</TableCell>
-                                    )
-                                })
-                            }
-                        </TableRow>
-                        <TableRow>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>SL</TableCell>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part Obj-ID</TableCell>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part SAP-ID</TableCell>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part Name</TableCell>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part Sis-Code</TableCell>
-                            <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>Part Unit</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            uniqueChildren.map((child, index) => {
-                                return (
-                                    <TableRow key={child._id ? child._id : index} > 
-                                        <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{index + 1}</TableCell>
-                                        <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.object_id}</TableCell>
-                                        <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.sap_code}</TableCell>
-                                        <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.material_name}</TableCell>
-                                        <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.sis_code}</TableCell>
-                                        <TableCell sx={{p : 1, border: '1px solid gray'}} align='center'>{child.unit}</TableCell>
-                                        {
-                                            sfgs.map(sfg => (
-                                                <TableCell key={sfg._id}sx={{p : 1, border: '1px solid gray'}} align='center'>
-                                                    {
-                                                        sfg.parts.find(part => part._id === child._id).quantity
-                                                    }
-                                                </TableCell>
-                                            ))
-                                        }
-                                    </TableRow>
-                                )
-                            })
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
         </Box>
-    </Box>
     );
 };
 

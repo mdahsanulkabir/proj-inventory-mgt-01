@@ -37,18 +37,20 @@ const CreateUser = () => {
 
     // TODO Move the token to global level and use useContext 
     // Todo we need to use the token to access role level tasks
-    const [ token, setToken ] = useState('');
-    const [user] = useAuthState(auth);
+    // const [ token, setToken ] = useState('');
+    // const [user] = useAuthState(auth);
 
 
-    //? this will pull the token for the logged in user who wants to 
-    //? create a new user
-    useEffect(()=> {
-      if(user){
-        user.getIdToken(true)
-        .then(res => setToken(res))
-      }
-      },[])
+    // //? this will pull the token for the logged in user who wants to 
+    // //? create a new user
+    // useEffect(()=> {
+    //   if(user){
+    //     user.getIdToken(true)
+    //     .then(res => setToken(res))
+    //   }
+    //   },[])
+     //todo for now i am using local storage for token
+    const token = localStorage.getItem("token");
 
     const handleSubmit = async (e) => {
         e.preventDefault();

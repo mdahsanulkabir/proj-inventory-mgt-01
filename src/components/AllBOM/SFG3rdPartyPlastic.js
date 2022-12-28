@@ -79,7 +79,7 @@ const SFG3rdPartyPlastic = () => {
 
 
     return (
-        <Box style={{backgroundColor : 'green'}}>
+        <Box style={{backgroundColor : 'green', width : '100%'}}>
             <Box sx={{display : 'flex-start'}}>
                 <Box style={{width: '100%', height: '25px', border:"red solid 2px", color:"white"}}>
                     3rd party plastics bom (actual)
@@ -89,7 +89,7 @@ const SFG3rdPartyPlastic = () => {
                 </Button>
             </Box>
             <Box sx={{ flexGrow: 1, bgcolor: "background.default", p: 0 }}>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} sx={{ maxWidth: "100%", height: 700 }}>
                     <Table stickyHeader>
                         <TableHead >
                             <TableRow>

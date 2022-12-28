@@ -14,7 +14,8 @@ const UpdateBOM = () => {
     const { sfgSourceCategories } = useLoadSFGSourceCategory();
     const { sfgCategories } = useLoadSFGCategory();
     
-    const token = useContext(TokenContext);
+    // const token = useContext(TokenContext); //todo for now i am using local storage 
+    const token = localStorage.getItem("token");
 
     // console.log(sfgBOMs);
 

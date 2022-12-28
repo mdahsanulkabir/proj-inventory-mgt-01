@@ -32,7 +32,9 @@ const reducerSupplier = ( state, action ) => {
 const CreateSupplier = () => {
     const [ supplierState, dispatchSupplier ] = useReducer ( reducerSupplier, supplierInitialState)
     const [error, setError] = useState('');
-    const token = useContext(TokenContext);
+
+    // const token = useContext(TokenContext); //todo for now i am using local storage 
+    const token = localStorage.getItem("token");
 
     // const supplierID = supplierState.supplierID
     // const supplierName = supplierState.supplierName

@@ -56,7 +56,7 @@ const SFG3rdParty = () => {
                         width: '100%', 
                         overflowX: 'auto',
                         height: '80vh',
-                        display: 'flex'
+                        // display: 'flex'
             }}>
                 <TabPanel value={value} index={0}>Summary</TabPanel>
                 <TabPanel value={value} index={1}><SFG3rdPartyMetalSheet /></TabPanel>

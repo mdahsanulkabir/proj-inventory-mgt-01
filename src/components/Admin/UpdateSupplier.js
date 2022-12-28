@@ -35,7 +35,11 @@ const modalStyle = {
 
 const UpdateSupplier = () => {
     const [ supplierList, setSupplierList ] = useState([])
-    const token = useContext(TokenContext);
+
+    // const token = useContext(TokenContext); //todo for now i am using local storage 
+    const token = localStorage.getItem("token");
+
+    
     const [selectedSupplier, setSelectedSupplier] = useState({})
     const [open, setOpen] = useState(false);
     const handleOpen = (supplier) => {

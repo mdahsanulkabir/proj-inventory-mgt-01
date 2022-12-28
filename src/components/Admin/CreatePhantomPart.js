@@ -7,7 +7,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { TokenContext } from '../../App';
 
 const CreatePhantomPart = () => {
-    const token = useContext(TokenContext);
+    // const token = useContext(TokenContext); //todo for now i am using local storage 
+    const token = localStorage.getItem("token");
+    
     const [ phantomObject_id, setPhantomObject_id ] = useState('')
     const [ phantomObject_name, setPhantomObject_name ] = useState('')
     const { parts } = useLoadParts();

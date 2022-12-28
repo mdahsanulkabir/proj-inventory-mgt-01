@@ -22,7 +22,8 @@ const CreateBOM = () => {
     const [ sfgCategory, setSFGCategory ] = useState('')
     const [ sfgSAPCode, setSfgSAPCode ] = useState('')
     const [ sfgSisCode, setSfgSisCode ] = useState('')
-    const token = useContext(TokenContext);
+    // const token = useContext(TokenContext); //todo for now i am using local storage 
+    const token = localStorage.getItem("token");
 
     // console.log(partsAndSFG);
     // console.log(sfgSourceCategories);

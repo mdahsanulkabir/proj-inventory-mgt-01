@@ -20,7 +20,7 @@ const theme = createTheme();
 
 
 export default function Login(props) {
-  const { tokenHandler } = props;
+  // const { tokenHandler } = props; //todo for now i am using local storage 
 
   const navigate = useNavigate();
   const [ signInWithEmailAndPassword, user, loading, error ] = useSignInWithEmailAndPassword(auth);
@@ -47,7 +47,8 @@ export default function Login(props) {
         },[user1])
     if (token) {
       console.log("token at Login -", token);
-      tokenHandler(token);
+      // tokenHandler(token); //todo for now i am using local storage 
+      localStorage.setItem("token", token);
       
       // const [ token, setToken ] = useState('');
       // const [user] = useAuthState(auth);

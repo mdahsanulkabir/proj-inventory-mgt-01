@@ -91,19 +91,21 @@ const ProductionHistoryDaily = () => {
           <Table stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell align="center" sx={{maxWidth: "30px"}} >SL</TableCell>
-                <TableCell align="center">MODEL</TableCell>
-                <TableCell align="center">COLOR</TableCell>
-                <TableCell align="center" width={100} sx={{
+                <TableCell align="center" sx={{minWidth: "30px", p: 0, zIndex: 1201}} >SL</TableCell>
+                <TableCell align="center" sx={{p : 1, minWidth : '80px', zIndex: 1201}}>MODEL</TableCell>
+                <TableCell align="center" sx={{p : 0, zIndex: 1201}}>COLOR</TableCell>
+                <TableCell align="center"sx={{
+                        width : '250px',
                         position: 'sticky',
-                        left: 0,
+                        left: 30,
                         top: 0,
                         background: 'white',
                         zIndex: 1201,
+                        p: 0
                     }} >SKU</TableCell>
                 {uniqueDates.map((date) => {
                   return (
-                    <TableCell align="center" key={date} >
+                    <TableCell align="center" key={date} sx={{p : 0}}>
                       {date.split('T')[0]}
                     </TableCell>
                   );
@@ -116,22 +118,34 @@ const ProductionHistoryDaily = () => {
                   return (
                     <TableRow
                       key={sku.sku}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 }, p:0 }}
                     >
-                      <TableCell component="th" scope="row" align="center">{index + 1}</TableCell>
-                      <TableCell align="center">{sku.model}</TableCell>
-                      <TableCell align="center">{sku.color}</TableCell>
-                      <TableCell align="left" width="fitContent" 
+                      <TableCell component="th" scope="row" align="center"
                         sx={{
                           position: 'sticky',
                           left: 0,
                           background: 'white',
-                          zIndex: 1200,
+                          zIndex: 1200, p : 0}}
+                      >{index + 1}</TableCell>
+                      <TableCell align="center"
+                        sx={{
+                          position: 'sticky',minWidth : '40px',
+                          left: 30,
+                          background: 'white',
+                          zIndex: 1200, p :0}}
+                      >{sku.model}</TableCell>
+                      <TableCell align="center" sx={{p : 0}}>{sku.color}</TableCell>
+                      <TableCell align="left" 
+                        sx={{
+                          position: 'sticky',minWidth : '250px',
+                          left: 50,
+                          background: 'white',
+                          zIndex: 1200, p:0
                       }}>{sku.sku}</TableCell>
                       {
                         uniqueDates.map((date, index) => {
                           return (
-                            <TableCell align="center" key={index}>
+                            <TableCell align="center" key={index} sx={{p : 0}}>
                               {
                                 dailyFGProdData.find(
                                   (data) => data.date === date && data.sku === sku._id

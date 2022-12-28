@@ -326,7 +326,10 @@ const UpdateUser = () => {
 
 
     //? test use context
-    const token = useContext(TokenContext);
+
+    // const token = useContext(TokenContext); //todo for now i am using local storage 
+    const token = localStorage.getItem("token");
+    
     console.log("token =  > " , token);
     // const textContextValue = () => {
     //     console.log(token);   ///  <================== test use context

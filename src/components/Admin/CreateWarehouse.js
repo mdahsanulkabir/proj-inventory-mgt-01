@@ -14,13 +14,15 @@ const CreateWarehouse = () => {
 
     // TODO Move the token to global level and use useContext 
     // Todo we need to use the token to access role level tasks
-    const [ token, setToken ] = useState('');
-    useEffect(()=> {
-      if(user){
-        user.getIdToken()
-        .then(res => setToken(res))
-      }
-      },[])
+    // const [ token, setToken ] = useState('');
+    // useEffect(()=> {
+    //   if(user){
+    //     user.getIdToken()
+    //     .then(res => setToken(res))
+    //   }
+    //   },[])
+     //todo for now i am using local storage 
+    const token = localStorage.getItem("token");
 
 
     const handleSubmit = async (e) => {
