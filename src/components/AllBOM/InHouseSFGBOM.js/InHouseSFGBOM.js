@@ -13,16 +13,22 @@ import React, { useEffect, useState } from 'react';
 import * as xlsx from 'xlsx';
 
 
-const ThermoformingBOM = (props) => {
+const InHouseSFGBOM = (props) => {
 
     const [ bomData, setBomData ] = useState([])
 
-    const { sfg_category } = props.bomSFGCategory;
+    console.log(props.bomSFGSourceCategory);
+
+    const sfgSourcecategory = props.bomSFGSourceCategory?._id;
+
+    console.log(sfgSourcecategory);
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/getBOMBySFGCategory/?sfg_category=${sfg_category}`)
-        .then(res => res.json())
-        .then(data => setBomData(data))
+        if(sfgSourcecategory){
+            fetch(`http://localhost:5000/api/getBOMBySFGSourceCategory/?sfgSourcecategory=${sfgSourcecategory}`)
+            .then(res => res.json())
+            .then(data => setBomData(data))
+        }
     },[])
 
     console.log(bomData);
@@ -59,9 +65,10 @@ const ThermoformingBOM = (props) => {
             unit : "pcs",
         }
         rms.forEach(rm => {
-            x[rm.material_name] = bom.children.find(child => child.object_id._id === rm._id)
-                                    ? bom.children.find(child => child.object_id._id === rm._id).quantity
-                                    : 0
+            x[rm.material_name] = 
+                bom.children.find(child => child.object_id._id === rm._id)
+                ? bom.children.find(child => child.object_id._id === rm._id).quantity
+                : 0
         })
         return x;
     })
@@ -76,7 +83,7 @@ const ThermoformingBOM = (props) => {
         xlsx.utils.book_append_sheet(wb, ws, "bom");
         xlsx.utils.book_append_sheet(wb, rmSheet, "rm definition");
 
-        xlsx.writeFile(wb, "Third party BOM (Actual).xlsx")
+        xlsx.writeFile(wb, `In house BOM (${props.bomSFGSourceCategory?.source_category}).xlsx`)
     }
 
 
@@ -147,4 +154,4 @@ const ThermoformingBOM = (props) => {
     );
 };
 
-export default ThermoformingBOM;
+export default InHouseSFGBOM;

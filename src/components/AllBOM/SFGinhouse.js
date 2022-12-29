@@ -1,7 +1,8 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import ThermoformingBOM from "./InHouseSFGBOM.js/ThermoformingBOM";
+import useLoadSFGSourceCategory from "../../Hooks/useLoadSFGSourceCategory";
+import InHouseSFGBOM from "./InHouseSFGBOM.js/InHouseSFGBOM";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -30,7 +31,8 @@ TabPanel.propTypes = {
 
 const SFGinhouse = () => {
     const [value, setValue] = useState(0);
-
+    const { sfgSourceCategories } = useLoadSFGSourceCategory();
+    console.log(sfgSourceCategories);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -65,21 +67,36 @@ const SFGinhouse = () => {
                         width: '100%', 
                         overflowX: 'auto',
                         height: '80vh',}}>
-                <TabPanel value={value} index={0}>BarCode</TabPanel>
-                <TabPanel value={value} index={1}><ThermoformingBOM/></TabPanel>
-                <TabPanel value={value} index={2}>Roll Forming</TabPanel>
-                <TabPanel value={value} index={3}>Power Press</TabPanel>
-                <TabPanel value={value} index={4}>Eva Wrap</TabPanel>
-                <TabPanel value={value} index={5}>Bending Heaters</TabPanel>
-                <TabPanel value={value} index={6}>U Shell Bend</TabPanel>
-                <TabPanel value={value} index={7}>Clinching</TabPanel>
-                <TabPanel value={value} index={8}>Pre Assembly</TabPanel>
-                <TabPanel value={value} index={9}>Body Foaming</TabPanel>
-                <TabPanel value={value} index={10}>Door Foaming</TabPanel>
-                <TabPanel value={value} index={11}>Post Assembly</TabPanel>
-                <TabPanel value={value} index={12}>Pad Printing</TabPanel>
-                <TabPanel value={value} index={13}>Hot Stamping</TabPanel>
-                <TabPanel value={value} index={14}>Finishing</TabPanel>
+                <TabPanel value={value} index={0}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'F')}/></TabPanel>
+                <TabPanel value={value} index={1}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Thermoforming')}/></TabPanel>
+                <TabPanel value={value} index={2}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Roll Forming')}/></TabPanel>
+                <TabPanel value={value} index={3}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Power Press')}/></TabPanel>
+                <TabPanel value={value} index={4}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Eva-Wrap')}/></TabPanel>
+                <TabPanel value={value} index={5}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Bending')}/></TabPanel>
+                <TabPanel value={value} index={6}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'U Shell Bend')}/></TabPanel>
+                <TabPanel value={value} index={7}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Clinching')}/></TabPanel>
+                <TabPanel value={value} index={8}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Pre Assembly')}/></TabPanel>
+                <TabPanel value={value} index={9}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Body Foaming')}/></TabPanel>
+                <TabPanel value={value} index={10}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Door Foaming')}/></TabPanel>
+                <TabPanel value={value} index={11}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Post Assembly')}/></TabPanel>
+                <TabPanel value={value} index={12}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Pad Printing')}/></TabPanel>
+                <TabPanel value={value} index={13}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Hot Stamping')}/></TabPanel>
+                <TabPanel value={value} index={14}><InHouseSFGBOM 
+                    bomSFGSourceCategory={sfgSourceCategories?.find(sfgCategory => sfgCategory.source_category === 'Finishing')}/></TabPanel>
             </Box>
         </Box>
     );

@@ -6,6 +6,7 @@ import { useState } from "react";
 import SFGinhouse from "../AllBOM/SFGinhouse";
 import SFG3rdParty from "../AllBOM/SFG3rdParty";
 import CommercialLCList from "./CommercialLCList";
+import PurchasePOList from "./PurchasePOList";
 
 
 function TabPanel(props) {
@@ -45,14 +46,14 @@ const CommercialDetails = () => {
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange}>
-                    <Tab label="LC List"/>
-                    <Tab label="SFG Inhouse"/>
-                    <Tab label="SFG Third Party"/>
+                    <Tab label="LC (Import) List"/>
+                    <Tab label="PO (Local) List"/>
+                    <Tab label="New"/>
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}><CommercialLCList /></TabPanel>
-            <TabPanel value={value} index={1}><SFGinhouse /></TabPanel>
-            <TabPanel value={value} index={2}><SFG3rdParty /></TabPanel>
+            <TabPanel value={value} index={1}><PurchasePOList /></TabPanel>
+            <TabPanel value={value} index={2}>New</TabPanel>
         </Box>
     );
 };

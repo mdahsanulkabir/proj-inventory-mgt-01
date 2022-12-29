@@ -10,6 +10,7 @@ import AdminBOM from './AdminBOM';
 import { useState } from 'react';
 import AdminPhantomParts from './AdminPhantomParts';
 import AdminLC from './AdminLC';
+import AdminPO from './AdminPO';
 
 
 function TabPanel(props) {
@@ -55,6 +56,7 @@ export default function AppSetup() {
           <Tab label="Bom" />
           <Tab label="Phantom Parts" />
           <Tab label="LC" />
+          <Tab label="PO" />
         </Tabs>
       </Box>
       <TabPanel component='div' value={value} index={0}><AdminWarehouse/></TabPanel>
@@ -64,6 +66,7 @@ export default function AppSetup() {
       <TabPanel value={value} index={4}><AdminBOM /></TabPanel>
       <TabPanel value={value} index={5}><AdminPhantomParts /></TabPanel>
       <TabPanel value={value} index={6}><AdminLC /></TabPanel>
+      <TabPanel value={value} index={7}><AdminPO /></TabPanel>
     </Box>
   );
 }
