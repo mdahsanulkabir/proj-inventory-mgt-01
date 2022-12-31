@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useState } from "react";
+import AdminUploadPO from "./AdminUploadPO";
 
 
 function TabPanel(props) {
@@ -48,9 +49,11 @@ export default function AdminPO () {
                     <Tab label="Update PO" />
                 </Tabs>
             </Box>
-            <Box sx={{marginInline: "auto"}}>
+            <Box sx={{marginInline: "auto", width: '100%', 
+                        overflowX: 'auto',
+                        height: '80vh'}}>
                 <TabPanel value={value} index={0}>Create PO</TabPanel>
-                <TabPanel value={value} index={1}>Upload PO</TabPanel>
+                <TabPanel value={value} index={1}><AdminUploadPO /></TabPanel>
                 <TabPanel value={value} index={2}>Update PO</TabPanel>
             </Box>
     </Box>
